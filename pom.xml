@@ -41,6 +41,13 @@
       <version>1.7.21</version>
     </dependency>
 
+    <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>1.16.16</version>
+        <scope>provided</scope>
+    </dependency>
+
     <!--j2ee servlet、jsp、jstl-->
     <dependency>
       <groupId>javax.servlet</groupId>
