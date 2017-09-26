@@ -10,6 +10,9 @@
     <%--<script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>--%>
     <link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
     <script src="resources/js/lib/angular/angular.js"></script>
+    <script src="resources/js/lib/angular/angular-route.min.js"></script>
+    <script src="resources/js/lib/angular/angular.min.js"></script>
+    <script src="resources/js/app.js"></script>
 
 </head>
 <body>

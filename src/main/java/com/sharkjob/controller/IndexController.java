@@ -1,10 +1,6 @@
 package com.sharkjob.controller;
 
-import com.amazonaws.auth.AWSCredentialsProvider;
-import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
-import com.amazonaws.auth.EnvironmentVariableCredentialsProvider;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.model.CreateTableRequest;
 import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
@@ -18,15 +14,14 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.annotation.Resource;
 
 /**
  * Created by Chino on 2017/9/14.
  */
 @Controller
 @RequestMapping("/")
-public class HelloWorld {
-    private static final Logger log = LoggerFactory.getLogger(HelloWorld.class);
+public class IndexController {
+    private static final Logger log = LoggerFactory.getLogger(IndexController.class);
 
     @Autowired
     private AmazonDynamoDB dynamoDBClient;
