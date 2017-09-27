@@ -22,7 +22,27 @@
           <scope>compile</scope>
       </dependency>
 
-    <!--Log and Dairy-->
+      <dependency>
+          <groupId>org.apache.commons</groupId>
+          <artifactId>commons-pool2</artifactId>
+          <version>2.4.2</version>
+      </dependency>
+
+      <dependency>
+          <groupId>javax.servlet</groupId>
+          <artifactId>javax.servlet-api</artifactId>
+          <version>3.0.1</version>
+          <scope>provided</scope>
+      </dependency>
+
+      <!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-redis -->
+      <dependency>
+          <groupId>org.springframework.data</groupId>
+          <artifactId>spring-data-redis</artifactId>
+          <version>1.7.5.RELEASE</version>
+      </dependency>
+
+      <!--Log and Dairy-->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
