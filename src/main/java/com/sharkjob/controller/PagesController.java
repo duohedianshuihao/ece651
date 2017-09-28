@@ -11,11 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class PagesController {
 
-    @RequestMapping(value = "/**")
-    public String doDefault(ModelMap modelMap) {
-        return "index";
-    }
-
     @RequestMapping(value = "/signup")
     public String getSignupPage() {
         return "signup";

@@ -1,22 +1,28 @@
 package com.sharkjob.model;
 
+import com.amazonaws.services.dynamodbv2.datamodeling.*;
 import lombok.Data;
 
-import java.io.Serializable;
-
 @Data
-public class User implements Serializable {
+@DynamoDBTable(tableName = "SharkJobUser")
+public class User {
 
-    private static final long serialVersionUID = 1L;
-
+    @DynamoDBHashKey
     private String email;
 
-    private String name;
+    @DynamoDBRangeKey
+    private String userType;
 
+    @DynamoDBVersionAttribute
+    private long version;
+
+    @DynamoDBAttribute(attributeName = "userName")
+    private String userName;
+
+    @DynamoDBAttribute(attributeName = "skills")
+    private String skills;
+
+    @DynamoDBAttribute(attributeName = "password")
     private String password;
-
-    private String skill;
-
-    private String type;
 
 }
