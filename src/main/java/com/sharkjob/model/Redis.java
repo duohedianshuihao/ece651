@@ -1,6 +1,8 @@
 package com.sharkjob.model;
 
 import org.apache.commons.io.output.ByteArrayOutputStream;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 import redis.clients.jedis.Jedis;
@@ -13,6 +15,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 public class Redis {
+
+    //private UserRepoImpl userRepo = new UserRepoImpl();
+
     public static void main(String[] args) {
 
         JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
@@ -28,6 +33,9 @@ public class Redis {
             user.setPassword("abc");
             user.setSkill("abc");
             user.setType("abc");
+
+//            userRepo.addUser(user);
+//            System.out.println(userRepo.getUser("abc@abc.ca"));
 
             byte[] byteArray = serialize(user);
 

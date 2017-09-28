@@ -4,11 +4,11 @@ import java.util.Map;
 
 public interface UserRepo {
 
-    void save(User user);
+    void addUser(User user);
 
-    User find(String email);
+    User getUser(String email);
 
-    Map<Object, Object> findAll();
+//    Map<Object, Object> findAll();
 
-    void delete(String email);
+    void delUser(String email);
 }
