@@ -10,7 +10,6 @@ import com.sharkjob.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
 
 /**
@@ -42,9 +41,39 @@ public class UserDao {
             log.info("Table has already exist.");
         }
     }
-    
-    //save operations
-    //delete operations
-    //find operations.
+
+    public boolean saveUserInSharkJobUserTable(User user) {
+        if (findUserInSharkJobUserTableThroughEmail(user.getEmail()) == null) {
+            userMapper.save(user);
+            log.info("User with email: {} has successfully registered",user.getEmail());
+            return true;
+        }
+        else {
+            log.info("User with email: {} has already registered",user.getEmail());
+            return false;
+            //ask user to change an email...
+        }
+    }
+
+    public void deleteUserInSharkJobUserTable(String email){
+        userMapper.delete(findUserInSharkJobUserTableThroughEmail(email));
+    }
+
+    public User findUserInSharkJobUserTableThroughEmail(String email){
+        User user = userMapper.load(User.class, email);
+        if (user != null) {
+            log.info(user.toString());
+        }
+        return user;
+    }
+
+    //Other find operations.
+
+    //find through username...
+
+    //find through skills? not sure how to arrange the "skills"(list? string? hash map?)
+    // Need to find a data structure good for query.
+    // ...This should be discussed in the future.
+    //Test should be added.
 
 }

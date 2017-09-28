@@ -7,14 +7,15 @@ import lombok.Data;
 @DynamoDBTable(tableName = "SharkJobUser")
 public class User {
 
+    //Only user can edit his own Profile and data.
+    //Use hash key is enough.
+    //Version attribute has been disabled. But it should be used in the other table to reduce the race condition.
+
     @DynamoDBHashKey
     private String email;
 
-    @DynamoDBRangeKey
+    @DynamoDBAttribute(attributeName = "userType")
     private String userType;
-
-    @DynamoDBVersionAttribute
-    private long version;
 
     @DynamoDBAttribute(attributeName = "userName")
     private String userName;
@@ -23,6 +24,6 @@ public class User {
     private String skills;
 
     @DynamoDBAttribute(attributeName = "password")
-    private String password;
+    private String password;//(This should be encryption)
 
 }

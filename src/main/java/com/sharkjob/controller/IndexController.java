@@ -1,10 +1,5 @@
 package com.sharkjob.controller;
 
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
-import com.amazonaws.services.dynamodbv2.model.CreateTableRequest;
-import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
-import com.amazonaws.services.dynamodbv2.model.ResourceInUseException;
 import com.sharkjob.Dao.UserDao;
 import com.sharkjob.model.User;
 import org.slf4j.Logger;
@@ -31,7 +26,21 @@ public class IndexController {
     public String printWelcome(ModelMap model) {
         model.addAttribute("message", "Hello,world");
         //This is just test for create a table...It should be post in other class.
+        //Just for test...
         userDao.createSharkJobUserTable();
+        User user = new User();
+        user.setEmail("c423liu@uwaterloo.ca");
+        user.setUserType("Student");
+        user.setUserName("Chino");
+        user.setSkills("Java, C++");
+        user.setPassword("123456");
+        userDao.saveUserInSharkJobUserTable(user);
+        log.info("user Chi saved.");
+        userDao.findUserInSharkJobUserTableThroughEmail("c423liu@uwaterloo.ca");
+        log.info("User Chi found.");
+        userDao.deleteUserInSharkJobUserTable("c423liu@uwaterloo.ca");
+        log.info("User Chi deleted.");
+        //just for test...
         log.info("helloworld added");
         return "index";
     }
