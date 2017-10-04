@@ -2,10 +2,3 @@
 /target
 project.iml
 
-.idea/artifacts/project_war_exploded.xml
-.idea/artifacts/project_war_exploded.xml
-.idea/artifacts/project_war_exploded.xml
-.idea/libraries/Maven__commons_logging_commons_logging_1_2.xml
-.idea/libraries/Maven__junit_junit_3_8_1.xml
-.idea/libraries/Maven__log4j_log4j_1_2_17.xml
-*.xml
