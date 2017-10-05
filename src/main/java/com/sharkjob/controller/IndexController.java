@@ -1,6 +1,8 @@
 package com.sharkjob.controller;
 
+import com.sharkjob.Dao.JobDao;
 import com.sharkjob.Dao.UserDao;
+import com.sharkjob.model.Job;
 import com.sharkjob.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +23,8 @@ public class IndexController {
 
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private JobDao jobDao;
 
     @RequestMapping(method = RequestMethod.GET)
     public String printWelcome(ModelMap model) {
@@ -42,6 +46,16 @@ public class IndexController {
         log.info("User Chi deleted.");
         //just for test...
         log.info("helloworld added");
+
+
+        jobDao.createSharkJobInfoTable();
+        Job job = new Job();
+        job.setID("ss");
+        job.setJobDescription("test");
+        job.setJobTittle("sde");
+        job.setUserName("UW");
+        job.setCategories("software");
+        jobDao.saveJobInSharkJobInfoTable(job);
         return "index";
     }
 }
