@@ -3,8 +3,6 @@ package com.sharkjob.model;
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
 import lombok.Data;
 
-import java.util.List;
-
 @Data
 @DynamoDBTable(tableName = "SharkJobUser")
 public class User {
@@ -23,7 +21,7 @@ public class User {
     private String userName;
 
     @DynamoDBAttribute(attributeName = "skills")
-    private List<String> skills;
+    private String skills;
 
     @DynamoDBAttribute(attributeName = "password")
     private String password;//(This should be encryption)

@@ -39,11 +39,11 @@ public class JobDao {
         jobMapper.save(job);
     }
 
-    public void deleteJobInSharkJobInfoTable(String ID){
+    public void deleteJobInSharkJobInfoTable(Integer ID){
         jobMapper.delete(findJobInSharkJobInfoTableThroughID(ID));
     }
 
-    public Job findJobInSharkJobInfoTableThroughID (String ID){
+    public Job findJobInSharkJobInfoTableThroughID (Integer ID){
         Job job = jobMapper.load(Job.class, ID);
         if (job != null) {
             log.info(job.toString());

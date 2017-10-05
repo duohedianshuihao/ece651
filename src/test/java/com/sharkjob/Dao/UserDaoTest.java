@@ -36,6 +36,7 @@ public class UserDaoTest {
         user.setEmail("c423liu@uwaterloo.ca");
         user.setUserType("Student");
         user.setUserName("Chino");
+        user.setSkills("Java, C++");
         user.setPassword("123456");
 
     }
