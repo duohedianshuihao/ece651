@@ -16,31 +16,26 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @RestController
 public class UserController {
 
-    //private final AtomicLong counter = new AtomicLong();
-    @Autowired
-    private User user;
-
     @Autowired
     private UserDao userDao;
 
     @RequestMapping(value="/user",method=POST)
-    public void user(@RequestParam String email,
+    public void saveUserInfo(@RequestParam String email,
                      @RequestParam String userType,
                      @RequestParam String userName,
                      @RequestParam String skills,
                      @RequestParam String password) {
-
+        User user = new User();
         user.setEmail(email);
         user.setUserType(userType);
         user.setUserName(userName);
         user.setSkills(skills);
         user.setPassword(password);
-
         userDao.saveUserInSharkJobUserTable(user);
     }
 
     @RequestMapping(value="/user",method=GET)
-    public User user(@RequestParam String email) {
+    public User getUserInfo(@RequestParam String email) {
 
         return userDao.findUserInSharkJobUserTableThroughEmail(email);
     }
