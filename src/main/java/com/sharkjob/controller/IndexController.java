@@ -12,6 +12,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.LinkedList;
+import java.util.List;
+
 
 /**
  * Created by Chino on 2017/9/14.
@@ -36,7 +39,6 @@ public class IndexController {
         user.setEmail("c423liu@uwaterloo.ca");
         user.setUserType("Student");
         user.setUserName("Chino");
-        user.setSkills("Java, C++");
         user.setPassword("123456");
         userDao.saveUserInSharkJobUserTable(user);
         log.info("user Chi saved.");
@@ -47,10 +49,12 @@ public class IndexController {
         //just for test...
         log.info("helloworld added");
 
-
         jobDao.createSharkJobInfoTable();
+        List<String> test = new LinkedList();
+        test.add("c++");
+        test.add("java");
         Job job = new Job();
-        job.setID("ss");
+        job.setRequiredSkills(test);
         job.setJobDescription("test");
         job.setJobTittle("sde");
         job.setUserName("UW");

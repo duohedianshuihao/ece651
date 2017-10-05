@@ -21,15 +21,11 @@ public class UserController {
 
     @RequestMapping(value="/user",method=POST)
     public void saveUserInfo(@RequestParam String email,
-                     @RequestParam String userType,
                      @RequestParam String userName,
-                     @RequestParam String skills,
                      @RequestParam String password) {
         User user = new User();
         user.setEmail(email);
-        user.setUserType(userType);
         user.setUserName(userName);
-        user.setSkills(skills);
         user.setPassword(password);
         userDao.saveUserInSharkJobUserTable(user);
     }
