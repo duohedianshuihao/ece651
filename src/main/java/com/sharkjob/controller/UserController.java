@@ -19,22 +19,25 @@ public class UserController {
     @Autowired
     private UserDao userDao;
 
-    @RequestMapping(value="/user",method=POST)
-    public void saveUserInfo(@RequestParam String email,
+    @RequestMapping(value="/regUser",method = POST)
+    public void regUser(@RequestParam String email,
                      @RequestParam String userType,
                      @RequestParam String userName,
-                     @RequestParam String skills,
                      @RequestParam String password) {
         User user = new User();
         user.setEmail(email);
         user.setUserType(userType);
         user.setUserName(userName);
-        user.setSkills(skills);
         user.setPassword(password);
         userDao.saveUserInSharkJobUserTable(user);
     }
 
-    @RequestMapping(value="/user",method=GET)
+    //@RequestMapping(value = "/updateSkills", method = POST)
+    //@RequestMapping(value = "/changeEmail", method = POST)
+    //@RequestMapping(value = "/changeUserName", method = POST)
+    //@RequestMapping(value = "/changePassword", method = POST)
+
+    @RequestMapping(value="/getUser",method = GET)
     public User getUserInfo(@RequestParam String email) {
 
         return userDao.findUserInSharkJobUserTableThroughEmail(email);
