@@ -85,7 +85,7 @@ public class UserDao {
                 .withExpressionAttributeValues(eav);
 
         List<User> result = userMapper.scan(User.class, scanExpression);
-        if (result == null) return true;
+        if (result.isEmpty()) return true;
         else return false;
 
     }
