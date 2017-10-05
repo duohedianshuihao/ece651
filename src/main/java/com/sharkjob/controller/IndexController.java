@@ -1,6 +1,8 @@
 package com.sharkjob.controller;
 
+import com.sharkjob.Dao.JobDao;
 import com.sharkjob.Dao.UserDao;
+import com.sharkjob.model.Job;
 import com.sharkjob.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.util.LinkedList;
+import java.util.List;
 
 
 /**
@@ -21,6 +26,8 @@ public class IndexController {
 
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private JobDao jobDao;
 
     @RequestMapping(method = RequestMethod.GET)
     public String printWelcome(ModelMap model) {
@@ -32,7 +39,6 @@ public class IndexController {
         user.setEmail("c423liu@uwaterloo.ca");
         user.setUserType("Student");
         user.setUserName("Chino");
-        user.setSkills("Java, C++");
         user.setPassword("123456");
         userDao.saveUserInSharkJobUserTable(user);
         log.info("user Chi saved.");
@@ -42,6 +48,18 @@ public class IndexController {
         log.info("User Chi deleted.");
         //just for test...
         log.info("helloworld added");
+
+        jobDao.createSharkJobInfoTable();
+        List<String> test = new LinkedList();
+        test.add("c++");
+        test.add("java");
+        Job job = new Job();
+        job.setRequiredSkills(test);
+        job.setJobDescription("test");
+        job.setJobTittle("sde");
+        job.setUserName("UW");
+        job.setCategories("software");
+        jobDao.saveJobInSharkJobInfoTable(job);
         return "index";
     }
 }
