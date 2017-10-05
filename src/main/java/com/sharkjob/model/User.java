@@ -21,7 +21,7 @@ public class User {
     private String userName;
 
     @DynamoDBAttribute(attributeName = "skills")
-    private String skills;
+    private String skills;//linkedlist
 
     @DynamoDBAttribute(attributeName = "password")
     private String password;//(This should be encryption)

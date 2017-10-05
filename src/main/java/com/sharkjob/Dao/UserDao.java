@@ -1,10 +1,9 @@
 package com.sharkjob.Dao;
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
-import com.amazonaws.services.dynamodbv2.model.CreateTableRequest;
-import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
-import com.amazonaws.services.dynamodbv2.model.ResourceInUseException;
+import com.amazonaws.services.dynamodbv2.model.*;
 import com.sharkjob.controller.IndexController;
 import com.sharkjob.model.User;
 import lombok.Data;
@@ -12,6 +11,9 @@ import lombok.NoArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -60,12 +62,56 @@ public class UserDao {
     }
 
     public User findUserInSharkJobUserTableThroughEmail(String email){
+        //check email or username
+
         User user = userMapper.load(User.class, email);
         if (user != null) {
             log.info(user.toString());
         }
         return user;
     }
+
+    public User findUsernameInSharkJobUserTableThroughEmail(String username){
+        //check username
+
+        ScanResult result = null;
+
+        do{
+            ScanRequest req = new ScanRequest();
+            req.setTableName("SharkJobUser");
+
+            if(result != null){
+                req.setExclusiveStartKey(result.getLastEvaluatedKey());
+            }
+
+            result = dynamoDBClient.scan(req);
+
+            List<Map<String, AttributeValue>> rows = result.getItems();
+
+            for(Map<String, AttributeValue> map : rows){
+                try{
+                    AttributeValue v = map.get("STUDENT_ID");
+                    String id = v.getS();
+                    ids.add(Long.parseLong(id));
+                } catch (NumberFormatException e){
+                    System.out.println(e.getMessage());
+                }
+            }
+        } while(result.getLastEvaluatedKey() != null);
+
+        ScanRequest scanReq = new ScanRequest();
+        scanReq.setAttributesToGet("User",);
+        List<Map<String,AttributeValue>> items;
+        ScanResult  result = dynamoDBClient.scan(scanReq);
+
+        User user = userMapper.load(User.class, username);
+        if (user != null) {
+            log.info(user.toString());
+        }
+        return user;
+    }
+
+    //check login
 
     //Other find operations.
 
