@@ -3,6 +3,8 @@ package com.sharkjob.Dao;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import com.amazonaws.services.dynamodbv2.model.*;
 import com.sharkjob.controller.IndexController;
 import com.sharkjob.model.User;
@@ -12,6 +14,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -71,44 +75,19 @@ public class UserDao {
         return user;
     }
 
-    public User findUsernameInSharkJobUserTableThroughEmail(String username){
-        //check username
+    public boolean findUsernameInSharkJobUserTable(String username){
 
-        ScanResult result = null;
+        Map<String, AttributeValue> eav = new HashMap<>();
+        eav.put(":v1", new AttributeValue().withS(username));
 
-        do{
-            ScanRequest req = new ScanRequest();
-            req.setTableName("SharkJobUser");
+        DynamoDBScanExpression scanExpression = new DynamoDBScanExpression()
+                .withFilterExpression("begins_with(userName,:v1)")
+                .withExpressionAttributeValues(eav);
 
-            if(result != null){
-                req.setExclusiveStartKey(result.getLastEvaluatedKey());
-            }
+        List<User> result = userMapper.scan(User.class, scanExpression);
+        if (result == null) return true;
+        else return false;
 
-            result = dynamoDBClient.scan(req);
-
-            List<Map<String, AttributeValue>> rows = result.getItems();
-
-            for(Map<String, AttributeValue> map : rows){
-                try{
-                    AttributeValue v = map.get("STUDENT_ID");
-                    String id = v.getS();
-                    ids.add(Long.parseLong(id));
-                } catch (NumberFormatException e){
-                    System.out.println(e.getMessage());
-                }
-            }
-        } while(result.getLastEvaluatedKey() != null);
-
-        ScanRequest scanReq = new ScanRequest();
-        scanReq.setAttributesToGet("User",);
-        List<Map<String,AttributeValue>> items;
-        ScanResult  result = dynamoDBClient.scan(scanReq);
-
-        User user = userMapper.load(User.class, username);
-        if (user != null) {
-            log.info(user.toString());
-        }
-        return user;
     }
 
     //check login

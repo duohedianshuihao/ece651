@@ -40,20 +40,19 @@ public class UserController {
 
     @RequestMapping(value = "/toLogIn", method = POST)
     public void loginUser(@RequestParam String emailorusername,
-                          @RequestParam String password)
-    {
+                          @RequestParam String password) {
         //check it is email or userName
         //find its password?
         //match
+
+
+        //@RequestMapping(value = "/updateSkills", method = POST)
+        //find exception->update
+        //@RequestMapping(value = "/changeEmail", method = POST)
+        //@RequestMapping(value = "/changeUserName", method = POST)
+        //@RequestMapping(value = "/changePassword", method = POST)
     }
 
-    //@RequestMapping(value = "/updateSkills", method = POST)
-    //find exception->update
-    //@RequestMapping(value = "/changeEmail", method = POST)
-    //@RequestMapping(value = "/changeUserName", method = POST)
-    //@RequestMapping(value = "/changePassword", method = POST)
-
-    @ResponseBody
 
     @RequestMapping(value="/getUser",method = GET)
     public User getUserInfo(@RequestParam String email) {
