@@ -1,10 +1,11 @@
 package com.sharkjob.Dao;
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
-import com.amazonaws.services.dynamodbv2.model.CreateTableRequest;
-import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
-import com.amazonaws.services.dynamodbv2.model.ResourceInUseException;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
+import com.amazonaws.services.dynamodbv2.model.*;
 import com.sharkjob.controller.IndexController;
 import com.sharkjob.model.User;
 import lombok.Data;
@@ -12,6 +13,11 @@ import lombok.NoArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -60,12 +66,36 @@ public class UserDao {
     }
 
     public User findUserInSharkJobUserTableThroughEmail(String email){
+        //check email or username
+
         User user = userMapper.load(User.class, email);
         if (user != null) {
             log.info(user.toString());
         }
         return user;
     }
+
+    public User findUserInSharkJobUserTableThroughUsername(String username){
+
+        Map<String, AttributeValue> eav = new HashMap<>();
+        eav.put(":v1", new AttributeValue().withS(username));
+
+        DynamoDBScanExpression scanExpression = new DynamoDBScanExpression()
+                .withFilterExpression("begins_with(userName,:v1)")
+                .withExpressionAttributeValues(eav);
+
+        List<User> result = userMapper.scan(User.class, scanExpression);
+
+        if (result.isEmpty()) {
+            return null;
+        }
+        else {
+            return result.get(0);
+        }
+
+    }
+
+    //check login
 
     //Other find operations.
 
