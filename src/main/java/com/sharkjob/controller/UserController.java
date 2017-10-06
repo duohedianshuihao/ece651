@@ -39,19 +39,39 @@ public class UserController {
     }
 
     @RequestMapping(value = "/toLogIn", method = POST)
-    public void loginUser(@RequestParam String emailorusername,
+    public boolean loginUser(@RequestParam String emailorusername,
                           @RequestParam String password) {
-        //check it is email or userName
-        //find its password?
-        //match
 
+        User user;
 
-        //@RequestMapping(value = "/updateSkills", method = POST)
-        //find exception->update
-        //@RequestMapping(value = "/changeEmail", method = POST)
-        //@RequestMapping(value = "/changeUserName", method = POST)
-        //@RequestMapping(value = "/changePassword", method = POST)
+        if(emailorusername.contains("@")) {
+            user = userDao.findUserInSharkJobUserTableThroughEmail(emailorusername);
+            if(user != null) {
+                if(user.getPassword() == password) {
+                    return true;
+                }
+            }
+        }
+
+        else {
+            user = userDao.findUserInSharkJobUserTableThroughUsername(emailorusername);
+            if(user != null) {
+                if (user.getPassword() == password) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+
     }
+
+
+    //@RequestMapping(value = "/updateSkills", method = POST)
+    //find exception->update
+    //@RequestMapping(value = "/changeEmail", method = POST)
+    //@RequestMapping(value = "/changeUserName", method = POST)
+    //@RequestMapping(value = "/changePassword", method = POST)
 
 
     @RequestMapping(value="/getUser",method = GET)

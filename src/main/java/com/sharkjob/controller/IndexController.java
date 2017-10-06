@@ -47,11 +47,11 @@ public class IndexController {
         //userDao.deleteUserInSharkJobUserTable("c423liu@uwaterloo.ca");
         //log.info("User Chi deleted.");
         //just for test...
-        if ( ! userDao.findUsernameInSharkJobUserTable("Chino") ){
-            log.info("Chino found");
+        if ( userDao.findUserInSharkJobUserTableThroughUsername("Chino") != null ){
+            log.info(userDao.findUserInSharkJobUserTableThroughUsername("Chino").getUserName()+" found");
         }
         userDao.deleteUserInSharkJobUserTable("c423liu@uwaterloo.ca");
-        if ( userDao.findUsernameInSharkJobUserTable("Chino") ){
+        if ( userDao.findUserInSharkJobUserTableThroughUsername("Chino") == null ){
             log.info("Chino not found");
         }
 

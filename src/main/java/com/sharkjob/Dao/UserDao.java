@@ -75,7 +75,7 @@ public class UserDao {
         return user;
     }
 
-    public boolean findUsernameInSharkJobUserTable(String username){
+    public User findUserInSharkJobUserTableThroughUsername(String username){
 
         Map<String, AttributeValue> eav = new HashMap<>();
         eav.put(":v1", new AttributeValue().withS(username));
@@ -85,8 +85,13 @@ public class UserDao {
                 .withExpressionAttributeValues(eav);
 
         List<User> result = userMapper.scan(User.class, scanExpression);
-        if (result.isEmpty()) return true;
-        else return false;
+
+        if (result.isEmpty()) {
+            return null;
+        }
+        else {
+            return result.get(0);
+        }
 
     }
 
