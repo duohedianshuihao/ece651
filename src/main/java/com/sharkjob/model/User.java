@@ -7,6 +7,7 @@ import java.util.List;
 
 @Data
 @DynamoDBTable(tableName = "SharkJobUser")
+@DynamoDBDocument
 public class User {
 
     //Only user can edit his own Profile and data.
