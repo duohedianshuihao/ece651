@@ -7,6 +7,8 @@ import com.sharkjob.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
@@ -67,17 +69,13 @@ public class UserController {
     }
 
 
-    //@RequestMapping(value = "/updateSkills", method = POST)
+    @RequestMapping(value = "/updateSkills", method = POST)
     public boolean updateSkills(@RequestParam String email,
-                                @RequestParam String skills) {
+                                @RequestParam List<String> skills) {
 
-        User user = userDao.findUserInSharkJobUserTableThroughEmail(email);
-        if(user == null) {
-            return false;
-        }
-
-        return true;
+        return userDao.updateSkillsInSharkJobUserTableThroughEmail(email, skills);
     }
+
     //find exception->update
     //@RequestMapping(value = "/changeEmail", method = POST)
     //@RequestMapping(value = "/changeUserName", method = POST)

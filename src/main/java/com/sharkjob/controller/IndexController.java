@@ -13,10 +13,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 
 /**
@@ -43,14 +40,24 @@ public class IndexController {
         user.setUserType("Student");
         user.setUserName("Chino");
         user.setPassword("123456");
+        user.setSkills(Arrays.asList("a1", "a2"));
         userDao.saveUserInSharkJobUserTable(user);
         log.info("user Chi saved.");
         userDao.findUserInSharkJobUserTableThroughEmail("c423liu@uwaterloo.ca");
         log.info("User Chi found.");
+        if ( userDao.findUserInSharkJobUserTableThroughUsername("Chino") != null ){
+            log.info(userDao.findUserInSharkJobUserTableThroughUsername("Chino").getUserName()+" found");
+        }
+        if(userDao.updateSkillsInSharkJobUserTableThroughEmail("c423liu@uwaterloo.ca", Arrays.asList("b1", "b2"))) {
+            log.info("User Chi skills change: " + userDao.findUserInSharkJobUserTableThroughUsername("Chino").getSkills().toString());
+        }
         userDao.deleteUserInSharkJobUserTable("c423liu@uwaterloo.ca");
         log.info("User Chi deleted.");
         if(!userDao.deleteUserInSharkJobUserTable("c423liu@uwaterloo.ca")) {
             log.info("Test for delete fail.");
+        }
+        if ( userDao.findUserInSharkJobUserTableThroughUsername("Chino") == null ){
+            log.info("Chino not found");
         }
         //just for test...
         log.info("helloworld added");
