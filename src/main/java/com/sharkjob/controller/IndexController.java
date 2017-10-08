@@ -49,6 +49,9 @@ public class IndexController {
         log.info("User Chi found.");
         userDao.deleteUserInSharkJobUserTable("c423liu@uwaterloo.ca");
         log.info("User Chi deleted.");
+        if(!userDao.deleteUserInSharkJobUserTable("c423liu@uwaterloo.ca")) {
+            log.info("Test for delete fail.");
+        }
         //just for test...
         log.info("helloworld added");
         jobDao.createSharkJobInfoTable();

@@ -40,7 +40,7 @@ public class UserController {
 
     @RequestMapping(value = "/toLogIn", method = POST)
     public boolean loginUser(@RequestParam String emailorusername,
-                          @RequestParam String password) {
+                             @RequestParam String password) {
 
         User user;
 
@@ -68,6 +68,16 @@ public class UserController {
 
 
     //@RequestMapping(value = "/updateSkills", method = POST)
+    public boolean updateSkills(@RequestParam String email,
+                                @RequestParam String skills) {
+
+        User user = userDao.findUserInSharkJobUserTableThroughEmail(email);
+        if(user == null) {
+            return false;
+        }
+
+        return true;
+    }
     //find exception->update
     //@RequestMapping(value = "/changeEmail", method = POST)
     //@RequestMapping(value = "/changeUserName", method = POST)
@@ -76,7 +86,7 @@ public class UserController {
 
     @RequestMapping(value="/getUser",method = GET)
     public User getUserInfo(@RequestParam String email) {
-
+        //check if return is null
         return userDao.findUserInSharkJobUserTableThroughEmail(email);
     }
 }

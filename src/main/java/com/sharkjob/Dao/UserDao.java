@@ -61,8 +61,13 @@ public class UserDao {
         }
     }
 
-    public void deleteUserInSharkJobUserTable(String email){
-        userMapper.delete(findUserInSharkJobUserTableThroughEmail(email));
+    public boolean deleteUserInSharkJobUserTable(String email){
+        User user = findUserInSharkJobUserTableThroughEmail(email);
+        if(user == null) {
+            return false;
+        }
+        userMapper.delete(user);
+        return true;
     }
 
     public User findUserInSharkJobUserTableThroughEmail(String email){
@@ -75,7 +80,7 @@ public class UserDao {
         return user;
     }
 
-    public User findUserInSharkJobUserTableThroughUsername(String username){
+    public User findUserInSharkJobUserTableThroughUsername(String username) {
 
         Map<String, AttributeValue> eav = new HashMap<>();
         eav.put(":v1", new AttributeValue().withS(username));
@@ -95,11 +100,23 @@ public class UserDao {
 
     }
 
+    public boolean updateSkillsInSharkJobUserTableThroughEmail(String email, List<String> skills) {
+
+        User user = userMapper.load(User.class, email);
+        if (user == null) {
+            return false;
+        }
+        user.setSkills(skills);
+        userMapper.save(user);
+
+        return true;
+
+    }
+
+
     //check login
 
     //Other find operations.
-
-    //find through username...
 
     //find through skills? not sure how to arrange the "skills"(list? string? hash map?)
     // Need to find a data structure good for query.
