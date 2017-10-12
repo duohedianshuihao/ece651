@@ -94,7 +94,7 @@ public class IndexController {
         job.setCompany(user);
         job.setComments(comments);
         jobDao.saveJobInSharkJobInfoTable(job);
-        jobDao.updateJobInSharkJobInfoTable(job.getJobId(), newDescription);
+        jobDao.updateJobInSharkJobInfoTable(job.getJobId(), newDescription, user);
 
 //        jobDao.deleteJobInSharkJobInfoTable(job.getJobId());
         return "index";

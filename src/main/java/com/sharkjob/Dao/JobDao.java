@@ -52,9 +52,19 @@ public class JobDao {
         return job;
     }
 
-    public void updateJobInSharkJobInfoTable(String jobId, String jobDescription) {
+    public void updateJobInSharkJobInfoTable(String jobId, String jobDescription, User currentUser) {
         Job job = findJobInSharkJobInfoTableThroughJobId(jobId);
-        job.setJobDescription(jobDescription);
-        jobMapper.save(job);
+        if (isCurrentUserJobInfoCreater(jobId, currentUser)) {
+            job.setJobDescription(jobDescription);
+            jobMapper.save(job);
+        }
+    }
+
+    public boolean isCurrentUserJobInfoCreater(String jobId, User currentUser) {
+        Job job = findJobInSharkJobInfoTableThroughJobId(jobId);
+        if (job.getCompany().getEmail().equals(currentUser.getEmail())) {
+            return true;
+        }
+        return false;
     }
 }

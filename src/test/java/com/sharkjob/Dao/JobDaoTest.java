@@ -104,8 +104,7 @@ public class JobDaoTest {
     @Test
     public void valid_updateJobInSharkJobInfoTable_Successfully() {
         when(mockJobMapper.load(Job.class,job.getJobId())).thenReturn(job);
-        jobDao.updateJobInSharkJobInfoTable(job.getJobId(), newJobDescription);
+        jobDao.updateJobInSharkJobInfoTable(job.getJobId(), newJobDescription, job.getCompany());
         assertEquals(job.getJobDescription(),"job description is updated");
     }
-
 }
