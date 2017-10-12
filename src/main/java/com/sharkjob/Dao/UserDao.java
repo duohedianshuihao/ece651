@@ -34,7 +34,6 @@ public class UserDao {
 
     private static final Logger log = LoggerFactory.getLogger(IndexController.class);
 
-
     public void createSharkJobUserTable(){
         try {
             CreateTableRequest req = userMapper.generateCreateTableRequest(User.class);
@@ -71,7 +70,7 @@ public class UserDao {
     }
 
     public User findUserInSharkJobUserTableThroughEmail(String email){
-        //check email or username
+        //check email
 
         User user = userMapper.load(User.class, email);
         if (user != null) {
@@ -112,7 +111,6 @@ public class UserDao {
         return true;
 
     }
-
 
     //check login
 

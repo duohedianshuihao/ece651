@@ -24,7 +24,12 @@ public class UserController {
                            @RequestParam String password) {
 
         if (email.trim().length() > 0 && userName.trim().length() > 0 && password.trim().length() > 0) {
-
+            if (userDao.findUserInSharkJobUserTableThroughUsername(userName) == null) {
+                return false;
+            }
+            if (userDao.findUserInSharkJobUserTableThroughEmail(email) == null) {
+                return false;
+            }
             User user = new User();
             user.setEmail(email);
             user.setUserName(userName);
