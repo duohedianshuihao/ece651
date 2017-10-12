@@ -83,9 +83,10 @@ public class IndexController {
         ArrayList<com.sharkjob.model.Comment> comments = new ArrayList<>();
         comments.add(comment1);
         comments.add(comment2);
+        String newDescription = "description updated";
 
         job.setStartTime(startDate);
-        job.setJobTittle("DE");
+        job.setJobTittle("Software Internship");
         job.setLocation("waterloo");
         job.setJobDescription("test");
         job.setCategories("Software");
@@ -93,6 +94,8 @@ public class IndexController {
         job.setCompany(user);
         job.setComments(comments);
         jobDao.saveJobInSharkJobInfoTable(job);
+        jobDao.updateJobInSharkJobInfoTable(job.getJobId(), newDescription);
+
 //        jobDao.deleteJobInSharkJobInfoTable(job.getJobId());
         return "index";
     }
