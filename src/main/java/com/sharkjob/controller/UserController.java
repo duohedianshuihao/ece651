@@ -5,7 +5,11 @@ package com.sharkjob.controller;
 import com.sharkjob.Dao.UserDao;
 import com.sharkjob.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
@@ -18,58 +22,64 @@ public class UserController {
     @Autowired
     private UserDao userDao;
 
-    @RequestMapping(value="/regUser",method = POST)
-    public boolean regUser(@RequestParam String email,
-                           @RequestParam String userName,
-                           @RequestParam String password) {
+    @PostMapping(value="/regUser")
+    public ResponseEntity<Void> regUser(@RequestParam String email,
+                                        @RequestParam String userName,
+                                        @RequestParam String password,
+                                        UriComponentsBuilder builder) {
 
         if (email.trim().length() > 0 && userName.trim().length() > 0 && password.trim().length() > 0) {
-            if (userDao.findUserInSharkJobUserTableThroughUsername(userName) == null) {
-                return false;
+            if (userDao.findUserInSharkJobUserTableThroughUsername(userName) != null) {
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
             }
-            if (userDao.findUserInSharkJobUserTableThroughEmail(email) == null) {
-                return false;
+            if (userDao.findUserInSharkJobUserTableThroughEmail(email) != null) {
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
             }
             User user = new User();
             user.setEmail(email);
             user.setUserName(userName);
             user.setPassword(password);
 
-            return userDao.saveUserInSharkJobUserTable(user);
+            HttpHeaders header = new HttpHeaders();
+            header.setLocation(builder.path("/login").build().toUri());
+
+            return new ResponseEntity<>(header, HttpStatus.CREATED);
 
         } else {
 
-            return false;
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
         }
 
     }
 
-    @RequestMapping(value = "/toLogIn", method = POST)
-    public boolean loginUser(@RequestParam String emailorusername,
-                             @RequestParam String password) {
+    @PostMapping(value = "/toLogIn")
+    public ResponseEntity<Void> loginUser(@RequestParam String emailorusername,
+                                          @RequestParam String password,
+                                          UriComponentsBuilder builder) {
 
         User user;
 
         if(emailorusername.contains("@")) {
             user = userDao.findUserInSharkJobUserTableThroughEmail(emailorusername);
-            if(user != null) {
-                if(user.getPassword() == password) {
-                    return true;
-                }
-            }
         }
-
         else {
             user = userDao.findUserInSharkJobUserTableThroughUsername(emailorusername);
-            if(user != null) {
-                if (user.getPassword() == password) {
-                    return true;
-                }
+        }
+
+        if(user != null) {
+            if (user.getPassword() == password) {
+                HttpHeaders header = new HttpHeaders();
+                header.setLocation(builder.path("/index?username={username}").buildAndExpand(user.getUserName()).toUri());
+
+                return new ResponseEntity<>(header, HttpStatus.OK);
+            }
+            else {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
         }
 
-        return false;
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 
     }
 
