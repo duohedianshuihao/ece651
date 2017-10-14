@@ -1,10 +1,11 @@
 package com.sharkjob.Dao;
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
-import com.amazonaws.services.dynamodbv2.model.CreateTableRequest;
-import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
-import com.amazonaws.services.dynamodbv2.model.ResourceInUseException;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
+import com.amazonaws.services.dynamodbv2.model.*;
 import com.sharkjob.controller.IndexController;
 import com.sharkjob.model.User;
 import lombok.Data;
@@ -12,6 +13,11 @@ import lombok.NoArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -27,7 +33,6 @@ public class UserDao {
     private DynamoDBMapper userMapper;
 
     private static final Logger log = LoggerFactory.getLogger(IndexController.class);
-
 
     public void createSharkJobUserTable(){
         try {
@@ -55,11 +60,18 @@ public class UserDao {
         }
     }
 
-    public void deleteUserInSharkJobUserTable(String email){
-        userMapper.delete(findUserInSharkJobUserTableThroughEmail(email));
+    public boolean deleteUserInSharkJobUserTable(String email){
+        User user = findUserInSharkJobUserTableThroughEmail(email);
+        if(user == null) {
+            return false;
+        }
+        userMapper.delete(user);
+        return true;
     }
 
     public User findUserInSharkJobUserTableThroughEmail(String email){
+        //check email
+
         User user = userMapper.load(User.class, email);
         if (user != null) {
             log.info(user.toString());
@@ -67,9 +79,42 @@ public class UserDao {
         return user;
     }
 
-    //Other find operations.
+    public User findUserInSharkJobUserTableThroughUsername(String username) {
 
-    //find through username...
+        Map<String, AttributeValue> eav = new HashMap<>();
+        eav.put(":v1", new AttributeValue().withS(username));
+
+        DynamoDBScanExpression scanExpression = new DynamoDBScanExpression()
+                .withFilterExpression("begins_with(userName,:v1)")
+                .withExpressionAttributeValues(eav);
+
+        List<User> result = userMapper.scan(User.class, scanExpression);
+
+        if (result.isEmpty()) {
+            return null;
+        }
+        else {
+            return result.get(0);
+        }
+
+    }
+
+    public boolean updateSkillsInSharkJobUserTableThroughEmail(String email, List<String> skills) {
+
+        User user = userMapper.load(User.class, email);
+        if (user == null) {
+            return false;
+        }
+        user.setSkills(skills);
+        userMapper.save(user);
+
+        return true;
+
+    }
+
+    //check login
+
+    //Other find operations.
 
     //find through skills? not sure how to arrange the "skills"(list? string? hash map?)
     // Need to find a data structure good for query.

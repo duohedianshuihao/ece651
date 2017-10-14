@@ -7,6 +7,7 @@ import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
 import com.amazonaws.services.dynamodbv2.model.ResourceInUseException;
 import com.sharkjob.controller.IndexController;
 import com.sharkjob.model.Job;
+import com.sharkjob.model.User;
 import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,17 +40,21 @@ public class JobDao {
         jobMapper.save(job);
     }
 
-    public void deleteJobInSharkJobInfoTable(String ID){
-        jobMapper.delete(findJobInSharkJobInfoTableThroughID(ID));
+    public void deleteJobInSharkJobInfoTable(String jobId) {
+        jobMapper.delete(findJobInSharkJobInfoTableThroughJobId(jobId));
     }
 
-    public Job findJobInSharkJobInfoTableThroughID (String ID){
-        Job job = jobMapper.load(Job.class, ID);
+    public Job findJobInSharkJobInfoTableThroughJobId(String jobId) {
+        Job job = jobMapper.load(Job.class, jobId);
         if (job != null) {
             log.info(job.toString());
         }
         return job;
     }
 
-    //edit for the job info
+    public void updateJobInSharkJobInfoTable(String jobId, String jobDescription) {
+        Job job = findJobInSharkJobInfoTableThroughJobId(jobId);
+        job.setJobDescription(jobDescription);
+        jobMapper.save(job);
+    }
 }

@@ -14,6 +14,10 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 /**
@@ -27,6 +31,7 @@ public class UserDaoTest {
     private UserDao userDao = new UserDao();
     private User user = new User();
     private final String email = "c423liu@uwaterloo.ca";
+    private final List<String> skills = Arrays.asList("a1", "a2");
 
     @Before
     public void setUp() throws InterruptedException {
@@ -37,6 +42,7 @@ public class UserDaoTest {
         user.setUserType("Student");
         user.setUserName("Chino");
         user.setPassword("123456");
+        user.setSkills(Arrays.asList("a1", "a2"));
 
     }
 
@@ -54,29 +60,52 @@ public class UserDaoTest {
     }
 
     @Test
-    public void valid_saveUserInSharkJobUserTable_Successfully(){
+    public void valid_saveUserInSharkJobUserTable_Successfully() {
         when(mockUserMapper.load(User.class,email)).thenReturn(null);
         boolean flag = userDao.saveUserInSharkJobUserTable(user);
         assertTrue(flag);
     }
     @Test
-    public void valid_saveUserInSharkJobUserTable_Unsuccessfully(){
+    public void valid_saveUserInSharkJobUserTable_Unsuccessfully() {
         when(mockUserMapper.load(User.class,email)).thenReturn(user);
         boolean flag = userDao.saveUserInSharkJobUserTable(user);
         assertFalse(flag);
     }
 
     @Test
-    public void deleteUserInSharkJobUserTable() throws Exception {
+    public void valid_deleteUserInSharkJobUserTable_Successfully() {
         when(mockUserMapper.load(User.class,email)).thenReturn(user);
-        userDao.deleteUserInSharkJobUserTable(email);
-        verify(mockUserMapper, times(1)).delete(user);
+        boolean flag = userDao.deleteUserInSharkJobUserTable(email);
+        assertTrue(flag);
+//        userDao.deleteUserInSharkJobUserTable(email);
+//        verify(mockUserMapper, times(1)).delete(user);
+    }
+
+    @Test
+    public void valid_deleteUserInSharkJobUserTable_Unsuccessfully() {
+        when(mockUserMapper.load(User.class,"")).thenReturn(null);
+        boolean flag = userDao.deleteUserInSharkJobUserTable("");
+        assertFalse(flag);
     }
 
     @Test
     public void valid_findUserInSharkJobUserTableThroughEmail() {
         userDao.findUserInSharkJobUserTableThroughEmail(email);
         verify(mockUserMapper, times(1)).load(User.class, user.getEmail());
+    }
+
+    @Test
+    public void valid_updateSkillsInSharkJobUserTableThroughEmail_Successfully() {
+        when(mockUserMapper.load(User.class,email)).thenReturn(user);
+        boolean flag = userDao.updateSkillsInSharkJobUserTableThroughEmail(email, skills);
+        assertTrue(flag);
+    }
+
+    @Test
+    public void valid_updateSkillsInSharkJobUserTableThroughEmail_Unsuccessfully() {
+        when(mockUserMapper.load(User.class,"")).thenReturn(null);
+        boolean flag = userDao.updateSkillsInSharkJobUserTableThroughEmail("", skills);
+        assertFalse(flag);
     }
 
 }
