@@ -17,15 +17,15 @@ var SignupComponent = (function () {
         this.signupService = signupService;
         this.form = new signupForm_1.signupForm("", "", "");
     }
+    SignupComponent.prototype.add = function (email, username, password) {
+        this.signupService
+            .create(email, username, password);
+    };
     Object.defineProperty(SignupComponent.prototype, "diagnostic", {
         get: function () { return JSON.stringify(this.form); },
         enumerable: true,
         configurable: true
     });
-    SignupComponent.prototype.add = function (email, username, password) {
-        this.signupService
-            .create(email, username, password);
-    };
     return SignupComponent;
 }());
 SignupComponent = __decorate([

@@ -15,11 +15,13 @@ export class SignupComponent{
   ) { }
 
   form = new signupForm("", "", "");
-  get diagnostic() { return JSON.stringify(this.form); }
 
   add(email:string, username:string, password:string): void{
     this.signupService
         .create(email, username, password)
   }
+
+  get diagnostic() { return JSON.stringify(this.form); }
+
 }
 

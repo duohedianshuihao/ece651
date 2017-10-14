@@ -21,9 +21,9 @@ var SignupService = (function () {
     SignupService.prototype.create = function (email, username, password) {
         return this.http
             .post(this.loginUrl, JSON.stringify({
-            email: email,
-            username: username,
-            password: password
+            "email": email,
+            "username": username,
+            "password": password
         }))
             .toPromise()
             .then(function (res) { return res.json().data; })
