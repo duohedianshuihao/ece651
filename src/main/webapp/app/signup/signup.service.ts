@@ -1,7 +1,6 @@
 import { Injectable }    from '@angular/core';
 import { Headers, Http } from '@angular/http';
 import { URLSearchParams } from "@angular/http"
-import { RequestOptions } from '@angular/http';
 
 
 import 'rxjs/add/operator/toPromise';
@@ -23,11 +22,10 @@ export class SignupService {
     create (
       email: string,
       username: string,
-      password: string): Promise<signupForm>{
+      password: string){
         let body = JSON.stringify({
-            email: email,
-            userName: username,
-            password: password
+            email: email
+
         });
         // let body = new URLSearchParams();
         // body.append('email', email);
@@ -36,13 +34,10 @@ export class SignupService {
 
         return this.http
           .post(this.signUpUrl, body, {headers: this.headers})
-          .toPromise()
-          .then(res => res.json().data as signupForm)
-          .catch(this.handleError);
     }
 
-    private handleError(error: any): Promise<any> {
-      console.error('An error occurred', error); // for demo purposes only
-      return Promise.reject(error.message || error);
-    }
+    // private handleError(error: any): Promise<any> {
+    //   console.error('An error occurred', error); // for demo purposes only
+    //   return Promise.reject(error.message || error);
+    // }
 }

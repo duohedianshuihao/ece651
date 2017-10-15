@@ -20,23 +20,14 @@ var SignupService = (function () {
     }
     SignupService.prototype.create = function (email, username, password) {
         var body = JSON.stringify({
-            email: email,
-            userName: username,
-            password: password
+            email: email
         });
         // let body = new URLSearchParams();
         // body.append('email', email);
         // body.append('username', username);
         // body.append('password', password);
         return this.http
-            .post(this.signUpUrl, body, { headers: this.headers })
-            .toPromise()
-            .then(function (res) { return res.json().data; })
-            .catch(this.handleError);
-    };
-    SignupService.prototype.handleError = function (error) {
-        console.error('An error occurred', error); // for demo purposes only
-        return Promise.reject(error.message || error);
+            .post(this.signUpUrl, body, { headers: this.headers });
     };
     return SignupService;
 }());
