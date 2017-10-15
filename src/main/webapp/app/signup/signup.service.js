@@ -16,18 +16,27 @@ var SignupService = (function () {
     function SignupService(http) {
         this.http = http;
         this.headers = new http_1.Headers();
-        this.signUpUrl = '/regUser';
+        this.signUpUrl = 'http://localhost:8080/regUser';
     }
     SignupService.prototype.create = function (email, username, password) {
         var body = JSON.stringify({
-            email: email
+            email: email,
+            userName: username,
+            password: password
         });
         // let body = new URLSearchParams();
         // body.append('email', email);
         // body.append('username', username);
         // body.append('password', password);
         return this.http
-            .post(this.signUpUrl, body, { headers: this.headers });
+            .post(this.signUpUrl, body, { headers: this.headers })
+            .toPromise()
+            .then(function (res) { return res.json().data; })
+            .catch(this.handleError);
+    };
+    SignupService.prototype.handleError = function (error) {
+        console.error('An error occurred', error); // for demo purposes only
+        return Promise.reject(error.message || error);
     };
     return SignupService;
 }());

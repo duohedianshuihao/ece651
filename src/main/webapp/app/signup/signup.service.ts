@@ -11,7 +11,7 @@ import { signupForm } from '../Models/signupForm';
 
 export class SignupService {
     private headers = new Headers();
-    private signUpUrl = '/regUser';
+    private signUpUrl = 'http://localhost:8080/regUser';
 
     public user: signupForm[];
 
@@ -22,10 +22,11 @@ export class SignupService {
     create (
       email: string,
       username: string,
-      password: string){
+      password: string): Promise<signupForm>{
         let body = JSON.stringify({
-            email: email
-
+            email: email,
+            userName: username,
+            password: password
         });
         // let body = new URLSearchParams();
         // body.append('email', email);
@@ -33,11 +34,14 @@ export class SignupService {
         // body.append('password', password);
 
         return this.http
-          .post(this.signUpUrl, body, {headers: this.headers})
+            .post(this.signUpUrl, body, {headers: this.headers})
+            .toPromise()
+            .then(res => res.json().data as signupForm)
+            .catch(this.handleError);
     }
 
-    // private handleError(error: any): Promise<any> {
-    //   console.error('An error occurred', error); // for demo purposes only
-    //   return Promise.reject(error.message || error);
-    // }
+    private handleError(error: any): Promise<any> {
+      console.error('An error occurred', error); // for demo purposes only
+      return Promise.reject(error.message || error);
+    }
 }

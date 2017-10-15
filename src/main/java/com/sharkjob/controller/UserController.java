@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -24,9 +25,11 @@ public class UserController {
     private UserDao userDao;
 
     @RequestMapping(value = "/regUser", method = POST)
-    public ResponseEntity<Void> regUser(@RequestBody  User user)
+    public ResponseEntity<Void> regUser(@RequestBody  String newUser)
                                         //UriComponentsBuilder builder)
-                                        {
+    {
+        Gson gson = new Gson();
+        User user = gson.fromJson(newUser, User.class);
 
         if (user.getEmail().trim().length() > 0 && user.getUserName().trim().length() > 0 && user.getPassword().trim().length() > 0) {
 //            if (userDao.findUserInSharkJobUserTableThroughUsername(userName) != null) {
