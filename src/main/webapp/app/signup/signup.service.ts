@@ -1,5 +1,8 @@
 import { Injectable }    from '@angular/core';
 import { Headers, Http } from '@angular/http';
+import { URLSearchParams } from "@angular/http"
+import { RequestOptions } from '@angular/http';
+
 
 import 'rxjs/add/operator/toPromise';
 
@@ -8,8 +11,8 @@ import { signupForm } from '../Models/signupForm';
 @Injectable()
 
 export class SignupService {
-    private headers = new Headers({'Content-Type': 'application/json'});
-    private loginUrl = '/regUser';
+    private headers = new Headers();
+    private signUpUrl = '/regUser';
 
     public user: signupForm[];
 
@@ -21,12 +24,18 @@ export class SignupService {
       email: string,
       username: string,
       password: string): Promise<signupForm>{
-        return this.http
-          .post(this.loginUrl, JSON.stringify({
+        let body = JSON.stringify({
             email: email,
-            username: username,
+            userName: username,
             password: password
-          }))
+        });
+        // let body = new URLSearchParams();
+        // body.append('email', email);
+        // body.append('username', username);
+        // body.append('password', password);
+
+        return this.http
+          .post(this.signUpUrl, body, {headers: this.headers})
           .toPromise()
           .then(res => res.json().data as signupForm)
           .catch(this.handleError);

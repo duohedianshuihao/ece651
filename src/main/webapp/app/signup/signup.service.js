@@ -15,16 +15,21 @@ require("rxjs/add/operator/toPromise");
 var SignupService = (function () {
     function SignupService(http) {
         this.http = http;
-        this.headers = new http_1.Headers({ 'Content-Type': 'application/json' });
-        this.loginUrl = '/regUser';
+        this.headers = new http_1.Headers();
+        this.signUpUrl = '/regUser';
     }
     SignupService.prototype.create = function (email, username, password) {
-        return this.http
-            .post(this.loginUrl, JSON.stringify({
+        var body = JSON.stringify({
             email: email,
-            username: username,
+            userName: username,
             password: password
-        }))
+        });
+        // let body = new URLSearchParams();
+        // body.append('email', email);
+        // body.append('username', username);
+        // body.append('password', password);
+        return this.http
+            .post(this.signUpUrl, body, { headers: this.headers })
             .toPromise()
             .then(function (res) { return res.json().data; })
             .catch(this.handleError);

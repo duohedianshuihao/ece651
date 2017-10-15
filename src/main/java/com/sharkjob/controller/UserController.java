@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -16,34 +17,33 @@ import java.util.List;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
-@RestController
+@Controller
 public class UserController {
 
     @Autowired
     private UserDao userDao;
 
-    @PostMapping(value="/regUser")
-    public ResponseEntity<Void> regUser(@RequestParam String email,
-                                        @RequestParam String userName,
-                                        @RequestParam String password,
-                                        UriComponentsBuilder builder) {
+    @RequestMapping(value = "/regUser", method = POST)
+    public ResponseEntity<Void> regUser(@RequestBody  User user)
+                                        //UriComponentsBuilder builder)
+                                        {
 
-        if (email.trim().length() > 0 && userName.trim().length() > 0 && password.trim().length() > 0) {
-            if (userDao.findUserInSharkJobUserTableThroughUsername(userName) != null) {
-                return new ResponseEntity<>(HttpStatus.CONFLICT);
-            }
-            if (userDao.findUserInSharkJobUserTableThroughEmail(email) != null) {
-                return new ResponseEntity<>(HttpStatus.CONFLICT);
-            }
-            User user = new User();
-            user.setEmail(email);
-            user.setUserName(userName);
-            user.setPassword(password);
+        if (user.getEmail().trim().length() > 0 && user.getUserName().trim().length() > 0 && user.getPassword().trim().length() > 0) {
+//            if (userDao.findUserInSharkJobUserTableThroughUsername(userName) != null) {
+//                return new ResponseEntity<>(HttpStatus.CONFLICT);
+//            }
+//            if (userDao.findUserInSharkJobUserTableThroughEmail(email) != null) {
+//                return new ResponseEntity<>(HttpStatus.CONFLICT);
+//            }
+//            User user = new User();
+//            user.setEmail(email);
+//            user.setUserName(userName);
+//            user.setPassword(password);
 
-            HttpHeaders header = new HttpHeaders();
-            header.setLocation(builder.path("/login").build().toUri());
+            //HttpHeaders header = new HttpHeaders();
+            //header.setLocation(builder.path("/login").build().toUri());
 
-            return new ResponseEntity<>(header, HttpStatus.CREATED);
+            return new ResponseEntity<>(HttpStatus.CREATED);
 
         } else {
 
