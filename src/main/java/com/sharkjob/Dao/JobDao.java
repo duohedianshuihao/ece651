@@ -21,7 +21,7 @@ public class JobDao {
     @Autowired
     private DynamoDBMapper jobMapper;
 
-    private static final Logger log = LoggerFactory.getLogger(IndexController.class); // need a jobController
+    private static final Logger log = LoggerFactory.getLogger(JobDao.class); // need a jobController
 
     public void createSharkJobInfoTable(){
         try {

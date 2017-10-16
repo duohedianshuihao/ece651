@@ -32,7 +32,7 @@ public class UserDao {
     @Autowired
     private DynamoDBMapper userMapper;
 
-    private static final Logger log = LoggerFactory.getLogger(IndexController.class);
+    private static final Logger log = LoggerFactory.getLogger(UserDao.class);
 
     public void createSharkJobUserTable(){
         try {
