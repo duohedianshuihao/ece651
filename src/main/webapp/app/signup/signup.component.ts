@@ -20,8 +20,5 @@ export class SignupComponent{
     this.signupService
         .create(email, username, password)
   }
-
-  get diagnostic() { return JSON.stringify(this.form); }
-
 }
 

@@ -1,7 +1,6 @@
 export class loginForm {
     constructor (
-        public username: string,
+        public info: string,
         public password: string,
-        public remember_me: boolean
     ){ }
 }

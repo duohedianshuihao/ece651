@@ -1,6 +1,5 @@
 import { Injectable }    from '@angular/core';
 import { Headers, Http } from '@angular/http';
-import { URLSearchParams } from "@angular/http"
 
 
 import 'rxjs/add/operator/toPromise';
@@ -28,10 +27,6 @@ export class SignupService {
             userName: username,
             password: password
         });
-        // let body = new URLSearchParams();
-        // body.append('email', email);
-        // body.append('username', username);
-        // body.append('password', password);
 
         return this.http
             .post(this.signUpUrl, body, {headers: this.headers})
