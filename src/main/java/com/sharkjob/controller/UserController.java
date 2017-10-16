@@ -55,7 +55,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/toLogin", method = POST)
-    public ResponseEntity<Void> loginUser(@RequestBody String emailorusername) {
+    public ResponseEntity<String> loginUser(@RequestBody String emailorusername) {
                                           //UriComponentsBuilder builder) {
         Gson gson = new Gson();
         User user = gson.fromJson(emailorusername, User.class);
@@ -72,11 +72,10 @@ public class UserController {
             if (user.getPassword().equals(userInTable.getPassword())) {
                 //HttpHeaders header = new HttpHeaders();
                 //header.setLocation(builder.path("/index?username={username}").buildAndExpand(user.getUserName()).toUri());
-
-                return new ResponseEntity<>(HttpStatus.OK);
+                return new ResponseEntity<String>(gson.toJson(userInTable),HttpStatus.OK);
             }
             else {
-                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+                return new ResponseEntity<String>("Uncorrect passowrd",HttpStatus.UNAUTHORIZED);
             }
         }
 
