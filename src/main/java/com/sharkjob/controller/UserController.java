@@ -32,16 +32,14 @@ public class UserController {
         User user = gson.fromJson(newUser, User.class);
 
         if (user.getEmail().trim().length() > 0 && user.getUserName().trim().length() > 0 && user.getPassword().trim().length() > 0) {
-//            if (userDao.findUserInSharkJobUserTableThroughUsername(userName) != null) {
-//                return new ResponseEntity<>(HttpStatus.CONFLICT);
-//            }
-//            if (userDao.findUserInSharkJobUserTableThroughEmail(email) != null) {
-//                return new ResponseEntity<>(HttpStatus.CONFLICT);
-//            }
-//            User user = new User();
-//            user.setEmail(email);
-//            user.setUserName(userName);
-//            user.setPassword(password);
+            if (userDao.findUserInSharkJobUserTableThroughUsername(user.getUserName()) != null) {
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
+            if (userDao.findUserInSharkJobUserTableThroughEmail(user.getEmail()) != null) {
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
+
+            userDao.saveUserInSharkJobUserTable(user);
 
             //HttpHeaders header = new HttpHeaders();
             //header.setLocation(builder.path("/login").build().toUri());
@@ -56,26 +54,26 @@ public class UserController {
 
     }
 
-    @PostMapping(value = "/toLogIn")
-    public ResponseEntity<Void> loginUser(@RequestParam String emailorusername,
-                                          @RequestParam String password,
-                                          UriComponentsBuilder builder) {
+    @RequestMapping(value = "/toLogin", method = POST)
+    public ResponseEntity<Void> loginUser(@RequestBody String emailorusername) {
+                                          //UriComponentsBuilder builder) {
+        Gson gson = new Gson();
+        User user = gson.fromJson(emailorusername, User.class);
+        User userInTable;
 
-        User user;
-
-        if(emailorusername.contains("@")) {
-            user = userDao.findUserInSharkJobUserTableThroughEmail(emailorusername);
+        if( !user.getEmail().isEmpty() ) {
+            userInTable = userDao.findUserInSharkJobUserTableThroughEmail(emailorusername);
         }
         else {
-            user = userDao.findUserInSharkJobUserTableThroughUsername(emailorusername);
+            userInTable = userDao.findUserInSharkJobUserTableThroughUsername(emailorusername);
         }
 
-        if(user != null) {
-            if (user.getPassword() == password) {
-                HttpHeaders header = new HttpHeaders();
-                header.setLocation(builder.path("/index?username={username}").buildAndExpand(user.getUserName()).toUri());
+        if(userInTable != null) {
+            if (user.getPassword().equals(userInTable.getPassword())) {
+                //HttpHeaders header = new HttpHeaders();
+                //header.setLocation(builder.path("/index?username={username}").buildAndExpand(user.getUserName()).toUri());
 
-                return new ResponseEntity<>(header, HttpStatus.OK);
+                return new ResponseEntity<>(HttpStatus.OK);
             }
             else {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
