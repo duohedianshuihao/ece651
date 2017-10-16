@@ -15,5 +15,9 @@ export class LoginComponent {
 
   form = new loginForm("", "");
 
+  get(info: string, password: string) {
+    this.loginService.login(info, password)
+  }
+
 
 }

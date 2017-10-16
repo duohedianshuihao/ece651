@@ -17,11 +17,20 @@ export class LoginService {
       private http : Http
     ) { }
 
-  get(info: string, password: string): Promise<loginForm> {
-    // let body = JSON.stringify({
-    //     email: email,
-    //     password: password
-    // });
+  login(info: string, password: string): Promise<loginForm> {
+    let body;
+    if (this.check_info(info)) {
+      body = JSON.stringify({
+        email: info,
+        password: password
+      });
+    }
+    else{
+      body = JSON.stringify({
+        userName: info,
+        password: password
+      });
+    }
 
     return this.http
            .post(this.loginUrl, body, { headers: this.headers})
@@ -31,7 +40,8 @@ export class LoginService {
   };
 
   private check_info(info: string) {
-
+    let email : boolean = info.includes("@");
+    return email;
   }
 
   private handleError(error: any): Promise<any> {

@@ -9,12 +9,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var forms_1 = require("@angular/forms");
+var router_1 = require("@angular/router");
 var http_1 = require("@angular/http");
 var app_component_1 = require("./app.component");
 var login_component_1 = require("./login/login.component");
 var login_service_1 = require("./login/login.service");
 var signup_component_1 = require("./signup/signup.component");
 var signup_service_1 = require("./signup/signup.service");
+var welcome_component_1 = require("./welcome/welcome.component");
+var navbar_component_1 = require("./navbar/navbar.component");
+var appRoutes = [
+    { path: 'login', component: login_component_1.LoginComponent },
+    { path: 'signup', component: signup_component_1.SignupComponent },
+    { path: '', component: welcome_component_1.WelcomeComponent }
+];
 var AppModule = (function () {
     function AppModule() {
     }
@@ -26,11 +34,14 @@ AppModule = __decorate([
             platform_browser_1.BrowserModule,
             forms_1.FormsModule,
             http_1.HttpModule,
+            router_1.RouterModule.forRoot(appRoutes)
         ],
         declarations: [
             app_component_1.AppComponent,
             login_component_1.LoginComponent,
-            signup_component_1.SignupComponent
+            signup_component_1.SignupComponent,
+            welcome_component_1.WelcomeComponent,
+            navbar_component_1.NavbarComponent
         ],
         providers: [
             login_service_1.LoginService,

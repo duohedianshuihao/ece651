@@ -21,11 +21,6 @@ var SignupComponent = (function () {
         this.signupService
             .create(email, username, password);
     };
-    Object.defineProperty(SignupComponent.prototype, "diagnostic", {
-        get: function () { return JSON.stringify(this.form); },
-        enumerable: true,
-        configurable: true
-    });
     return SignupComponent;
 }());
 SignupComponent = __decorate([

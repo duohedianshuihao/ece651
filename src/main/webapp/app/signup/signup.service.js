@@ -24,10 +24,6 @@ var SignupService = (function () {
             userName: username,
             password: password
         });
-        // let body = new URLSearchParams();
-        // body.append('email', email);
-        // body.append('username', username);
-        // body.append('password', password);
         return this.http
             .post(this.signUpUrl, body, { headers: this.headers })
             .toPromise()
