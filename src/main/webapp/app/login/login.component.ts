@@ -15,8 +15,13 @@ export class LoginComponent {
 
   form = new loginForm("", "");
 
-  get(info: string, password: string) {
-    this.loginService.login(info, password)
+  get(form: loginForm) {
+    this.loginService.login(form)
+  }
+
+  clear() {
+    this.form.info = "";
+    this.form.password = "";
   }
 
 

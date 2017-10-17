@@ -9,7 +9,7 @@ import { loginForm } from '../Models/loginForm';
 
 export class LoginService {
   private headers = new Headers();
-  private loginUrl = '/toLogin';
+  private loginUrl = 'http://localhost:8080/toLogin';
 
   public user : loginForm[];
 
@@ -17,18 +17,18 @@ export class LoginService {
       private http : Http
     ) { }
 
-  login(info: string, password: string): Promise<loginForm> {
+  login(form: loginForm): Promise<loginForm> {
     let body;
-    if (this.check_info(info)) {
+    if (this.check_info(form.info)) {
       body = JSON.stringify({
-        email: info,
-        password: password
+        email: form.info,
+        password: form.password
       });
     }
     else{
       body = JSON.stringify({
-        userName: info,
-        password: password
+        userName: form.info,
+        password: form.password
       });
     }
 
@@ -42,7 +42,6 @@ export class LoginService {
   private check_info(info: string) {
     const regPattern = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$");
     let email : boolean = regPattern.test(info);
-    console.log(email);
     return email;
   }
 

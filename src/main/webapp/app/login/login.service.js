@@ -16,20 +16,20 @@ var LoginService = (function () {
     function LoginService(http) {
         this.http = http;
         this.headers = new http_1.Headers();
-        this.loginUrl = '/toLogin';
+        this.loginUrl = 'http://localhost:8080/toLogin';
     }
-    LoginService.prototype.login = function (info, password) {
+    LoginService.prototype.login = function (form) {
         var body;
-        if (this.check_info(info)) {
+        if (this.check_info(form.info)) {
             body = JSON.stringify({
-                email: info,
-                password: password
+                email: form.info,
+                password: form.password
             });
         }
         else {
             body = JSON.stringify({
-                userName: info,
-                password: password
+                userName: form.info,
+                password: form.password
             });
         }
         return this.http
@@ -42,7 +42,6 @@ var LoginService = (function () {
     LoginService.prototype.check_info = function (info) {
         var regPattern = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$");
         var email = regPattern.test(info);
-        console.log(email);
         return email;
     };
     LoginService.prototype.handleError = function (error) {

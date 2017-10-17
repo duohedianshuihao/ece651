@@ -17,8 +17,12 @@ var LoginComponent = (function () {
         this.loginService = loginService;
         this.form = new loginForm_1.loginForm("", "");
     }
-    LoginComponent.prototype.get = function (info, password) {
-        this.loginService.login(info, password);
+    LoginComponent.prototype.get = function (form) {
+        this.loginService.login(form);
+    };
+    LoginComponent.prototype.clear = function () {
+        this.form.info = "";
+        this.form.password = "";
     };
     return LoginComponent;
 }());
