@@ -18,11 +18,11 @@ var SignupService = (function () {
         this.headers = new http_1.Headers();
         this.signUpUrl = 'http://localhost:8080/regUser';
     }
-    SignupService.prototype.create = function (email, username, password) {
+    SignupService.prototype.create = function (form) {
         var body = JSON.stringify({
-            email: email,
-            userName: username,
-            password: password
+            email: form.email,
+            userName: form.username,
+            password: form.password
         });
         return this.http
             .post(this.signUpUrl, body, { headers: this.headers })

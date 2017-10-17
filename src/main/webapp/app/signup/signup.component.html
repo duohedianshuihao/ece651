@@ -1,20 +1,27 @@
 <div class="container">
-  <p>fuck</p>
-  <form>
+  <form #siteForm="ngForm">
     <div class="form-group">
       <label for="email">email</label>
-      <input type="text" class="form-control" id="email" #email>
+      <input type="text" class="form-control" id="email" required pattern="^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$" [(ngModel)]="form.email" name='email' #email="ngModel">
+      <div [hidden]="email.untouched || email.valid || email.pristine" class="alert alert-danger">Email invalid</div>
     </div>
     <div class="form-group">
       <label for="username">username</label>
-      <input type="text" class="form-control" id="username" #username>
+      <input type="text" class="form-control" id="username" required pattern="^[a-zA-Z0-9]+$" maxlength="20" [(ngModel)]="form.username" name='username' #username="ngModel">
+      <div [hidden]="username.untouched || username.valid || username.pristine" class="alert alert-danger">Username invalid</div>
     </div>
     <div class="form-group">
       <label for="password">password</label>
-      <input type="password" class="form-control" id="password" #password>
+      <input type="password" class="form-control" id="password" required minlength="6" [(ngModel)]="form.password" name='password' #password="ngModel">
+      <div [hidden]="password.untouched || password.valid || password.pristine" class="alert alert-danger">Password invalid</div>
     </div>
-    <button type="submit" class="btn btn-default"
-    (click)="add(email.value, username.value, password.value); email.value=''; username.value=''; password.value='';">
+    <div class="form-group">
+      <label for="password_again">password again</label>
+      <input type="password" class='form-control' id='password_again' required [(ngModel)]="form.password_again" name="password_again" #password_again="ngModel" >
+    </div>
+    <div [hidden]="password_again.untouched || password.value==password_again.value" class="alert alert-danger">Password </div>
+    <button type="submit" class="btn btn-default" [disabled]="siteForm.form.invalid"
+    (click)="add(form); clear();">
     submit
     </button>
   </form>

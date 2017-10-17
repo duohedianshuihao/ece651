@@ -40,7 +40,9 @@ var LoginService = (function () {
     };
     ;
     LoginService.prototype.check_info = function (info) {
-        var email = info.includes("@");
+        var regPattern = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$");
+        var email = regPattern.test(info);
+        console.log(email);
         return email;
     };
     LoginService.prototype.handleError = function (error) {

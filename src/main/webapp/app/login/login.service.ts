@@ -40,7 +40,9 @@ export class LoginService {
   };
 
   private check_info(info: string) {
-    let email : boolean = info.includes("@");
+    const regPattern = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$");
+    let email : boolean = regPattern.test(info);
+    console.log(email);
     return email;
   }
 

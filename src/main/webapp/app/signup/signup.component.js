@@ -15,11 +15,17 @@ var signup_service_1 = require("./signup.service");
 var SignupComponent = (function () {
     function SignupComponent(signupService) {
         this.signupService = signupService;
-        this.form = new signupForm_1.signupForm("", "", "");
+        this.form = new signupForm_1.signupForm("", "", "", "");
     }
-    SignupComponent.prototype.add = function (email, username, password) {
+    SignupComponent.prototype.add = function (form) {
         this.signupService
-            .create(email, username, password);
+            .create(form);
+    };
+    SignupComponent.prototype.clear = function () {
+        this.form.email = '';
+        this.form.username = '';
+        this.form.password = '';
+        this.form.password_again = '';
     };
     return SignupComponent;
 }());
