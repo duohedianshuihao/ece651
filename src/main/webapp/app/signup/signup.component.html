@@ -4,7 +4,7 @@
       <form #signupForm="ngForm">
         <div class="form-group">
           <label for="email">email</label>
-          <input type="text" class="form-control" id="email" placeholder="please input email" required pattern="^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$" [(ngModel)]="form.email" name='email' #email="ngModel">
+          <input type="text" class="form-control" id="email" placeholder="please input email" required pattern="^[a-z0-9A-Z]+([._\\-]*[a-z0-9A-Z])*@([a-z0-9A-Z]+[-a-z0-9A-Z]*[a-z0-9A-Z]+.){1,63}[a-z0-9A-Z]+$" [(ngModel)]="form.email" name='email' #email="ngModel">
           <div [hidden]="email.untouched || email.valid || email.pristine" class="alert alert-danger">Email invalid</div>
         </div>
         <div class="form-group">

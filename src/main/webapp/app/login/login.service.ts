@@ -9,7 +9,7 @@ import { loginForm } from '../Models/loginForm';
 
 export class LoginService {
   private headers = new Headers();
-  private loginUrl = 'http://localhost:8080/toLogin';
+  private loginUrl = '/toLogin';
 
   public user : loginForm[];
 
@@ -40,7 +40,7 @@ export class LoginService {
   };
 
   private check_info(info: string) {
-    const regPattern = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$");
+    const regPattern = new RegExp("^[a-z0-9A-Z]+([._\\-]*[a-z0-9A-Z])*@([a-z0-9A-Z]+[-a-z0-9A-Z]*[a-z0-9A-Z]+.){1,63}[a-z0-9A-Z]+$");
     let email : boolean = regPattern.test(info);
     return email;
   }

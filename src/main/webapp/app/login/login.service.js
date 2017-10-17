@@ -16,7 +16,7 @@ var LoginService = (function () {
     function LoginService(http) {
         this.http = http;
         this.headers = new http_1.Headers();
-        this.loginUrl = 'http://localhost:8080/toLogin';
+        this.loginUrl = '/toLogin';
     }
     LoginService.prototype.login = function (form) {
         var body;
@@ -40,7 +40,7 @@ var LoginService = (function () {
     };
     ;
     LoginService.prototype.check_info = function (info) {
-        var regPattern = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$");
+        var regPattern = new RegExp("^[a-z0-9A-Z]+([._\\-]*[a-z0-9A-Z])*@([a-z0-9A-Z]+[-a-z0-9A-Z]*[a-z0-9A-Z]+.){1,63}[a-z0-9A-Z]+$");
         var email = regPattern.test(info);
         return email;
     };
