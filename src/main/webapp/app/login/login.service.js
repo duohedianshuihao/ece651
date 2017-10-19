@@ -18,11 +18,20 @@ var LoginService = (function () {
         this.headers = new http_1.Headers();
         this.loginUrl = '/toLogin';
     }
-    LoginService.prototype.get = function (info, password) {
-        // let body = JSON.stringify({
-        //     email: email,
-        //     password: password
-        // });
+    LoginService.prototype.login = function (form) {
+        var body;
+        if (this.check_info(form.info)) {
+            body = JSON.stringify({
+                email: form.info,
+                password: form.password
+            });
+        }
+        else {
+            body = JSON.stringify({
+                userName: form.info,
+                password: form.password
+            });
+        }
         return this.http
             .post(this.loginUrl, body, { headers: this.headers })
             .toPromise()
@@ -31,6 +40,9 @@ var LoginService = (function () {
     };
     ;
     LoginService.prototype.check_info = function (info) {
+        var regPattern = new RegExp("^[a-z0-9A-Z]+([._\\-]*[a-z0-9A-Z])*@([a-z0-9A-Z]+[-a-z0-9A-Z]*[a-z0-9A-Z]+.){1,63}[a-z0-9A-Z]+$");
+        var email = regPattern.test(info);
+        return email;
     };
     LoginService.prototype.handleError = function (error) {
         console.error('An error occurred', error); // for demo purposes only

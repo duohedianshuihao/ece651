@@ -14,14 +14,20 @@ export class SignupComponent{
     private signupService: SignupService
   ) { }
 
-  form = new signupForm("", "", "");
+  form = new signupForm("", "", "", "");
 
-  add(email:string, username:string, password:string): void{
+  add(form: signupForm): void{
     this.signupService
-        .create(email, username, password)
+        .create(form)
   }
 
-  get diagnostic() { return JSON.stringify(this.form); }
+  clear():void{
+    this.form.email = '';
+    this.form.username = '';
+    this.form.password = '';
+    this.form.password_again = '';
+  }
+
 
 }
 

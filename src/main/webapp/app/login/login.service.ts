@@ -17,11 +17,20 @@ export class LoginService {
       private http : Http
     ) { }
 
-  get(info: string, password: string): Promise<loginForm> {
-    // let body = JSON.stringify({
-    //     email: email,
-    //     password: password
-    // });
+  login(form: loginForm): Promise<loginForm> {
+    let body;
+    if (this.check_info(form.info)) {
+      body = JSON.stringify({
+        email: form.info,
+        password: form.password
+      });
+    }
+    else{
+      body = JSON.stringify({
+        userName: form.info,
+        password: form.password
+      });
+    }
 
     return this.http
            .post(this.loginUrl, body, { headers: this.headers})
@@ -31,6 +40,10 @@ export class LoginService {
   };
 
   private check_info(info: string) {
+
+    const regPattern = new RegExp("^[a-z0-9A-Z]+([._\\-]*[a-z0-9A-Z])*@([a-z0-9A-Z]+[-a-z0-9A-Z]*[a-z0-9A-Z]+.){1,63}[a-z0-9A-Z]+$");
+    let email : boolean = regPattern.test(info);
+    return email;
 
   }
 

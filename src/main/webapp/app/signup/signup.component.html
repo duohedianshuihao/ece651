@@ -1,23 +1,33 @@
 <div class="container">
-  <p>fuck</p>
-  <form>
-    {{diagnostic}}
-    <div class="form-group">
-      <label for="email">email</label>
-      <input type="text" class="form-control" id="email" #email>
+  <div class="row">
+    <div class="col-md-offset-4 col-md-4">
+      <form #signupForm="ngForm">
+        <div class="form-group">
+          <label for="email">email</label>
+          <input type="text" class="form-control" id="email" placeholder="please input email" required pattern="^[a-z0-9A-Z]+([._\\-]*[a-z0-9A-Z])*@([a-z0-9A-Z]+[-a-z0-9A-Z]*[a-z0-9A-Z]+.){1,63}[a-z0-9A-Z]+$" [(ngModel)]="form.email" name='email' #email="ngModel">
+          <div [hidden]="email.untouched || email.valid || email.pristine" class="alert alert-danger">Email invalid</div>
+        </div>
+        <div class="form-group">
+          <label for="username">username</label>
+          <input type="text" class="form-control" id="username" placeholder="username consist of alphabets and numbers" required pattern="^[a-zA-Z0-9]+$" maxlength="20" [(ngModel)]="form.username" name='username' #username="ngModel">
+          <div [hidden]="username.untouched || username.valid || username.pristine" class="alert alert-danger">Username invalid</div>
+        </div>
+        <div class="form-group">
+          <label for="password">password</label>
+          <input type="password" class="form-control" id="password" placeholder="password longer than 6" required minlength="6" [(ngModel)]="form.password" name='password' #password="ngModel">
+          <div [hidden]="password.untouched || password.valid || password.pristine" class="alert alert-danger">Password invalid</div>
+        </div>
+        <div class="form-group">
+          <label for="password_again">password again</label>
+          <input type="password" class='form-control' id='password_again' placeholder="password again" required [(ngModel)]="form.password_again" name="password_again" #password_again="ngModel" >
+        </div>
+        <div [hidden]="password_again.untouched || password.value==password_again.value" class="alert alert-danger">Password </div>
+        <button type="submit" class="btn btn-default" [disabled]="signupForm.form.invalid"
+        (click)="add(form); clear();">
+        submit
+        </button>
+      </form>
     </div>
-    <div class="form-group">
-      <label for="username">username</label>
-      <input type="text" class="form-control" id="username" #username>
-    </div>
-    <div class="form-group">
-      <label for="password">password</label>
-      <input type="password" class="form-control" id="password" #password>
-    </div>
-    <button type="submit" class="btn btn-default"
-    (click)="add(email.value, username.value, password.value); email.value=''; username.value=''; password.value='';">
-    submit
-    </button>
-  </form>
+  </div>
 </div>
 

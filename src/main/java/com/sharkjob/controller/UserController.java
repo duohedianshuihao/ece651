@@ -4,6 +4,8 @@ package com.sharkjob.controller;
 
 import com.sharkjob.Dao.UserDao;
 import com.sharkjob.model.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @Controller
 public class UserController {
+    private static final Logger log = LoggerFactory.getLogger(UserController.class);
+
 
     @Autowired
     private UserDao userDao;
@@ -57,15 +61,17 @@ public class UserController {
     @RequestMapping(value = "/toLogin", method = POST)
     public ResponseEntity<String> loginUser(@RequestBody String emailorusername) {
                                           //UriComponentsBuilder builder) {
+
+        log.info(emailorusername);
         Gson gson = new Gson();
         User user = gson.fromJson(emailorusername, User.class);
         User userInTable;
 
-        if( !user.getEmail().isEmpty() ) {
-            userInTable = userDao.findUserInSharkJobUserTableThroughEmail(emailorusername);
+        if( user.getEmail()!=null ) {
+            userInTable = userDao.findUserInSharkJobUserTableThroughEmail(user.getEmail());
         }
         else {
-            userInTable = userDao.findUserInSharkJobUserTableThroughUsername(emailorusername);
+            userInTable = userDao.findUserInSharkJobUserTableThroughUsername(user.getUserName());
         }
 
         if(userInTable != null) {

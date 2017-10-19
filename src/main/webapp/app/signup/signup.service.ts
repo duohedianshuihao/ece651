@@ -1,6 +1,5 @@
 import { Injectable }    from '@angular/core';
 import { Headers, Http } from '@angular/http';
-import { URLSearchParams } from "@angular/http"
 
 
 import 'rxjs/add/operator/toPromise';
@@ -19,19 +18,12 @@ export class SignupService {
       private http: Http
     ) { }
 
-    create (
-      email: string,
-      username: string,
-      password: string): Promise<signupForm>{
+    create (form: signupForm): Promise<signupForm>{
         let body = JSON.stringify({
-            email: email,
-            userName: username,
-            password: password
+            email: form.email,
+            userName: form.username,
+            password: form.password
         });
-        // let body = new URLSearchParams();
-        // body.append('email', email);
-        // body.append('username', username);
-        // body.append('password', password);
 
         return this.http
             .post(this.signUpUrl, body, {headers: this.headers})
