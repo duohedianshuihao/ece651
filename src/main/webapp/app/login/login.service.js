@@ -11,10 +11,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
-require("rxjs/add/operator/toPromise");
+var router_1 = require("@angular/router");
+require("rxjs/add/operator/map");
+require("rxjs/add/operator/catch");
 var LoginService = (function () {
-    function LoginService(http) {
+    function LoginService(http, router) {
         this.http = http;
+        this.router = router;
         this.headers = new http_1.Headers();
         this.loginUrl = '/toLogin';
     }
@@ -34,9 +37,7 @@ var LoginService = (function () {
         }
         return this.http
             .post(this.loginUrl, body, { headers: this.headers })
-            .toPromise()
-            .then(function (res) { return res.json().data; })
-            .catch(this.handleError);
+            .map(this.handleData.bind(this));
     };
     ;
     LoginService.prototype.check_info = function (info) {
@@ -44,15 +45,22 @@ var LoginService = (function () {
         var email = regPattern.test(info);
         return email;
     };
-    LoginService.prototype.handleError = function (error) {
-        console.error('An error occurred', error); // for demo purposes only
-        return Promise.reject(error.message || error);
+    LoginService.prototype.handleData = function (res) {
+        if (res.status < 200 || res.status >= 300) {
+            throw new Error('bad response status: ' + res.status);
+        }
+        else {
+            this.router.navigate(['/']);
+        }
+        var body = res.json().data;
+        return body || {};
     };
     return LoginService;
 }());
 LoginService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
+    __metadata("design:paramtypes", [http_1.Http,
+        router_1.Router])
 ], LoginService);
 exports.LoginService = LoginService;
 //# sourceMappingURL=login.service.js.map

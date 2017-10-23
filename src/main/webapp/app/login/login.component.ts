@@ -16,7 +16,9 @@ export class LoginComponent {
   form = new loginForm("", "");
 
   get(form: loginForm) {
-    this.loginService.login(form)
+    this.loginService
+        .login(form)
+        .subscribe();
   }
 
   clear() {

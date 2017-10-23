@@ -1,7 +1,10 @@
 import { Injectable }    from '@angular/core';
 import { Headers, Http, Response, ResponseOptions } from '@angular/http';
+import { Router } from '@angular/router';
+import { Observable }    from 'rxjs/Observable';
 
-import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
 import { loginForm } from '../Models/loginForm';
 
@@ -10,14 +13,14 @@ import { loginForm } from '../Models/loginForm';
 export class LoginService {
   private headers = new Headers();
   private loginUrl = '/toLogin';
-
   public user : loginForm[];
 
   constructor(
-      private http : Http
+      private http : Http,
+      private router: Router
     ) { }
 
-  login(form: loginForm): Promise<loginForm> {
+  login(form: loginForm): Observable<loginForm> {
     let body;
     if (this.check_info(form.info)) {
       body = JSON.stringify({
@@ -34,9 +37,7 @@ export class LoginService {
 
     return this.http
            .post(this.loginUrl, body, { headers: this.headers})
-           .toPromise()
-           .then(res => res.json().data as loginForm)
-           .catch(this.handleError);
+           .map(this.handleData.bind(this));
   };
 
   private check_info(info: string) {
@@ -45,8 +46,14 @@ export class LoginService {
     return email;
   }
 
-  private handleError(error: any): Promise<any> {
-      console.error('An error occurred', error); // for demo purposes only
-      return Promise.reject(error.message || error);
+  private handleData(res: Response) {
+        if (res.status < 200 || res.status >= 300) {
+            throw new Error('bad response status: ' + res.status);
+        }
+        else {
+            this.router.navigate(['/']);
+        }
+        let body = res.json().data;
+        return body || { };
     }
 }

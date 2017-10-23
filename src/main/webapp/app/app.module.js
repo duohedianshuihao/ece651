@@ -13,14 +13,16 @@ var router_1 = require("@angular/router");
 var http_1 = require("@angular/http");
 var app_component_1 = require("./app.component");
 var login_component_1 = require("./login/login.component");
-var login_service_1 = require("./login/login.service");
 var signup_component_1 = require("./signup/signup.component");
-var signup_service_1 = require("./signup/signup.service");
 var welcome_component_1 = require("./welcome/welcome.component");
 var navbar_component_1 = require("./navbar/navbar.component");
+var jobinfo_component_1 = require("./jobinfo/jobinfo.component");
+var login_service_1 = require("./login/login.service");
+var signup_service_1 = require("./signup/signup.service");
 var appRoutes = [
     { path: 'login', component: login_component_1.LoginComponent },
     { path: 'signup', component: signup_component_1.SignupComponent },
+    { path: 'jobinfo', component: jobinfo_component_1.JobinfoComponent },
     { path: '', component: welcome_component_1.WelcomeComponent }
 ];
 var AppModule = (function () {
@@ -41,7 +43,8 @@ AppModule = __decorate([
             login_component_1.LoginComponent,
             signup_component_1.SignupComponent,
             welcome_component_1.WelcomeComponent,
-            navbar_component_1.NavbarComponent
+            navbar_component_1.NavbarComponent,
+            jobinfo_component_1.JobinfoComponent
         ],
         providers: [
             login_service_1.LoginService,

@@ -18,7 +18,9 @@ var LoginComponent = (function () {
         this.form = new loginForm_1.loginForm("", "");
     }
     LoginComponent.prototype.get = function (form) {
-        this.loginService.login(form);
+        this.loginService
+            .login(form)
+            .subscribe();
     };
     LoginComponent.prototype.clear = function () {
         this.form.info = "";
