@@ -10,30 +10,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var loginForm_1 = require("../Models/loginForm");
-var login_service_1 = require("./login.service");
-var LoginComponent = (function () {
-    function LoginComponent(loginService) {
-        this.loginService = loginService;
-        this.form = new loginForm_1.loginForm("", "");
+var JobinfoComponent = (function () {
+    function JobinfoComponent() {
     }
-    LoginComponent.prototype.get = function (form) {
-        this.loginService
-            .login(form)
-            .subscribe();
-    };
-    LoginComponent.prototype.clear = function () {
-        this.form.info = "";
-        this.form.password = "";
-    };
-    return LoginComponent;
+    return JobinfoComponent;
 }());
-LoginComponent = __decorate([
+JobinfoComponent = __decorate([
     core_1.Component({
-        selector: 'login',
-        templateUrl: './app/login/login.component.html'
+        selector: 'jobinfo',
+        templateUrl: './app/jobinfo/jobinfo.component.html'
     }),
-    __metadata("design:paramtypes", [login_service_1.LoginService])
-], LoginComponent);
-exports.LoginComponent = LoginComponent;
-//# sourceMappingURL=login.component.js.map
+    __metadata("design:paramtypes", [])
+], JobinfoComponent);
+exports.JobinfoComponent = JobinfoComponent;
+//# sourceMappingURL=jobinfo.component.js.map

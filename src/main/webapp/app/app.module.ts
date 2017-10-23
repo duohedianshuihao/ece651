@@ -7,15 +7,18 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-import { LoginService } from './login/login.service';
 import { SignupComponent } from './signup/signup.component';
-import { SignupService} from './signup/signup.service';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { JobinfoComponent } from './jobinfo/jobinfo.component';
+
+import { LoginService } from './login/login.service';
+import { SignupService} from './signup/signup.service';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'signup', component: SignupComponent},
+  {path: 'jobinfo', component: JobinfoComponent},
   {path: '', component: WelcomeComponent}
 ]
 
@@ -34,7 +37,8 @@ const appRoutes: Routes = [
     LoginComponent,
     SignupComponent,
     WelcomeComponent,
-    NavbarComponent
+    NavbarComponent,
+    JobinfoComponent
     ],
 
   providers: [

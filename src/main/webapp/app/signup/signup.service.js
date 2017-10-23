@@ -11,10 +11,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
-require("rxjs/add/operator/toPromise");
+var router_1 = require("@angular/router");
+require("rxjs/add/operator/map");
+require("rxjs/add/operator/catch");
 var SignupService = (function () {
-    function SignupService(http) {
+    function SignupService(http, router) {
         this.http = http;
+        this.router = router;
         this.headers = new http_1.Headers();
         this.signUpUrl = 'http://localhost:8080/regUser';
     }
@@ -26,19 +29,24 @@ var SignupService = (function () {
         });
         return this.http
             .post(this.signUpUrl, body, { headers: this.headers })
-            .toPromise()
-            .then(function (res) { return res.json().data; })
-            .catch(this.handleError);
+            .map(this.handleData.bind(this));
     };
-    SignupService.prototype.handleError = function (error) {
-        console.error('An error occurred', error); // for demo purposes only
-        return Promise.reject(error.message || error);
+    SignupService.prototype.handleData = function (res) {
+        if (res.status < 200 || res.status >= 300) {
+            throw new Error('bad response status: ' + res.status);
+        }
+        else {
+            this.router.navigate(['/login']);
+        }
+        var body = res.json().data;
+        return body || {};
     };
     return SignupService;
 }());
 SignupService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
+    __metadata("design:paramtypes", [http_1.Http,
+        router_1.Router])
 ], SignupService);
 exports.SignupService = SignupService;
 //# sourceMappingURL=signup.service.js.map

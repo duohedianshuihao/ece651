@@ -19,7 +19,8 @@ var SignupComponent = (function () {
     }
     SignupComponent.prototype.add = function (form) {
         this.signupService
-            .create(form);
+            .create(form)
+            .subscribe();
     };
     SignupComponent.prototype.clear = function () {
         this.form.email = '';
