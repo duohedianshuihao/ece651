@@ -16,9 +16,10 @@ export class SignupComponent{
 
   form = new signupForm("", "", "", "");
 
-  add(form: signupForm): void{
+  add(form: signupForm){
     this.signupService
         .create(form)
+        .subscribe();
   }
 
   clear():void{
