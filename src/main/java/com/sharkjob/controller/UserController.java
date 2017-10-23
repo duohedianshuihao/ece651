@@ -29,7 +29,7 @@ public class UserController {
     private UserDao userDao;
 
     @RequestMapping(value = "/regUser", method = POST)
-    public ResponseEntity<Void> regUser(@RequestBody  String newUser)
+    public ResponseEntity<String> regUser(@RequestBody  String newUser)
                                         //UriComponentsBuilder builder)
     {
         Gson gson = new Gson();
@@ -37,10 +37,10 @@ public class UserController {
 
         if (user.getEmail().trim().length() > 0 && user.getUserName().trim().length() > 0 && user.getPassword().trim().length() > 0) {
             if (userDao.findUserInSharkJobUserTableThroughUsername(user.getUserName()) != null) {
-                return new ResponseEntity<>(HttpStatus.CONFLICT);
+                return new ResponseEntity<>("Duplicate username",HttpStatus.CONFLICT);
             }
             if (userDao.findUserInSharkJobUserTableThroughEmail(user.getEmail()) != null) {
-                return new ResponseEntity<>(HttpStatus.CONFLICT);
+                return new ResponseEntity<>("Duplicate email",HttpStatus.CONFLICT);
             }
 
             userDao.saveUserInSharkJobUserTable(user);
@@ -48,18 +48,18 @@ public class UserController {
             //HttpHeaders header = new HttpHeaders();
             //header.setLocation(builder.path("/login").build().toUri());
 
-            return new ResponseEntity<>(HttpStatus.CREATED);
+            return new ResponseEntity<>(gson.toJson(user),HttpStatus.CREATED);
 
         } else {
 
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>("Input invalid",HttpStatus.NO_CONTENT);
 
         }
 
     }
 
     @RequestMapping(value = "/toLogin", method = POST)
-    public ResponseEntity<Void> loginUser(@RequestBody String emailorusername) {
+    public ResponseEntity<String> loginUser(@RequestBody String emailorusername) {
                                           //UriComponentsBuilder builder) {
 
         log.info(emailorusername);
@@ -79,14 +79,14 @@ public class UserController {
                 //HttpHeaders header = new HttpHeaders();
                 //header.setLocation(builder.path("/index?username={username}").buildAndExpand(user.getUserName()).toUri());
 
-                return new ResponseEntity<>(HttpStatus.OK);
+                return new ResponseEntity<>(gson.toJson(userInTable),HttpStatus.OK);
             }
             else {
-                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+                return new ResponseEntity<>("Wrong password",HttpStatus.UNAUTHORIZED);
             }
         }
 
-        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>("No username or email",HttpStatus.UNAUTHORIZED);
 
     }
 
