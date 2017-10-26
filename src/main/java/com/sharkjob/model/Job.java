@@ -27,6 +27,9 @@ public class Job {
     @DynamoDBAttribute(attributeName = "requiredSkills")
     private List<String> requiredSkills;
 
+    @DynamoDBAttribute(attributeName = "createdTime")
+    private Date createdTime;
+
     @DynamoDBAttribute(attributeName = "startTime")
     private Date startTime;
 

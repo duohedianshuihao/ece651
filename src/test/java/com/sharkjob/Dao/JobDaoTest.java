@@ -3,6 +3,7 @@ package com.sharkjob.Dao;
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import com.amazonaws.services.dynamodbv2.model.CreateTableRequest;
 import com.amazonaws.services.dynamodbv2.model.ResourceInUseException;
 import com.sharkjob.model.Comment;
@@ -14,9 +15,11 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -31,9 +34,13 @@ public class JobDaoTest {
     @Mock private DynamoDBMapper mockJobMapper;
     private JobDao jobDao = new JobDao();
     private Job job = new Job();
+    private Job newJob = new Job();
     private User company = new User();
     private User wrongCompany = new User();
     private final String newJobDescription = "job description is updated";
+    private Comment newComment = new Comment();
+//    private List<job>
+
 
     @Before
     public void setUp() throws InterruptedException {
@@ -50,6 +57,8 @@ public class JobDaoTest {
         Date startDate = new Date();
         Date commentDate1 = new Date();
         Date commentDate2 = new Date();
+        Date createdDate1 = new Date();
+        Date createdDate2 = new Date(createdDate1.getTime() + 1);
 
         Comment comment1 = new Comment();
         comment1.setReplier(company);
@@ -63,6 +72,7 @@ public class JobDaoTest {
         comments.add(comment1);
         comments.add(comment2);
 
+        job.setCreatedTime(createdDate1);
         job.setStartTime(startDate);
         job.setJobTittle("Software Internship");
         job.setLocation("waterloo");
@@ -71,6 +81,13 @@ public class JobDaoTest {
         job.setRequiredSkills(Arrays.asList("java", "python"));
         job.setCompany(company);
         job.setComments(comments);
+
+        newJob.setCreatedTime(createdDate2);
+
+        Date newCommentTime = new Date();
+        newComment.setReplier(company);
+        newComment.setComment("a new comment");
+        newComment.setCommentTime(newCommentTime);
 
     }
 
@@ -107,5 +124,21 @@ public class JobDaoTest {
         jobDao.updateJobInSharkJobInfoTable(job.getJobId(), newJobDescription);
         assertEquals(job.getJobDescription(),"job description is updated");
     }
+
+    @Test
+    public void valid_addCommentInSharkJobInfoTable_Successfully() {
+        when(mockJobMapper.load(Job.class,job.getJobId())).thenReturn(job);
+        jobDao.addCommentInSharkJobInfoTable(job.getJobId(), newComment);
+        assertEquals(job.getComments().get(2).getComment(),"a new comment");
+    }
+
+//    @Test
+//    public void sorted_getAllJobsInSharkInfoTable() {
+//        jobDao.saveJobInSharkJobInfoTable(job);
+//        jobDao.saveJobInSharkJobInfoTable(newJob);
+//
+//        DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
+//        when(mockJobMapper.scan(Job.class,scanExpression)).thenReturn;
+//    }
 
 }

@@ -63,6 +63,7 @@ public class IndexController {
         log.info("helloworld added");
         jobDao.createSharkJobInfoTable();
         Job job = new Job();
+        Job job2 = new Job();
 
         List<String> skills = new LinkedList<>();
         skills.add("python");
@@ -71,6 +72,7 @@ public class IndexController {
         Date startDate = new Date();
         Date commentDate1 = new Date();
         Date commentDate2 = new Date();
+        Date startDate2 = new Date();
 
         Comment comment1 = new Comment();
         comment1.setReplier(user);
@@ -86,6 +88,8 @@ public class IndexController {
         String newDescription = "description updated";
 
         job.setStartTime(startDate);
+        job.setCreatedTime(startDate);
+        job2.setCreatedTime(startDate2);
         job.setJobTittle("Software Internship");
         job.setLocation("waterloo");
         job.setJobDescription("test");
@@ -94,8 +98,13 @@ public class IndexController {
         job.setCompany(user);
         job.setComments(comments);
         jobDao.saveJobInSharkJobInfoTable(job);
+        jobDao.saveJobInSharkJobInfoTable(job2);
         jobDao.updateJobInSharkJobInfoTable(job.getJobId(), newDescription);
+        jobDao.addCommentInSharkJobInfoTable(job.getJobId(), comment2);
+        List<Job> jobs = jobDao.getAllJobsInSharkJobInfoTable();
+        log.info(jobs.get(0).toString()+jobs.get(1).toString());
 
+        
 //        jobDao.deleteJobInSharkJobInfoTable(job.getJobId());
         return "index";
     }
