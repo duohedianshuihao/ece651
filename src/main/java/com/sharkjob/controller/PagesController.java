@@ -12,21 +12,21 @@ public class PagesController {
 
     @RequestMapping(value = "/signup")
     public String getSignupPage() {
-        return "index";
+        return "signup";
     }
 
     @RequestMapping(value = "/login")
     public String getLoginPage() {
-        return "index";
+        return "login";
     }
 
     @RequestMapping(value = "/jobList")
     public String getJobListPage(){
-        return "index";
+        return "jobList";
     }
 
     @RequestMapping(value = "/jobInfo")
     public String getJobInfoPage(){
-        return "index";
+        return "jobInfo";
     }
 }

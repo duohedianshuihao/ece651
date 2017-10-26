@@ -32,7 +32,7 @@ public class UserDao {
     @Autowired
     private DynamoDBMapper userMapper;
 
-    private static final Logger log = LoggerFactory.getLogger(IndexController.class);
+    private static final Logger log = LoggerFactory.getLogger(UserDao.class);
 
     public void createSharkJobUserTable(){
         try {
@@ -43,7 +43,7 @@ public class UserDao {
             dynamoDBClient.createTable(req);
         } catch (ResourceInUseException e) {
             //swallow
-            log.info("Table has already exist.");
+            log.info("User Table has already exist.");
         }
     }
 
