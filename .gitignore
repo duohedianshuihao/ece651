@@ -2,7 +2,7 @@
 /target
 project.iml
 
-*.xml
+
 *.xml
 .DS_Store
 .idea/artifacts/project_war.xml
