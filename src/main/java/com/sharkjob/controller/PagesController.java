@@ -26,7 +26,5 @@ public class PagesController {
     }
 
     @RequestMapping(value = "/jobInfo")
-    public String getJobInfoPage(){
-        return "index";
-    }
+    public String getJobInfoPage() { return "index"; }
 }

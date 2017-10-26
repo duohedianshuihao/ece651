@@ -1,1 +1,14 @@
 <navbar></navbar>
+<div class="container">
+    <div class="row">
+        <div class="col-md-offset-4 col-md-4">
+            <form #loginForm="ngForm">
+                <h1>Job Title: {{form.jobTitle}}</h1>
+                <button type="submit" class="btn btn-default"
+                        (click)="get(form); clear()" [disabled]="loginForm.form.invalid" >
+                    submit
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

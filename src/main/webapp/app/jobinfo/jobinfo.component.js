@@ -10,9 +10,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var jobinfoForm_1 = require("../Models/jobinfoForm");
+var jobinfo_service_1 = require("./jobinfo.service");
 var JobinfoComponent = (function () {
-    function JobinfoComponent() {
+    function JobinfoComponent(jobinfoService) {
+        this.jobinfoService = jobinfoService;
+        this.form = new jobinfoForm_1.jobinfoForm("WCNM", "", new Date(), new Date(), "", "");
     }
+    JobinfoComponent.prototype.get = function (form) {
+        this.jobinfoService
+            .login(form)
+            .subscribe();
+    };
+    JobinfoComponent.prototype.clear = function () {
+        this.form.jobTitle = "";
+        this.form.jobDescription = "";
+        this.form.startTime = new Date();
+        this.form.expirTime = new Date();
+        this.form.location = "";
+        this.form.comment = "";
+    };
     return JobinfoComponent;
 }());
 JobinfoComponent = __decorate([
@@ -20,7 +37,7 @@ JobinfoComponent = __decorate([
         selector: 'jobinfo',
         templateUrl: './app/jobinfo/jobinfo.component.html'
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [jobinfo_service_1.JobinfoService])
 ], JobinfoComponent);
 exports.JobinfoComponent = JobinfoComponent;
 //# sourceMappingURL=jobinfo.component.js.map
