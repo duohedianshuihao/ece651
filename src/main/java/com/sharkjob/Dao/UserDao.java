@@ -43,7 +43,7 @@ public class UserDao {
             dynamoDBClient.createTable(req);
         } catch (ResourceInUseException e) {
             //swallow
-            log.info("Table has already exist.");
+            log.info("User Table has already exist.");
         }
     }
 
