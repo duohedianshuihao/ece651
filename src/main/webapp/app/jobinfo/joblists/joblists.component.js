@@ -10,19 +10,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var welcome_service_1 = require("./welcome.service");
-var WelcomeComponent = (function () {
-    function WelcomeComponent() {
+var JoblistsComponent = (function () {
+    function JoblistsComponent() {
     }
-    return WelcomeComponent;
+    return JoblistsComponent;
 }());
-WelcomeComponent = __decorate([
+JoblistsComponent = __decorate([
     core_1.Component({
-        selector: "welcome",
-        templateUrl: "./app/welcome/welcome.component.html",
-        providers: [welcome_service_1.WelcomeService]
+        selector: 'joblists',
+        templateUrl: './app/jobinfo/joblists/joblists.component.html',
+        styleUrls: ['./app/jobinfo/joblists/joblists.component.css']
     }),
     __metadata("design:paramtypes", [])
-], WelcomeComponent);
-exports.WelcomeComponent = WelcomeComponent;
-//# sourceMappingURL=welcome.component.js.map
+], JoblistsComponent);
+exports.JoblistsComponent = JoblistsComponent;
+//# sourceMappingURL=joblists.component.js.map

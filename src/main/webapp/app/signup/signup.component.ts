@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { signupForm } from "../Models/signupForm";
 
@@ -9,24 +10,34 @@ import { SignupService } from './signup.service';
     templateUrl: './app/signup/signup.component.html'
 })
 
-export class SignupComponent{
+export class SignupComponent implements OnInit{
+  private signupform: signupForm;
   constructor(
-    private signupService: SignupService
+    private signupService: SignupService,
+    private router: Router
   ) { }
 
-  form = new signupForm("", "", "", "");
+  ngOnInit(){
+    this.signupform = new signupForm("", "", "", "");
+  }
 
   add(form: signupForm){
     this.signupService
         .create(form)
-        .subscribe();
+        .subscribe(
+          data => {
+            this.router.navigate(['/login']);
+          },
+          error => {
+            console.log(error);
+          });
   }
 
   clear():void{
-    this.form.email = '';
-    this.form.username = '';
-    this.form.password = '';
-    this.form.password_again = '';
+    this.signupform.email = '';
+    this.signupform.username = '';
+    this.signupform.password = '';
+    this.signupform.password_again = '';
   }
 
 

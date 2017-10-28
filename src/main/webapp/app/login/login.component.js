@@ -10,30 +10,43 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var loginForm_1 = require("../Models/loginForm");
+var router_1 = require("@angular/router");
 var login_service_1 = require("./login.service");
+var userProfile_1 = require("../Models/userProfile");
+var loginForm_1 = require("../Models/loginForm");
 var LoginComponent = (function () {
-    function LoginComponent(loginService) {
+    function LoginComponent(loginService, router) {
         this.loginService = loginService;
-        this.form = new loginForm_1.loginForm("", "");
+        this.router = router;
     }
+    LoginComponent.prototype.ngOnInit = function () {
+        this.loginform = new loginForm_1.loginForm("", "");
+        this.user = new userProfile_1.userProfile("", "");
+    };
     LoginComponent.prototype.get = function (form) {
+        var _this = this;
         this.loginService
             .login(form)
-            .subscribe();
+            .subscribe(function (data) {
+            _this.router.navigate(['/jobinfo']);
+        }, function (error) {
+            console.log(error.json);
+        });
     };
     LoginComponent.prototype.clear = function () {
-        this.form.info = "";
-        this.form.password = "";
+        this.loginform.info = "";
+        this.loginform.password = "";
     };
     return LoginComponent;
 }());
 LoginComponent = __decorate([
     core_1.Component({
         selector: 'login',
-        templateUrl: './app/login/login.component.html'
+        templateUrl: './app/login/login.component.html',
+        styles: ['./app/login/login.component.css'],
     }),
-    __metadata("design:paramtypes", [login_service_1.LoginService])
+    __metadata("design:paramtypes", [login_service_1.LoginService,
+        router_1.Router])
 ], LoginComponent);
 exports.LoginComponent = LoginComponent;
 //# sourceMappingURL=login.component.js.map

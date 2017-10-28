@@ -1,5 +1,6 @@
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { FormsModule }   from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpModule } from '@angular/http';
@@ -11,6 +12,7 @@ import { SignupComponent } from './signup/signup.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { JobinfoComponent } from './jobinfo/jobinfo.component';
+import { JoblistsComponent } from './jobinfo/joblists/joblists.component';
 
 import { LoginService } from './login/login.service';
 import { SignupService} from './signup/signup.service';
@@ -27,6 +29,7 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     HttpModule,
+    CommonModule,
     RouterModule.forRoot(
       appRoutes
     )
@@ -38,7 +41,8 @@ const appRoutes: Routes = [
     SignupComponent,
     WelcomeComponent,
     NavbarComponent,
-    JobinfoComponent
+    JobinfoComponent,
+    JoblistsComponent
     ],
 
   providers: [

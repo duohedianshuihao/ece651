@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
+var common_1 = require("@angular/common");
 var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
 var http_1 = require("@angular/http");
@@ -17,6 +18,7 @@ var signup_component_1 = require("./signup/signup.component");
 var welcome_component_1 = require("./welcome/welcome.component");
 var navbar_component_1 = require("./navbar/navbar.component");
 var jobinfo_component_1 = require("./jobinfo/jobinfo.component");
+var joblists_component_1 = require("./jobinfo/joblists/joblists.component");
 var login_service_1 = require("./login/login.service");
 var signup_service_1 = require("./signup/signup.service");
 var appRoutes = [
@@ -36,6 +38,7 @@ AppModule = __decorate([
             platform_browser_1.BrowserModule,
             forms_1.FormsModule,
             http_1.HttpModule,
+            common_1.CommonModule,
             router_1.RouterModule.forRoot(appRoutes)
         ],
         declarations: [
@@ -44,7 +47,8 @@ AppModule = __decorate([
             signup_component_1.SignupComponent,
             welcome_component_1.WelcomeComponent,
             navbar_component_1.NavbarComponent,
-            jobinfo_component_1.JobinfoComponent
+            jobinfo_component_1.JobinfoComponent,
+            joblists_component_1.JoblistsComponent
         ],
         providers: [
             login_service_1.LoginService,

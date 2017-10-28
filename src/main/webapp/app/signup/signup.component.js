@@ -10,23 +10,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
 var signupForm_1 = require("../Models/signupForm");
 var signup_service_1 = require("./signup.service");
 var SignupComponent = (function () {
-    function SignupComponent(signupService) {
+    function SignupComponent(signupService, router) {
         this.signupService = signupService;
-        this.form = new signupForm_1.signupForm("", "", "", "");
+        this.router = router;
     }
+    SignupComponent.prototype.ngOnInit = function () {
+        this.signupform = new signupForm_1.signupForm("", "", "", "");
+    };
     SignupComponent.prototype.add = function (form) {
+        var _this = this;
         this.signupService
             .create(form)
-            .subscribe();
+            .subscribe(function (data) {
+            _this.router.navigate(['/login']);
+        }, function (error) {
+            console.log(error);
+        });
     };
     SignupComponent.prototype.clear = function () {
-        this.form.email = '';
-        this.form.username = '';
-        this.form.password = '';
-        this.form.password_again = '';
+        this.signupform.email = '';
+        this.signupform.username = '';
+        this.signupform.password = '';
+        this.signupform.password_again = '';
     };
     return SignupComponent;
 }());
@@ -35,7 +44,8 @@ SignupComponent = __decorate([
         selector: 'signup',
         templateUrl: './app/signup/signup.component.html'
     }),
-    __metadata("design:paramtypes", [signup_service_1.SignupService])
+    __metadata("design:paramtypes", [signup_service_1.SignupService,
+        router_1.Router])
 ], SignupComponent);
 exports.SignupComponent = SignupComponent;
 //# sourceMappingURL=signup.component.js.map

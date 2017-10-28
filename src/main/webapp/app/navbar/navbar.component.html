@@ -11,10 +11,16 @@
     </div>
 
     <div class="collapse navbar-collapse" id="for-mobile">
-      <ul class="nav navbar-nav navbar-right">
+      <ul *ngIf="!currentUser" class="nav navbar-nav navbar-right">
         <li><a href="/login">Login</a></li>
         <li><a href="/signup">Signup</a></li>
+      </ul>
+
+      <ul *ngIf="currentUser" class="nav navbar-nav navbar-right">
+        <li><a href="#">{{ currentUser.userName }}</a></li>
+        <li><a class="btn" (click)="logout();">logout</a></li>
       </ul>
     </div>
   </div>
 </nav>
+

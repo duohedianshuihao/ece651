@@ -11,15 +11,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
-var router_1 = require("@angular/router");
+var Subject_1 = require("rxjs/Subject");
 require("rxjs/add/operator/map");
 require("rxjs/add/operator/catch");
 var LoginService = (function () {
-    function LoginService(http, router) {
+    function LoginService(http) {
         this.http = http;
-        this.router = router;
         this.headers = new http_1.Headers();
         this.loginUrl = '/toLogin';
+        this.subject = new Subject_1.Subject();
+        this.keepAfterNav = false;
     }
     LoginService.prototype.login = function (form) {
         var body;
@@ -40,27 +41,29 @@ var LoginService = (function () {
             .map(this.handleData.bind(this));
     };
     ;
+    LoginService.prototype.errMsg = function (msg, keepAfterNav) {
+        if (keepAfterNav === void 0) { keepAfterNav = false; }
+        this.keepAfterNav = keepAfterNav;
+        this.subject.next({ type: 'error', text: msg });
+    };
     LoginService.prototype.check_info = function (info) {
         var regPattern = new RegExp("^[a-z0-9A-Z]+([._\\-]*[a-z0-9A-Z])*@([a-z0-9A-Z]+[-a-z0-9A-Z]*[a-z0-9A-Z]+.){1,63}[a-z0-9A-Z]+$");
         var email = regPattern.test(info);
         return email;
     };
-    LoginService.prototype.handleData = function (res) {
-        if (res.status < 200 || res.status >= 300) {
-            throw new Error('bad response status: ' + res.status);
+    LoginService.prototype.handleData = function (response) {
+        var body = response.json();
+        if (body) {
+            localStorage.setItem('currentUser', JSON.stringify(body));
+            return body;
         }
-        else {
-            this.router.navigate(['/']);
-        }
-        var body = res.json().data;
-        return body || {};
+        ;
     };
     return LoginService;
 }());
 LoginService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http,
-        router_1.Router])
+    __metadata("design:paramtypes", [http_1.Http])
 ], LoginService);
 exports.LoginService = LoginService;
 //# sourceMappingURL=login.service.js.map

@@ -1,26 +1,29 @@
 import { Injectable }    from '@angular/core';
 import { Headers, Http, Response, ResponseOptions } from '@angular/http';
-import { Router } from '@angular/router';
 import { Observable }    from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 import { loginForm } from '../Models/loginForm';
+import { userProfile } from '../Models/userProfile';
 
 @Injectable()
 
 export class LoginService {
   private headers = new Headers();
   private loginUrl = '/toLogin';
-  public user : loginForm[];
+  public user: userProfile[];
+
+  private subject = new Subject<any>();
+  private keepAfterNav = false;
 
   constructor(
       private http : Http,
-      private router: Router
     ) { }
 
-  login(form: loginForm): Observable<loginForm> {
+  login(form: loginForm): Observable<userProfile> {
     let body;
     if (this.check_info(form.info)) {
       body = JSON.stringify({
@@ -40,6 +43,11 @@ export class LoginService {
            .map(this.handleData.bind(this));
   };
 
+  errMsg(msg: string, keepAfterNav = false) {
+    this.keepAfterNav = keepAfterNav;
+    this.subject.next({type: 'error', text: msg});
+  }
+
   private check_info(info: string) {
 
     const regPattern = new RegExp("^[a-z0-9A-Z]+([._\\-]*[a-z0-9A-Z])*@([a-z0-9A-Z]+[-a-z0-9A-Z]*[a-z0-9A-Z]+.){1,63}[a-z0-9A-Z]+$");
@@ -48,14 +56,14 @@ export class LoginService {
 
   }
 
-  private handleData(res: Response) {
-        if (res.status < 200 || res.status >= 300) {
-            throw new Error('bad response status: ' + res.status);
-        }
-        else {
-            this.router.navigate(['/']);
-        }
-        let body = res.json().data;
-        return body || { };
-    }
+  private handleData(response: Response) {
+    let body = response.json();
+    if (body) {
+      localStorage.setItem('currentUser', JSON.stringify(body));
+      return body;
+    };
+
+
+
+
 }
