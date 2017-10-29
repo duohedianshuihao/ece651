@@ -34,12 +34,12 @@ var AlertService = (function () {
     AlertService.prototype.success = function (message, keepAfterNav) {
         if (keepAfterNav === void 0) { keepAfterNav = false; }
         this.keepAfterNav = keepAfterNav;
-        this.subject.next({ type: 'success', text: message.text });
+        this.subject.next({ type: 'success', text: message });
     };
     AlertService.prototype.error = function (message, keepAfterNav) {
         if (keepAfterNav === void 0) { keepAfterNav = false; }
         this.keepAfterNav = keepAfterNav;
-        this.subject.next({ type: 'error', text: message.text });
+        this.subject.next({ type: 'error', text: message.text() });
     };
     AlertService.prototype.getMessage = function () {
         return this.subject.asObservable();

@@ -24,12 +24,12 @@ export class AlertService {
 
     success(message: string, keepAfterNav = false) {
         this.keepAfterNav = keepAfterNav;
-        this.subject.next({ type: 'success', text: message.text });
+        this.subject.next({ type: 'success', text: message });
     }
 
     error(message: string, keepAfterNav = false) {
         this.keepAfterNav = keepAfterNav;
-        this.subject.next({ type: 'error', text: message.text });
+        this.subject.next({ type: 'error', text: message.text() });
     }
 
     getMessage(): Observable<any> {
