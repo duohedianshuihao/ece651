@@ -11,16 +11,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
-var Subject_1 = require("rxjs/Subject");
+var router_1 = require("@angular/router");
 require("rxjs/add/operator/map");
 require("rxjs/add/operator/catch");
 var LoginService = (function () {
-    function LoginService(http) {
+    function LoginService(http, router) {
         this.http = http;
+        this.router = router;
         this.headers = new http_1.Headers();
         this.loginUrl = '/toLogin';
-        this.subject = new Subject_1.Subject();
-        this.keepAfterNav = false;
     }
     LoginService.prototype.login = function (form) {
         var body;
@@ -41,10 +40,8 @@ var LoginService = (function () {
             .map(this.handleData.bind(this));
     };
     ;
-    LoginService.prototype.errMsg = function (msg, keepAfterNav) {
-        if (keepAfterNav === void 0) { keepAfterNav = false; }
-        this.keepAfterNav = keepAfterNav;
-        this.subject.next({ type: 'error', text: msg });
+    LoginService.prototype.logout = function () {
+        localStorage.removeItem('currentUser');
     };
     LoginService.prototype.check_info = function (info) {
         var regPattern = new RegExp("^[a-z0-9A-Z]+([._\\-]*[a-z0-9A-Z])*@([a-z0-9A-Z]+[-a-z0-9A-Z]*[a-z0-9A-Z]+.){1,63}[a-z0-9A-Z]+$");
@@ -63,7 +60,8 @@ var LoginService = (function () {
 }());
 LoginService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
+    __metadata("design:paramtypes", [http_1.Http,
+        router_1.Router])
 ], LoginService);
 exports.LoginService = LoginService;
 //# sourceMappingURL=login.service.js.map

@@ -13,10 +13,13 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var signupForm_1 = require("../Models/signupForm");
 var signup_service_1 = require("./signup.service");
+var alert_service_1 = require("../alert/alert.service");
 var SignupComponent = (function () {
-    function SignupComponent(signupService, router) {
+    function SignupComponent(signupService, alertService, router) {
         this.signupService = signupService;
+        this.alertService = alertService;
         this.router = router;
+        this.submitted = false;
     }
     SignupComponent.prototype.ngOnInit = function () {
         this.signupform = new signupForm_1.signupForm("", "", "", "");
@@ -27,24 +30,22 @@ var SignupComponent = (function () {
             .create(form)
             .subscribe(function (data) {
             _this.router.navigate(['/login']);
+            _this.alertService.success('Registration successful', true);
         }, function (error) {
-            console.log(error);
+            _this.alertService.error(error);
         });
-    };
-    SignupComponent.prototype.clear = function () {
-        this.signupform.email = '';
-        this.signupform.username = '';
-        this.signupform.password = '';
-        this.signupform.password_again = '';
     };
     return SignupComponent;
 }());
 SignupComponent = __decorate([
     core_1.Component({
+        moduleId: module.id,
         selector: 'signup',
-        templateUrl: './app/signup/signup.component.html'
+        templateUrl: 'signup.component.html',
+        styles: ['signup.component.css']
     }),
     __metadata("design:paramtypes", [signup_service_1.SignupService,
+        alert_service_1.AlertService,
         router_1.Router])
 ], SignupComponent);
 exports.SignupComponent = SignupComponent;

@@ -1,5 +1,6 @@
 import { Injectable }    from '@angular/core';
 import { Headers, Http, Response, ResponseOptions } from '@angular/http';
+import { Router, NavigationStart} from '@angular/router';
 import { Observable }    from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
@@ -16,14 +17,13 @@ export class LoginService {
   private loginUrl = '/toLogin';
   public user: userProfile[];
 
-  private subject = new Subject<any>();
-  private keepAfterNav = false;
-
   constructor(
       private http : Http,
-    ) { }
+      private router: Router
+    ) {
+  }
 
-  login(form: loginForm): Observable<userProfile> {
+  login(form: loginForm) {
     let body;
     if (this.check_info(form.info)) {
       body = JSON.stringify({
@@ -43,9 +43,8 @@ export class LoginService {
            .map(this.handleData.bind(this));
   };
 
-  errMsg(msg: string, keepAfterNav = false) {
-    this.keepAfterNav = keepAfterNav;
-    this.subject.next({type: 'error', text: msg});
+  logout() {
+    localStorage.removeItem('currentUser');
   }
 
   private check_info(info: string) {
@@ -62,8 +61,6 @@ export class LoginService {
       localStorage.setItem('currentUser', JSON.stringify(body));
       return body;
     };
-
-
-
-
+  }
 }
+

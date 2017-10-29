@@ -19,7 +19,7 @@ export class SignupService {
       private http: Http,
     ) { }
 
-    create (form: signupForm): Observable<signupForm[]>{
+    create (form: signupForm){
         let body = JSON.stringify({
             email: form.email,
             userName: form.username,

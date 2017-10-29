@@ -1,3 +1,4 @@
+<alert></alert>
 <div class="container">
   <div class="row">
     <div class="col-md-offset-4 col-md-4">
@@ -5,27 +6,34 @@
         <div class="form-group">
           <label for="email">email</label>
           <input type="text" class="form-control" id="email" placeholder="please input email" required pattern="^[a-z0-9A-Z]+([._\\-]*[a-z0-9A-Z])*@([a-z0-9A-Z]+[-a-z0-9A-Z]*[a-z0-9A-Z]+.){1,63}[a-z0-9A-Z]+$" [(ngModel)]="signupform.email" name='email' #email="ngModel">
-          <div [hidden]="email.untouched || email.valid || email.pristine" class="alert alert-danger">Email invalid</div>
+          <div [hidden]="!submitted || email.valid" class="alert alert-danger">Email Invalid</div>
         </div>
         <div class="form-group">
           <label for="username">username</label>
           <input type="text" class="form-control" id="username" placeholder="username consist of alphabets and numbers" required pattern="^[a-zA-Z0-9]+$" maxlength="20" [(ngModel)]="signupform.username" name='username' #username="ngModel">
-          <div [hidden]="username.untouched || username.valid || username.pristine" class="alert alert-danger">Username invalid</div>
+          <div [hidden]="!submitted || username.valid" class="alert alert-danger">Username Invalid</div>
         </div>
         <div class="form-group">
           <label for="password">password</label>
           <input type="password" class="form-control" id="password" placeholder="password longer than 6" required minlength="6" [(ngModel)]="signupform.password" name='password' #password="ngModel">
-          <div [hidden]="password.untouched || password.valid || password.pristine" class="alert alert-danger">Password invalid</div>
+          <div [hidden]="!submitted || password.valid" class="alert alert-danger">Password Invalid</div>
         </div>
         <div class="form-group">
           <label for="password_again">password again</label>
           <input type="password" class='form-control' id='password_again' placeholder="password again" required [(ngModel)]="signupform.password_again" name="password_again" #password_again="ngModel" >
         </div>
         <div [hidden]="password_again.untouched || password.value==password_again.value" class="alert alert-danger">Password </div>
-        <button type="submit" class="btn btn-primary" [disabled]="signupForm.form.invalid"
-        (click)="add(signupform); clear();">
-        submit
-        </button>
+        <div class="row">
+          <div class="col-md-3">
+            <button [routerLink]="['/login']" class="btn btn-primary">login</button>
+          </div>
+          <div class="col-md-offset-6 col-md-3">
+            <button type="submit" class="btn btn-primary"
+            (click)="submitted=true; signupForm.form.valid && add(signupform)">
+            submit
+            </button>
+          </div>
+        </div>
       </form>
     </div>
   </div>

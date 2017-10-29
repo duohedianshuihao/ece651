@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
+    moduleId: module.id,
     selector: 'joblists',
-    templateUrl: './app/jobinfo/joblists/joblists.component.html',
-    styleUrls: ['./app/jobinfo/joblists/joblists.component.css']
+    templateUrl: 'joblists.component.html',
+    styleUrls: ['joblists.component.css']
 })
 
 export class JoblistsComponent {

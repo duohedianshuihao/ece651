@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 
 @Component({
+    moduleId: module.id,
     selector: 'jobinfo',
-    templateUrl: './app/jobinfo/jobinfo.component.html'
+    templateUrl: 'jobinfo.component.html'
 })
 
 export class JobinfoComponent {

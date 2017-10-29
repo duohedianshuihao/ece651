@@ -10,19 +10,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var JoblistsComponent = (function () {
-    function JoblistsComponent() {
+var alert_service_1 = require("./alert.service");
+var AlertComponent = (function () {
+    function AlertComponent(alertService) {
+        var _this = this;
+        this.alertService = alertService;
+        this.subscription = this.alertService.getMessage().subscribe(function (message) {
+            _this.message = message;
+        });
     }
-    return JoblistsComponent;
+    AlertComponent.prototype.ngOnDestroy = function () {
+        this.subscription.unsubscribe();
+    };
+    return AlertComponent;
 }());
-JoblistsComponent = __decorate([
+AlertComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
-        selector: 'joblists',
-        templateUrl: 'joblists.component.html',
-        styleUrls: ['joblists.component.css']
+        selector: 'alert',
+        templateUrl: 'alert.component.html',
+        styles: ['alert.component.css']
     }),
-    __metadata("design:paramtypes", [])
-], JoblistsComponent);
-exports.JoblistsComponent = JoblistsComponent;
-//# sourceMappingURL=joblists.component.js.map
+    __metadata("design:paramtypes", [alert_service_1.AlertService])
+], AlertComponent);
+exports.AlertComponent = AlertComponent;
+//# sourceMappingURL=alert.component.js.map

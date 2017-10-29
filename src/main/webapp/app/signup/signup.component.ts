@@ -4,16 +4,21 @@ import { Router } from '@angular/router';
 import { signupForm } from "../Models/signupForm";
 
 import { SignupService } from './signup.service';
+import { AlertService } from '../alert/alert.service';
 
 @Component({
+    moduleId: module.id,
     selector: 'signup',
-    templateUrl: './app/signup/signup.component.html'
+    templateUrl: 'signup.component.html',
+    styles: ['signup.component.css']
 })
 
 export class SignupComponent implements OnInit{
   private signupform: signupForm;
+  public submitted = false;
   constructor(
     private signupService: SignupService,
+    private alertService: AlertService,
     private router: Router
   ) { }
 
@@ -27,19 +32,11 @@ export class SignupComponent implements OnInit{
         .subscribe(
           data => {
             this.router.navigate(['/login']);
+            this.alertService.success('Registration successful', true);
           },
           error => {
-            console.log(error);
+            this.alertService.error(error);
           });
   }
-
-  clear():void{
-    this.signupform.email = '';
-    this.signupform.username = '';
-    this.signupform.password = '';
-    this.signupform.password_again = '';
-  }
-
-
 }
 

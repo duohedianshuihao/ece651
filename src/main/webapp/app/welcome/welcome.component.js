@@ -10,7 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var welcome_service_1 = require("./welcome.service");
 var WelcomeComponent = (function () {
     function WelcomeComponent() {
     }
@@ -18,9 +17,9 @@ var WelcomeComponent = (function () {
 }());
 WelcomeComponent = __decorate([
     core_1.Component({
+        moduleId: module.id,
         selector: "welcome",
-        templateUrl: "./app/welcome/welcome.component.html",
-        providers: [welcome_service_1.WelcomeService]
+        templateUrl: "welcome.component.html",
     }),
     __metadata("design:paramtypes", [])
 ], WelcomeComponent);

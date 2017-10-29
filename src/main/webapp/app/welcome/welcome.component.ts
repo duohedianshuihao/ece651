@@ -3,9 +3,9 @@ import { userProfile } from '../Models/userProfile';
 import { WelcomeService } from './welcome.service';
 
 @Component({
+    moduleId: module.id,
     selector: "welcome",
-    templateUrl: "./app/welcome/welcome.component.html",
-    providers: [WelcomeService]
+    templateUrl: "welcome.component.html",
 })
 
 export class WelcomeComponent {
