@@ -38,19 +38,19 @@ var LoginComponent = (function () {
             _this.alertService.error(error);
         });
     };
+    LoginComponent = __decorate([
+        core_1.Component({
+            moduleId: module.id,
+            selector: 'login',
+            templateUrl: 'login.component.html',
+            styles: ['login.component.css'],
+        }),
+        __metadata("design:paramtypes", [login_service_1.LoginService,
+            alert_service_1.AlertService,
+            router_1.Router,
+            router_1.ActivatedRoute])
+    ], LoginComponent);
     return LoginComponent;
 }());
-LoginComponent = __decorate([
-    core_1.Component({
-        moduleId: module.id,
-        selector: 'login',
-        templateUrl: 'login.component.html',
-        styles: ['login.component.css'],
-    }),
-    __metadata("design:paramtypes", [login_service_1.LoginService,
-        alert_service_1.AlertService,
-        router_1.Router,
-        router_1.ActivatedRoute])
-], LoginComponent);
 exports.LoginComponent = LoginComponent;
 //# sourceMappingURL=login.component.js.map

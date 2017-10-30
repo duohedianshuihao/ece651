@@ -36,11 +36,11 @@ var SignupService = (function () {
         }
         return body || {};
     };
+    SignupService = __decorate([
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [http_1.Http])
+    ], SignupService);
     return SignupService;
 }());
-SignupService = __decorate([
-    core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
-], SignupService);
 exports.SignupService = SignupService;
 //# sourceMappingURL=signup.service.js.map

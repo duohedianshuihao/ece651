@@ -32,36 +32,36 @@ var appRoutes = [
 var AppModule = (function () {
     function AppModule() {
     }
+    AppModule = __decorate([
+        core_1.NgModule({
+            imports: [
+                platform_browser_1.BrowserModule,
+                forms_1.FormsModule,
+                http_1.HttpModule,
+                common_1.CommonModule,
+                router_1.RouterModule.forRoot(appRoutes)
+            ],
+            declarations: [
+                app_component_1.AppComponent,
+                login_component_1.LoginComponent,
+                signup_component_1.SignupComponent,
+                welcome_component_1.WelcomeComponent,
+                navbar_component_1.NavbarComponent,
+                jobinfo_component_1.JobinfoComponent,
+                joblists_component_1.JoblistsComponent,
+                alert_component_1.AlertComponent
+            ],
+            providers: [
+                login_service_1.LoginService,
+                signup_service_1.SignupService,
+                alert_service_1.AlertService
+            ],
+            bootstrap: [
+                app_component_1.AppComponent
+            ]
+        })
+    ], AppModule);
     return AppModule;
 }());
-AppModule = __decorate([
-    core_1.NgModule({
-        imports: [
-            platform_browser_1.BrowserModule,
-            forms_1.FormsModule,
-            http_1.HttpModule,
-            common_1.CommonModule,
-            router_1.RouterModule.forRoot(appRoutes)
-        ],
-        declarations: [
-            app_component_1.AppComponent,
-            login_component_1.LoginComponent,
-            signup_component_1.SignupComponent,
-            welcome_component_1.WelcomeComponent,
-            navbar_component_1.NavbarComponent,
-            jobinfo_component_1.JobinfoComponent,
-            joblists_component_1.JoblistsComponent,
-            alert_component_1.AlertComponent
-        ],
-        providers: [
-            login_service_1.LoginService,
-            signup_service_1.SignupService,
-            alert_service_1.AlertService
-        ],
-        bootstrap: [
-            app_component_1.AppComponent
-        ]
-    })
-], AppModule);
 exports.AppModule = AppModule;
 //# sourceMappingURL=app.module.js.map

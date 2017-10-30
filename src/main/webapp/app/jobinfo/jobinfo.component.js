@@ -13,15 +13,15 @@ var core_1 = require("@angular/core");
 var JobinfoComponent = (function () {
     function JobinfoComponent() {
     }
+    JobinfoComponent = __decorate([
+        core_1.Component({
+            moduleId: module.id,
+            selector: 'jobinfo',
+            templateUrl: 'jobinfo.component.html'
+        }),
+        __metadata("design:paramtypes", [])
+    ], JobinfoComponent);
     return JobinfoComponent;
 }());
-JobinfoComponent = __decorate([
-    core_1.Component({
-        moduleId: module.id,
-        selector: 'jobinfo',
-        templateUrl: 'jobinfo.component.html'
-    }),
-    __metadata("design:paramtypes", [])
-], JobinfoComponent);
 exports.JobinfoComponent = JobinfoComponent;
 //# sourceMappingURL=jobinfo.component.js.map

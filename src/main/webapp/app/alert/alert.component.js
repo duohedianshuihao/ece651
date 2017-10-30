@@ -22,16 +22,16 @@ var AlertComponent = (function () {
     AlertComponent.prototype.ngOnDestroy = function () {
         this.subscription.unsubscribe();
     };
+    AlertComponent = __decorate([
+        core_1.Component({
+            moduleId: module.id,
+            selector: 'alert',
+            templateUrl: 'alert.component.html',
+            styles: ['alert.component.css']
+        }),
+        __metadata("design:paramtypes", [alert_service_1.AlertService])
+    ], AlertComponent);
     return AlertComponent;
 }());
-AlertComponent = __decorate([
-    core_1.Component({
-        moduleId: module.id,
-        selector: 'alert',
-        templateUrl: 'alert.component.html',
-        styles: ['alert.component.css']
-    }),
-    __metadata("design:paramtypes", [alert_service_1.AlertService])
-], AlertComponent);
 exports.AlertComponent = AlertComponent;
 //# sourceMappingURL=alert.component.js.map
