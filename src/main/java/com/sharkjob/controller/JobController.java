@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -49,18 +50,27 @@ public class JobController {
     }
 
     @RequestMapping(value = "/jobs", method = GET)
-    public List<Job> showJobs() {
-
-        return jobDao.getAllJobsInSharkJobInfoTable();
+    public ResponseEntity< List<Job> > showJobs() {
+        List jobList = jobDao.getAllJobsInSharkJobInfoTable();
+        if (!jobList.isEmpty()) {
+            return new ResponseEntity<>(jobList, HttpStatus.FOUND);
+        } else{
+            return new ResponseEntity<>(jobList, HttpStatus.NO_CONTENT);
+        }
     }
 
     @RequestMapping(value = "/jobs/{jobId}", method = GET)
-    public Job getJobInfo(@RequestParam String jobId) {
-        return jobDao.findJobInSharkJobInfoTableThroughJobId(jobId);
+    public ResponseEntity< Job >  getJobInfo(@PathVariable String jobId) {
+        Job job = jobDao.findJobInSharkJobInfoTableThroughJobId(jobId);
+        if (job != null){
+            return new ResponseEntity<>(job, HttpStatus.FOUND);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
     }
 
     @RequestMapping(value = "/jobsAddComment/{jobId}", method = POST)
-    public void addComment(@RequestBody String jobId, @RequestBody String newComment) {
+    public void addComment(@PathVariable String jobId, @RequestBody String newComment) {
 
     }
 }
