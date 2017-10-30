@@ -18,6 +18,7 @@ import { AlertComponent } from './alert/alert.component';
 import { LoginService } from './login/login.service';
 import { SignupService} from './signup/signup.service';
 import { AlertService } from './alert/alert.service';
+import { JobinfoService} from './jobinfo/jobinfo.service';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -51,7 +52,8 @@ const appRoutes: Routes = [
   providers: [
     LoginService,
     SignupService,
-    AlertService
+    AlertService,
+    JobinfoService
   ],
 
   bootstrap: [

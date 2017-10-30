@@ -75,6 +75,7 @@ public class JobDao {
 
         DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
         List<Job> jobs = jobMapper.scan(Job.class, scanExpression);
+/*
         Collections.sort(jobs, new Comparator<Job>() {
             @Override
             public int compare(Job o1, Job o2) {
@@ -83,7 +84,7 @@ public class JobDao {
                 return 0;
             }
             });
-
+*/
         return jobs;
     }
 }

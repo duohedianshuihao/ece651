@@ -20,11 +20,6 @@ public class PagesController {
         return "index";
     }
 
-    @RequestMapping(value = "/jobList")
-    public String getJobListPage(){
-        return "index";
-    }
-
     @RequestMapping(value = "/jobInfo")
     public String getJobInfoPage(){
         return "index";

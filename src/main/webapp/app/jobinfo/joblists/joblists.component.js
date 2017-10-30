@@ -10,11 +10,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var jobinfo_service_1 = require("../jobinfo.service");
 var JoblistsComponent = (function () {
-    function JoblistsComponent() {
+    function JoblistsComponent(jobinfoService) {
+        this.jobinfoService = jobinfoService;
+        this.jobModels = [];
     }
     return JoblistsComponent;
 }());
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Array)
+], JoblistsComponent.prototype, "jobModels", void 0);
 JoblistsComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
@@ -22,7 +29,7 @@ JoblistsComponent = __decorate([
         templateUrl: 'joblists.component.html',
         styleUrls: ['joblists.component.css']
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [jobinfo_service_1.JobinfoService])
 ], JoblistsComponent);
 exports.JoblistsComponent = JoblistsComponent;
 //# sourceMappingURL=joblists.component.js.map

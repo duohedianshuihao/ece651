@@ -23,6 +23,7 @@ var alert_component_1 = require("./alert/alert.component");
 var login_service_1 = require("./login/login.service");
 var signup_service_1 = require("./signup/signup.service");
 var alert_service_1 = require("./alert/alert.service");
+var jobinfo_service_1 = require("./jobinfo/jobinfo.service");
 var appRoutes = [
     { path: 'login', component: login_component_1.LoginComponent },
     { path: 'signup', component: signup_component_1.SignupComponent },
@@ -56,7 +57,8 @@ AppModule = __decorate([
         providers: [
             login_service_1.LoginService,
             signup_service_1.SignupService,
-            alert_service_1.AlertService
+            alert_service_1.AlertService,
+            jobinfo_service_1.JobinfoService
         ],
         bootstrap: [
             app_component_1.AppComponent
