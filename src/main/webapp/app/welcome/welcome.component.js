@@ -13,15 +13,15 @@ var core_1 = require("@angular/core");
 var WelcomeComponent = (function () {
     function WelcomeComponent() {
     }
-    WelcomeComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: "welcome",
-            templateUrl: "welcome.component.html",
-        }),
-        __metadata("design:paramtypes", [])
-    ], WelcomeComponent);
     return WelcomeComponent;
 }());
+WelcomeComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        selector: "welcome",
+        templateUrl: "welcome.component.html",
+    }),
+    __metadata("design:paramtypes", [])
+], WelcomeComponent);
 exports.WelcomeComponent = WelcomeComponent;
 //# sourceMappingURL=welcome.component.js.map

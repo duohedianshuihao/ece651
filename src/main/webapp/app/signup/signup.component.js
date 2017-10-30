@@ -35,18 +35,18 @@ var SignupComponent = (function () {
             _this.alertService.error(error);
         });
     };
-    SignupComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: 'signup',
-            templateUrl: 'signup.component.html',
-            styles: ['signup.component.css']
-        }),
-        __metadata("design:paramtypes", [signup_service_1.SignupService,
-            alert_service_1.AlertService,
-            router_1.Router])
-    ], SignupComponent);
     return SignupComponent;
 }());
+SignupComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        selector: 'signup',
+        templateUrl: 'signup.component.html',
+        styles: ['signup.component.css']
+    }),
+    __metadata("design:paramtypes", [signup_service_1.SignupService,
+        alert_service_1.AlertService,
+        router_1.Router])
+], SignupComponent);
 exports.SignupComponent = SignupComponent;
 //# sourceMappingURL=signup.component.js.map

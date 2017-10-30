@@ -66,7 +66,7 @@ public class UserControllerTest {
 
     @Test
     public void vaild_regUser_username_conflict(){
-        val expected = new ResponseEntity<>("Duplicate username",HttpStatus.CONFLICT);
+        val expected = new ResponseEntity<>("This username has already exists",HttpStatus.CONFLICT);
         when(userDao.findUserInSharkJobUserTableThroughEmail(user.getEmail())).thenReturn(null);
         when(userDao.findUserInSharkJobUserTableThroughUsername(user.getUserName())).thenReturn(new User());
         val  actual = userController.regUser(newUser);
@@ -76,7 +76,7 @@ public class UserControllerTest {
 
     @Test
     public void vaild_regUser_email_conflict(){
-        val expected = new ResponseEntity<>("Duplicate email",HttpStatus.CONFLICT);
+        val expected = new ResponseEntity<>("This email has already exists",HttpStatus.CONFLICT);
         when(userDao.findUserInSharkJobUserTableThroughEmail(user.getEmail())).thenReturn(new User());
         when(userDao.findUserInSharkJobUserTableThroughUsername(user.getUserName())).thenReturn(null);
         val  actual = userController.regUser(newUser);

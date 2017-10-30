@@ -10,10 +10,10 @@ var core_1 = require("@angular/core");
 var WelcomeService = (function () {
     function WelcomeService() {
     }
-    WelcomeService = __decorate([
-        core_1.Injectable()
-    ], WelcomeService);
     return WelcomeService;
 }());
+WelcomeService = __decorate([
+    core_1.Injectable()
+], WelcomeService);
 exports.WelcomeService = WelcomeService;
 //# sourceMappingURL=welcome.service.js.map

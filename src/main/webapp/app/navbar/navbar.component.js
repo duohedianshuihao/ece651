@@ -25,17 +25,17 @@ var NavbarComponent = (function () {
         // this.router.navigate(['jobList']);
         location.reload();
     };
-    NavbarComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: 'navbar',
-            templateUrl: 'navbar.component.html',
-            styles: ['navbar.component.css']
-        }),
-        __metadata("design:paramtypes", [router_1.Router,
-            login_service_1.LoginService])
-    ], NavbarComponent);
     return NavbarComponent;
 }());
+NavbarComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        selector: 'navbar',
+        templateUrl: 'navbar.component.html',
+        styles: ['navbar.component.css']
+    }),
+    __metadata("design:paramtypes", [router_1.Router,
+        login_service_1.LoginService])
+], NavbarComponent);
 exports.NavbarComponent = NavbarComponent;
 //# sourceMappingURL=navbar.component.js.map

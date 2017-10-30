@@ -13,16 +13,16 @@ var core_1 = require("@angular/core");
 var JoblistsComponent = (function () {
     function JoblistsComponent() {
     }
-    JoblistsComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: 'joblists',
-            templateUrl: 'joblists.component.html',
-            styleUrls: ['joblists.component.css']
-        }),
-        __metadata("design:paramtypes", [])
-    ], JoblistsComponent);
     return JoblistsComponent;
 }());
+JoblistsComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        selector: 'joblists',
+        templateUrl: 'joblists.component.html',
+        styleUrls: ['joblists.component.css']
+    }),
+    __metadata("design:paramtypes", [])
+], JoblistsComponent);
 exports.JoblistsComponent = JoblistsComponent;
 //# sourceMappingURL=joblists.component.js.map

@@ -37,10 +37,10 @@ public class UserController {
 
         if (user.getEmail().trim().length() > 0 && user.getUserName().trim().length() > 0 && user.getPassword().trim().length() > 0) {
             if (userDao.findUserInSharkJobUserTableThroughUsername(user.getUserName()) != null) {
-                return new ResponseEntity<>("Duplicate username",HttpStatus.CONFLICT);
+                return new ResponseEntity<>("This username has already exists",HttpStatus.CONFLICT);
             }
             if (userDao.findUserInSharkJobUserTableThroughEmail(user.getEmail()) != null) {
-                return new ResponseEntity<>("Duplicate email",HttpStatus.CONFLICT);
+                return new ResponseEntity<>("This email has already exists",HttpStatus.CONFLICT);
             }
 
             userDao.saveUserInSharkJobUserTable(user);
