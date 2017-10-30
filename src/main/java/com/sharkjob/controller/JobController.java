@@ -26,8 +26,8 @@ public class JobController {
     @Autowired
     private UserDao userDao;
 
-    @RequestMapping(value = "newJob", method = POST)
-    public ResponseEntity<String> post(@RequestBody String newJob, @RequestParam String email) {
+    @RequestMapping(value = "/newJob", method = POST)
+    public ResponseEntity<String> post(@RequestBody String newJob, @RequestBody String email) {
 
         Gson gson = new Gson();
         Job job = gson.fromJson(newJob, Job.class);
@@ -42,26 +42,25 @@ public class JobController {
         return new ResponseEntity<>("Job saved", HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "updateJobInfo", method = POST)
-    public void updateJobInfo(@RequestParam String jobId, @RequestParam String jobDescription) {
+    @RequestMapping(value = "/updateJobInfo", method = POST)
+    public void updateJobInfo(@RequestBody String jobId, @RequestBody String jobDescription) {
 
         jobDao.updateJobInSharkJobInfoTable(jobId, jobDescription);
     }
 
-    @RequestMapping(value = "jobs", method = GET)
-    public List<Job> showJobsTittle() {
+    @RequestMapping(value = "/jobs", method = GET)
+    public List<Job> showJobs() {
 
         return jobDao.getAllJobsInSharkJobInfoTable();
     }
 
-    @RequestMapping(value = "jobs/{jobId}", method = GET)
+    @RequestMapping(value = "/jobs/{jobId}", method = GET)
     public Job getJobInfo(@RequestParam String jobId) {
-
         return jobDao.findJobInSharkJobInfoTableThroughJobId(jobId);
     }
 
-    @RequestMapping(value = "jobs/{jobId}", method = POST)
-    public void addComment(@RequestParam String jobId, @RequestParam String newComment) {
+    @RequestMapping(value = "/jobsAddComment/{jobId}", method = POST)
+    public void addComment(@RequestBody String jobId, @RequestBody String newComment) {
 
     }
 }
