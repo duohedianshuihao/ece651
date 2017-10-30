@@ -38,7 +38,7 @@ public class JobDao {
             dynamoDBClient.createTable(req);
         } catch (ResourceInUseException e) {
             //swallow
-            log.info("Job Table has already exist.");
+            log.info("Job Table has  already exist.");
         }
     }
 
