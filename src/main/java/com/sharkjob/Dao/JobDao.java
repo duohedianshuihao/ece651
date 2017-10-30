@@ -13,6 +13,7 @@ import com.sharkjob.model.Comment;
 import com.sharkjob.model.Job;
 import com.sharkjob.model.User;
 import lombok.Data;
+import lombok.val;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,9 +75,12 @@ public class JobDao {
     public List<Job> getAllJobsInSharkJobInfoTable() {
 
         DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
-        List<Job> jobs = jobMapper.scan(Job.class, scanExpression);
-/*
-        Collections.sort(jobs, new Comparator<Job>() {
+        List<Job> jobs = new ArrayList<>();
+        List<Job> jobsInDynamoDB = jobMapper.scan(Job.class, scanExpression);
+        for(val entity: jobsInDynamoDB){
+            jobs.add(entity);
+        }
+        Collections.sort(jobs, new Comparator<Job>(){
             @Override
             public int compare(Job o1, Job o2) {
                 if (o1.getCreatedTime().after(o2.getCreatedTime()))  return 1;
@@ -84,7 +88,6 @@ public class JobDao {
                 return 0;
             }
             });
-*/
         return jobs;
     }
 }
