@@ -27,7 +27,7 @@ var jobinfo_service_1 = require("./jobinfo/jobinfo.service");
 var appRoutes = [
     { path: 'login', component: login_component_1.LoginComponent },
     { path: 'signup', component: signup_component_1.SignupComponent },
-    { path: 'jobList', component: jobinfo_component_1.JobinfoComponent },
+    { path: 'jobInfo', component: jobinfo_component_1.JobinfoComponent },
     { path: '', component: welcome_component_1.WelcomeComponent }
 ];
 var AppModule = (function () {

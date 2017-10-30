@@ -23,7 +23,7 @@ import { JobinfoService} from './jobinfo/jobinfo.service';
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'signup', component: SignupComponent},
-  {path: 'jobList', component: JobinfoComponent},
+  {path: 'jobInfo', component: JobinfoComponent},
   {path: '', component: WelcomeComponent}
 ]
 

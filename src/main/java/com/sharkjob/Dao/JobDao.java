@@ -83,8 +83,8 @@ public class JobDao {
         Collections.sort(jobs, new Comparator<Job>(){
             @Override
             public int compare(Job o1, Job o2) {
-                if (o1.getCreatedTime().after(o2.getCreatedTime()))  return 1;
-                if (o1.getCreatedTime().before(o2.getCreatedTime())) return -1;
+                if (o1.getCreatedTime().after(o2.getCreatedTime()))  return -1;
+                if (o1.getCreatedTime().before(o2.getCreatedTime())) return 1;
                 return 0;
             }
             });

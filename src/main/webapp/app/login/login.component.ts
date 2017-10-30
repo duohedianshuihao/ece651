@@ -40,7 +40,7 @@ export class LoginComponent {
         .login(form)
         .subscribe(
           data => {
-            this.router.navigate(['/jobList']);
+            this.router.navigate(['/jobInfo']);
           },
           error => {
             this.alertService.error(error);

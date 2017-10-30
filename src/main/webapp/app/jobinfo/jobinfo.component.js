@@ -19,7 +19,6 @@ var JobinfoComponent = (function () {
     JobinfoComponent.prototype.ngOnInit = function () {
         var _this = this;
         // console.log(this.jobModels);
-        console.log('here');
         this.jobinfoService.getJobDetails().subscribe(function (jobModels) {
             _this.jobModels = jobModels;
         });

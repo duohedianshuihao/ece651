@@ -33,7 +33,7 @@ var LoginComponent = (function () {
         this.loginService
             .login(form)
             .subscribe(function (data) {
-            _this.router.navigate(['/jobList']);
+            _this.router.navigate(['/jobInfo']);
         }, function (error) {
             _this.alertService.error(error);
         });

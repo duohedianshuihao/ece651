@@ -6,8 +6,8 @@
       </div>
     </div>
   </div>
-  <ul *ngFor="let job of jobModels" class="joblists-content">
-    <li class="joblists-li">
+  <ul class="joblists-content">
+    <li *ngFor="let job of jobModels" class="joblists-li">
       <div class="joblists-content">
         <div class="joblists-liner">
           <div class="col-sm-2">
@@ -19,12 +19,11 @@
           </div>
           <div class="col-sm-6">
             <div class="job-title">
-              <h2>{{ job.title }}</h2>
-              <em class="timestamp">{{ job.createdTime }}</em>
-
+              <h2>{{ job.jobTittle }}</h2>
+              <em class="timestamp">{{ job.createdTime | date }}</em>
             </div>
             <div class="job-content">
-              <p>some descriptions</p>
+              <p></p>
             </div>
             <div class="job-full">
               <ul class="nav nav-tabs">

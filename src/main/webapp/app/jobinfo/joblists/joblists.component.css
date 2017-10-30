@@ -28,6 +28,7 @@
 
 .joblists-li {
   list-style-type: none;
+  height: 200px;
 }
 
 .avatar-wrapper {
