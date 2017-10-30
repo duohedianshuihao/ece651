@@ -40,20 +40,21 @@ var LoginService = (function () {
             .map(this.handleData.bind(this));
     };
     ;
+    LoginService.prototype.logout = function () {
+        localStorage.removeItem('currentUser');
+    };
     LoginService.prototype.check_info = function (info) {
         var regPattern = new RegExp("^[a-z0-9A-Z]+([._\\-]*[a-z0-9A-Z])*@([a-z0-9A-Z]+[-a-z0-9A-Z]*[a-z0-9A-Z]+.){1,63}[a-z0-9A-Z]+$");
         var email = regPattern.test(info);
         return email;
     };
-    LoginService.prototype.handleData = function (res) {
-        if (res.status < 200 || res.status >= 300) {
-            throw new Error('bad response status: ' + res.status);
+    LoginService.prototype.handleData = function (response) {
+        var body = response.json();
+        if (body) {
+            localStorage.setItem('currentUser', JSON.stringify(body));
+            return body;
         }
-        else {
-            this.router.navigate(['/']);
-        }
-        var body = res.json().data;
-        return body || {};
+        ;
     };
     return LoginService;
 }());

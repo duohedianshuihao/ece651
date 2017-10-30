@@ -1,29 +1,50 @@
 import { Component, OnInit } from '@angular/core';
-import { loginForm } from "../Models/loginForm";
-import { LoginService } from "./login.service";
+import { Router, ActivatedRoute } from '@angular/router';
 
+import { LoginService } from "./login.service";
+import { AlertService } from '../alert/alert.service';
+
+import { userProfile } from '../Models/userProfile';
+import { loginForm } from "../Models/loginForm";
 
 @Component({
+  moduleId: module.id,
   selector: 'login',
-  templateUrl: './app/login/login.component.html'
+  templateUrl: 'login.component.html',
+  styles: ['login.component.css'],
 })
 
 export class LoginComponent {
+  returnUrl: string;
+  private loginform: loginForm;
+  private user: userProfile;
+
+  public submitted = false;
+
   constructor(
-    private loginService : LoginService
+    private loginService : LoginService,
+    private alertService: AlertService,
+    private router: Router,
+    private adrouter: ActivatedRoute
+
   ) { }
 
-  form = new loginForm("", "");
+  ngOnInit(){
+    this.loginform = new loginForm("", "");
+    this.user = new userProfile("", "");
+    this.returnUrl = this.adrouter.snapshot.queryParams['returnUrl'] || '/';
+  }
 
   get(form: loginForm) {
     this.loginService
         .login(form)
-        .subscribe();
-  }
-
-  clear() {
-    this.form.info = "";
-    this.form.password = "";
+        .subscribe(
+          data => {
+            this.router.navigate(['/jobList']);
+          },
+          error => {
+            this.alertService.error(error);
+          });
   }
 
 

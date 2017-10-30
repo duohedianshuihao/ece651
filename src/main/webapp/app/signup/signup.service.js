@@ -11,13 +11,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
-var router_1 = require("@angular/router");
 require("rxjs/add/operator/map");
 require("rxjs/add/operator/catch");
 var SignupService = (function () {
-    function SignupService(http, router) {
+    function SignupService(http) {
         this.http = http;
-        this.router = router;
         this.headers = new http_1.Headers();
         this.signUpUrl = 'http://localhost:8080/regUser';
     }
@@ -31,22 +29,18 @@ var SignupService = (function () {
             .post(this.signUpUrl, body, { headers: this.headers })
             .map(this.handleData.bind(this));
     };
-    SignupService.prototype.handleData = function (res) {
-        if (res.status < 200 || res.status >= 300) {
-            throw new Error('bad response status: ' + res.status);
+    SignupService.prototype.handleData = function (response) {
+        var body = response.json();
+        if (body) {
+            return body;
         }
-        else {
-            this.router.navigate(['/login']);
-        }
-        var body = res.json().data;
         return body || {};
     };
     return SignupService;
 }());
 SignupService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http,
-        router_1.Router])
+    __metadata("design:paramtypes", [http_1.Http])
 ], SignupService);
 exports.SignupService = SignupService;
 //# sourceMappingURL=signup.service.js.map

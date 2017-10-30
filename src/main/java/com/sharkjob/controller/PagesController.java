@@ -29,4 +29,5 @@ public class PagesController {
     public String getJobInfoPage(){
         return "index";
     }
+
 }

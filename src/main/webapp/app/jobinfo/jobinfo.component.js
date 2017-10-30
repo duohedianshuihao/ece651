@@ -17,8 +17,9 @@ var JobinfoComponent = (function () {
 }());
 JobinfoComponent = __decorate([
     core_1.Component({
+        moduleId: module.id,
         selector: 'jobinfo',
-        templateUrl: './app/jobinfo/jobinfo.component.html'
+        templateUrl: 'jobinfo.component.html'
     }),
     __metadata("design:paramtypes", [])
 ], JobinfoComponent);

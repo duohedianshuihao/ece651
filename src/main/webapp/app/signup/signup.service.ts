@@ -1,6 +1,5 @@
 import { Injectable }    from '@angular/core';
 import { Headers, Http, Response, ResponseOptions } from '@angular/http';
-import { Router } from '@angular/router';
 import { Observable }    from 'rxjs/Observable';
 
 import 'rxjs/add/operator/map';
@@ -18,10 +17,9 @@ export class SignupService {
 
     constructor (
       private http: Http,
-      private router: Router
     ) { }
 
-    create (form: signupForm): Observable<signupForm[]>{
+    create (form: signupForm){
         let body = JSON.stringify({
             email: form.email,
             userName: form.username,
@@ -33,14 +31,11 @@ export class SignupService {
             .map(this.handleData.bind(this));
     }
 
-    private handleData(res: Response) {
-        if (res.status < 200 || res.status >= 300) {
-            throw new Error('bad response status: ' + res.status);
+    private handleData(response: Response) {
+        let body = response.json();
+        if (body) {
+            return body;
         }
-        else {
-            this.router.navigate(['/login']);
-        }
-        let body = res.json().data;
         return body || { };
     }
 }

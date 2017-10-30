@@ -1,34 +1,42 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { signupForm } from "../Models/signupForm";
 
 import { SignupService } from './signup.service';
+import { AlertService } from '../alert/alert.service';
 
 @Component({
+    moduleId: module.id,
     selector: 'signup',
-    templateUrl: './app/signup/signup.component.html'
+    templateUrl: 'signup.component.html',
+    styles: ['signup.component.css']
 })
 
-export class SignupComponent{
+export class SignupComponent implements OnInit{
+  private signupform: signupForm;
+  public submitted = false;
   constructor(
-    private signupService: SignupService
+    private signupService: SignupService,
+    private alertService: AlertService,
+    private router: Router
   ) { }
 
-  form = new signupForm("", "", "", "");
+  ngOnInit(){
+    this.signupform = new signupForm("", "", "", "");
+  }
 
   add(form: signupForm){
     this.signupService
         .create(form)
-        .subscribe();
+        .subscribe(
+          data => {
+            this.router.navigate(['/login']);
+            this.alertService.success('Registration successful', true);
+          },
+          error => {
+            this.alertService.error(error);
+          });
   }
-
-  clear():void{
-    this.form.email = '';
-    this.form.username = '';
-    this.form.password = '';
-    this.form.password_again = '';
-  }
-
-
 }
 
