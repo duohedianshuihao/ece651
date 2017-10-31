@@ -1,68 +1,62 @@
-<head><link rel="stylesheet" href="signup.component.css"></head>
+<!--<head><link rel="stylesheet" href="signup.component.css"></head>-->
 <alert></alert>
 <div class="outside">
   <navbar></navbar>
   <div class="uptwo"></div>
-  <div class="downeight">
-<div class="container">
-    <div class="row">
-      <h1 style="font-weight:200;" align="center">Create Your SharkJob Account</h1>
-      <div class="col-md-6">
-        <br>
-        <br>
-        <br>
-        <h3 style="color: steelblue;">Free account</h3>
-        <h4>One free account, get you into every Waterloo-Job.</h4>
-        <br>
-        <h3 style="color: steelblue;">Your own platform</h3>
-        <h4>A public platform for you to post and reply jobs.</h4>
-        <br>
-        <h3 style="color: steelblue;">Join us now !</h3>
-        <h4>With few minutes, you will find your dream job.</h4>
-
-      </div>
-      <div class="col-md-6">
-        <br>
-        <br>
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-        <form #signupForm="ngForm">
-          <div class="form-group" style="font-size:14px">
-            <label for="email">Email</label>
-            <input type="text" class="form-control" id="email" placeholder="please input email" required pattern="^[a-z0-9A-Z]+([._\\-]*[a-z0-9A-Z])*@([a-z0-9A-Z]+[-a-z0-9A-Z]*[a-z0-9A-Z]+.){1,63}[a-z0-9A-Z]+$" [(ngModel)]="signupform.email" name='email' #email="ngModel">
-            <div [hidden]="!submitted || email.valid" class="alert alert-danger">Email Invalid</div>
+    <div class="downeight">
+      <div class="container">
+        <div class="row">
+          <h1 style="font-weight:200;" align="center">Create Your SharkJob Account</h1>
+          <div class="col-md-6">
+            <br><br><br>
+            <h3 style="color: steelblue;">Free account</h3>
+            <h4>One free account, get you into every Waterloo-Job.</h4>
+            <br>
+            <h3 style="color: steelblue;">Your own platform</h3>
+            <h4>A public platform for you to post and reply jobs.</h4>
+            <br>
+            <h3 style="color: steelblue;">Join us now !</h3>
+            <h4>With few minutes, you will find your dream job.</h4>
           </div>
-          <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" class="form-control" id="username" placeholder="username consist of alphabets and numbers" required pattern="^[a-zA-Z0-9]+$" maxlength="20" [(ngModel)]="signupform.username" name='username' #username="ngModel">
-            <div [hidden]="!submitted || username.valid" class="alert alert-danger">Username Invalid</div>
+        <div class="col-md-6">
+          <br><br>
+          <div class="col-md-2"></div>
+          <div class="col-md-8">
+            <form #signupForm="ngForm">
+              <div class="form-group" style="font-size:14px">
+                <label for="email">Email</label>
+                <input type="text" class="form-control" id="email" placeholder="please input email" required pattern="^[a-z0-9A-Z]+([._\\-]*[a-z0-9A-Z])*@([a-z0-9A-Z]+[-a-z0-9A-Z]*[a-z0-9A-Z]+.){1,63}[a-z0-9A-Z]+$" [(ngModel)]="signupform.email" name='email' #email="ngModel">
+                <div [hidden]="!submitted || email.valid" class="alert alert-danger">Email Invalid</div>
+              </div>
+              <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" placeholder="username consist of alphabets and numbers" required pattern="^[a-zA-Z0-9]+$" maxlength="20" [(ngModel)]="signupform.username" name='username' #username="ngModel">
+                <div [hidden]="!submitted || username.valid" class="alert alert-danger">Username Invalid</div>
+              </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="password longer than 6" required minlength="6" [(ngModel)]="signupform.password" name='password' #password="ngModel">
+                <div [hidden]="!submitted || password.valid" class="alert alert-danger">Password Invalid</div>
+              </div>
+              <div class="form-group">
+                <label for="password_again">Ensure password</label>
+                <input type="password" class='form-control' id='password_again' placeholder="re-enter password" required [(ngModel)]="signupform.password_again" name="password_again" #password_again="ngModel" >
+              </div>
+              <div [hidden]="password_again.untouched || password.value==password_again.value" class="alert alert-danger">Password </div>
+                <!--<div class="col-md-3">-->
+                  <!--<button [routerLink]="['/login']" class="btn btn-primary">login</button>-->
+                <!--</div>-->
+              <br>
+              <button type="submit" class="btn btn-primary" style="width:9cm;"
+              (click)="submitted=true; signupForm.form.valid && add(signupform)">
+              Sign Up
+              </button>
+            </form>
           </div>
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" placeholder="password longer than 6" required minlength="6" [(ngModel)]="signupform.password" name='password' #password="ngModel">
-            <div [hidden]="!submitted || password.valid" class="alert alert-danger">Password Invalid</div>
-          </div>
-          <div class="form-group">
-            <label for="password_again">Ensure password</label>
-            <input type="password" class='form-control' id='password_again' placeholder="re-enter password" required [(ngModel)]="signupform.password_again" name="password_again" #password_again="ngModel" >
-          </div>
-          <div [hidden]="password_again.untouched || password.value==password_again.value" class="alert alert-danger">Password </div>
-            <!--<div class="col-md-3">-->
-              <!--<button [routerLink]="['/login']" class="btn btn-primary">login</button>-->
-            <!--</div>-->
-          <br>
-            <button type="submit" class="btn btn-primary" style="width:9cm;"
-            (click)="submitted=true; signupForm.form.valid && add(signupform)">
-            Sign Up
-            </button>
-
-        </form>
         </div>
       </div>
-      </div>
     </div>
-    <div class="imagerow">
-    </div>
-</div>
+    <div class="imagerow"></div>
+  </div>
 </div>
 
