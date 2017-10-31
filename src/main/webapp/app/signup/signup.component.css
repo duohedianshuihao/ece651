@@ -1,0 +1,38 @@
+.form-control {
+    border-radius: 10px;
+}
+.h1 {
+    text-align: center;
+    font-family: 'Open Sans', arial;
+    color: #555;
+    font-size: 38px;
+    margin-top: 27px;
+    margin-bottom: 50px;
+}
+.uptwo {
+    up: 0;
+}
+.downeight {
+    height: 100%;
+
+    bottom: 0;
+}
+.outside {
+    position:fixed;
+    padding:0;
+    margin:0;
+
+    top:0;
+    left:0;
+
+    width: 100%;
+    height: 100%;
+    background-color: #EEEDF3;
+}
+.row {
+    height: 50%;
+}
+.imagerow {
+    background-image: url(/app/static/Home.jpg);
+    height: 50%;
+}
