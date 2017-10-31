@@ -20,6 +20,7 @@ WelcomeComponent = __decorate([
         moduleId: module.id,
         selector: "welcome",
         templateUrl: "welcome.component.html",
+        styleUrls: ["welcome.component.css"]
     }),
     __metadata("design:paramtypes", [])
 ], WelcomeComponent);
