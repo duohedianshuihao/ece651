@@ -10,7 +10,7 @@ import { AlertService } from '../alert/alert.service';
     moduleId: module.id,
     selector: 'signup',
     templateUrl: 'signup.component.html',
-    styles: ['signup.component.css']
+    styleUrls: ['signup.component.css']
 })
 
 export class SignupComponent implements OnInit{

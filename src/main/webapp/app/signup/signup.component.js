@@ -42,7 +42,7 @@ SignupComponent = __decorate([
         moduleId: module.id,
         selector: 'signup',
         templateUrl: 'signup.component.html',
-        styles: ['signup.component.css']
+        styleUrls: ['signup.component.css']
     }),
     __metadata("design:paramtypes", [signup_service_1.SignupService,
         alert_service_1.AlertService,

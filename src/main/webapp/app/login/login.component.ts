@@ -11,7 +11,7 @@ import { loginForm } from "../Models/loginForm";
   moduleId: module.id,
   selector: 'login',
   templateUrl: 'login.component.html',
-  styles: ['login.component.css'],
+  styleUrls: ['login.component.css'],
 })
 
 export class LoginComponent {

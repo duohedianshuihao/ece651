@@ -45,7 +45,7 @@ LoginComponent = __decorate([
         moduleId: module.id,
         selector: 'login',
         templateUrl: 'login.component.html',
-        styles: ['login.component.css'],
+        styleUrls: ['login.component.css'],
     }),
     __metadata("design:paramtypes", [login_service_1.LoginService,
         alert_service_1.AlertService,
