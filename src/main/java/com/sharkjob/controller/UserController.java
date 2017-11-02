@@ -91,23 +91,70 @@ public class UserController {
     }
 
 
-    @RequestMapping(value = "/updateSkills", method = POST)
-    public boolean updateSkills(@RequestParam String email,
-                                @RequestParam List<String> skills) {
+    @RequestMapping(value = "/{userName}/updateSkills", method = POST)
+    public ResponseEntity<String> updateSkills(@PathVariable String userName,
+                                @RequestBody List<String> skills) {
 
-        return userDao.updateSkillsInSharkJobUserTableThroughEmail(email, skills);
+        boolean updateSkill = userDao.updateSkillsInSharkJobUserTableThroughUserName(userName, skills);
+
+        if (updateSkill) {
+            return new ResponseEntity<>("Skills updated",HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("No username or email",HttpStatus.UNAUTHORIZED);
+        }
     }
 
-    //find exception->update
-    //@RequestMapping(value = "/changeEmail", method = POST)
-    //@RequestMapping(value = "/changeUserName", method = POST)
-    //@RequestMapping(value = "/changePassword", method = POST)
+    @RequestMapping(value = "/{userName}/changeEmail", method = POST)
+    public ResponseEntity<String> changeEmail(@PathVariable String userName,
+                                               @RequestBody String password,
+                                               @RequestBody String newEmail) {
 
+        boolean changeEmail = userDao.changeEmailInSharkJobUserTableThroughUserName(userName, password, newEmail);
 
-    @RequestMapping(value="/getUser",method = GET)
-    public User getUserInfo(@RequestParam String email) {
+        if (changeEmail) {
+            return new ResponseEntity<>("email changed",HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("No user",HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    @RequestMapping(value = "/{userName}/changeUserName", method = POST)
+    public ResponseEntity<String> changeUserName(@PathVariable String userName,
+                                              @RequestBody String password,
+                                              @RequestBody String newUserName) {
+
+        boolean changeUserName = userDao.changeUserNameInSharkJobUserTableThroughUserName(userName, password, newUserName);
+
+        if (changeUserName) {
+            return new ResponseEntity<>("user name changed",HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("No user",HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    @RequestMapping(value = "/{userName}/changePassword", method = POST)
+    public ResponseEntity<String> changePassword(@PathVariable String userName,
+                                                 @RequestBody String password,
+                                                 @RequestBody String newPassowrd) {
+
+        boolean changePassword = userDao.changePasswordInSharkJobUserTableThroughUserName(userName, password, newPassowrd);
+
+        if (changePassword) {
+            return new ResponseEntity<>("password changed",HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("No user",HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    @RequestMapping(value="/{userName}",method = GET)
+    public ResponseEntity<User> getUserInfo(@PathVariable String userName) {
+        User user = userDao.findUserInSharkJobUserTableThroughUsername(userName);
         //check if return is null
-        return userDao.findUserInSharkJobUserTableThroughEmail(email);
+        if (user != null) {
+            return  new ResponseEntity<>(user, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
     }
 }
 

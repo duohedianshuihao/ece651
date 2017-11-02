@@ -112,6 +112,64 @@ public class UserDao {
 
     }
 
+    public boolean updateSkillsInSharkJobUserTableThroughUserName(String userName, List<String> skills) {
+
+        User user = findUserInSharkJobUserTableThroughUsername(userName);
+        if (user == null) {
+            return false;
+        }
+        user.setSkills(skills);
+        userMapper.save(user);
+
+        return true;
+
+    }
+
+    public boolean changeEmailInSharkJobUserTableThroughUserName(String userName, String password, String email) {
+        User user = findUserInSharkJobUserTableThroughUsername(userName);
+        if (isRightUser(userName, password) && isUniqueEmail(email)) {
+            user.setEmail(email);
+            userMapper.save(user);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean changeUserNameInSharkJobUserTableThroughUserName(String userName, String password, String newUserName) {
+        User user = findUserInSharkJobUserTableThroughUsername(userName);
+        if (isRightUser(userName, password) && isUniqueUserName(newUserName)) {
+            user.setUserName(newUserName);
+            userMapper.save(user);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean changePasswordInSharkJobUserTableThroughUserName(String userName, String password, String newPassword) {
+        User user = findUserInSharkJobUserTableThroughUsername(userName);
+        if ( isRightUser(userName, password) ) {
+            user.setPassword(newPassword);
+            userMapper.save(user);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isRightUser(String userName, String password) {
+        User user = findUserInSharkJobUserTableThroughUsername(userName);
+        return user.getPassword() == password;
+    }
+
+    public boolean isUniqueEmail(String email) {
+        User user = findUserInSharkJobUserTableThroughEmail(email);
+        return user == null;
+    }
+
+    public boolean isUniqueUserName(String userName) {
+        User user = findUserInSharkJobUserTableThroughUsername(userName);
+        return user == null;
+    }
+
     //check login
 
     //Other find operations.
