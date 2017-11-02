@@ -13,27 +13,53 @@
         <div class="carousel-inner" role="listbox">
           <div class="item active">
             <img src="/app/static/nserc-1920.jpg" alt="waterloo">
-            <a href="/signup">
-              <div class="carousel-caption">
-                <div class="highlight" onmouseover="this.style.background='gray'" onmouseout="this.style.background='black'">
-                  <h1>Hire expert freelancers for your job, online</h1>
-                  <p>All the small businesses use Shark Job in Waterloo to turn their ideas into reality.</p>
-                  <p>Start from here!</p>
+            <ul *ngIf="!currentUser" class="welcomejump">
+              <a href="/signup">
+                <div class="carousel-caption">
+                  <div class="highlight" onmouseover="this.style.background='gray'" onmouseout="this.style.background='black'">
+                    <h1>Hire expert freelancers for your job, online</h1>
+                    <p>All the small businesses use Shark Job in Waterloo to turn their ideas into reality.</p>
+                    <p>Start from here!</p>
+                  </div>
                 </div>
-              </div>
-            </a>
+              </a>
+            </ul>
+            <ul *ngIf="currentUser" class="footpart">
+              <a href="/jobInfo">
+                <div class="carousel-caption">
+                  <div class="highlight" onmouseover="this.style.background='gray'" onmouseout="this.style.background='black'">
+                    <h1>Hire expert freelancers for your job, online</h1>
+                    <p>All the small businesses use Shark Job in Waterloo to turn their ideas into reality.</p>
+                    <p>Start from here!</p>
+                  </div>
+                </div>
+              </a>
+            </ul>
           </div>
           <div class="item">
             <img src="/app/static/boy-girl-feet.jpg" alt="waterloo2">
-            <a href="/signup">
-              <div class="carousel-caption">
-                <div class="highlight"  onmouseover="this.style.background='gray'" onmouseout="this.style.background='black'">
-                  <h1>Find a dream job and earn more money, for yourself</h1>
-                  <p>All the small businesses use Shark Job in Waterloo to turn their ideas into reality.</p>
-                  <p>Start from here!</p>
+            <ul *ngIf="!currentUser" class="welcomejump">
+              <a href="/signup">
+                <div class="carousel-caption">
+                  <div class="highlight"  onmouseover="this.style.background='gray'" onmouseout="this.style.background='black'">
+                    <h1>Find a dream job and earn more money, for yourself</h1>
+                    <p>All the small businesses use Shark Job in Waterloo to turn their ideas into reality.</p>
+                    <p>Start from here!</p>
+                  </div>
                 </div>
-              </div>
-            </a>
+              </a>
+            </ul>
+            <ul *ngIf="currentUser" class="footpart">
+              <a href="/jobInfo">
+                <div class="carousel-caption">
+                  <div class="highlight"  onmouseover="this.style.background='gray'" onmouseout="this.style.background='black'">
+                    <h1>Find a dream job and earn more money, for yourself</h1>
+                    <p>All the small businesses use Shark Job in Waterloo to turn their ideas into reality.</p>
+                    <p>Start from here!</p>
+                  </div>
+                </div>
+              </a>
+            </ul>
           </div>
         </div>
 
@@ -49,7 +75,12 @@
       </div>
       <footer style="text-align: center;height:100%;color:black; background-color: #EEEDF3;">
         <br><br><br><br>
-        <h3>Already had an account? <a href="/login">Log In here</a></h3>
+        <ul *ngIf="!currentUser" class="footpart">
+          <h3>Already had an account? <a href="/login">Log In here</a></h3>
+        </ul>
+        <ul *ngIf="currentUser" class="footpart">
+          <h3>Welcome back to Shark Job {{ currentUser.userName }}!</h3>
+        </ul>
       </footer>
 
   </div>

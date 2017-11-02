@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
     moduleId: module.id,
     selector: 'navbar',
     templateUrl: 'navbar.component.html',
-    styles: ['navbar.component.css']
+    styleUrls: ['navbar.component.css']
 })
 
 export class NavbarComponent{

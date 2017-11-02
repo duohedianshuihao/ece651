@@ -10,8 +10,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
 var WelcomeComponent = (function () {
-    function WelcomeComponent() {
+    function WelcomeComponent(router) {
+        this.router = router;
+        this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        console.log("ASDF" + this.currentUser);
     }
     return WelcomeComponent;
 }());
@@ -22,7 +26,7 @@ WelcomeComponent = __decorate([
         templateUrl: "welcome.component.html",
         styleUrls: ["welcome.component.css"]
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [router_1.Router])
 ], WelcomeComponent);
 exports.WelcomeComponent = WelcomeComponent;
 //# sourceMappingURL=welcome.component.js.map

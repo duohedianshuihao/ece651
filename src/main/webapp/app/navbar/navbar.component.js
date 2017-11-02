@@ -32,7 +32,7 @@ NavbarComponent = __decorate([
         moduleId: module.id,
         selector: 'navbar',
         templateUrl: 'navbar.component.html',
-        styles: ['navbar.component.css']
+        styleUrls: ['navbar.component.css']
     }),
     __metadata("design:paramtypes", [router_1.Router,
         login_service_1.LoginService])
