@@ -14,16 +14,19 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { JobinfoComponent } from './jobinfo/jobinfo.component';
 import { JoblistsComponent } from './jobinfo/joblists/joblists.component';
 import { AlertComponent } from './alert/alert.component';
+import { UserComponent } from './user/user.component';
 
 import { LoginService } from './login/login.service';
 import { SignupService} from './signup/signup.service';
 import { AlertService } from './alert/alert.service';
 import { JobinfoService} from './jobinfo/jobinfo.service';
+import { UserService } from './user/user.service';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'signup', component: SignupComponent},
   {path: 'jobInfo', component: JobinfoComponent},
+  {path: 'userprofile/:userName', component: UserComponent},
   {path: '', component: WelcomeComponent}
 ]
 
@@ -46,14 +49,16 @@ const appRoutes: Routes = [
     NavbarComponent,
     JobinfoComponent,
     JoblistsComponent,
-    AlertComponent
+    AlertComponent,
+    UserComponent
     ],
 
   providers: [
     LoginService,
     SignupService,
     AlertService,
-    JobinfoService
+    JobinfoService,
+    UserService
   ],
 
   bootstrap: [

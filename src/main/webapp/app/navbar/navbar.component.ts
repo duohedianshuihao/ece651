@@ -28,4 +28,8 @@ export class NavbarComponent{
         location.reload();
     }
 
+    redirect() {
+        this.router.navigate(['/userprofile', this.currentUser.userName]);
+    }
+
 }

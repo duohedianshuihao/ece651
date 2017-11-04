@@ -17,7 +17,7 @@
       </ul>
 
       <ul *ngIf="currentUser" class="nav navbar-nav navbar-right">
-        <li><a href="#">{{ currentUser.userName }}</a></li>
+        <li><a class="btn" (click)="redirect();">{{ currentUser.userName }}</a></li>
         <li><a class="btn" (click)="logout();">logout</a></li>
       </ul>
     </div>

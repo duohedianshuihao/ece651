@@ -11,21 +11,36 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var WelcomeComponent = (function () {
-    function WelcomeComponent(router) {
+require("rxjs/add/operator/switchMap");
+var user_service_1 = require("./user.service");
+var UserComponent = (function () {
+    function UserComponent(userService, route, router) {
+        this.userService = userService;
+        this.route = route;
         this.router = router;
+        this.dataLoaded = false;
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     }
-    return WelcomeComponent;
+    UserComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.userService.getUser(this.currentUser.userName)
+            .subscribe(function (user) {
+            _this.user = user;
+            _this.dataLoaded = true;
+        });
+    };
+    return UserComponent;
 }());
-WelcomeComponent = __decorate([
+UserComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
-        selector: "welcome",
-        templateUrl: "welcome.component.html",
-        styleUrls: ["welcome.component.css"]
+        selector: "user",
+        templateUrl: "user.component.html",
+        styleUrls: ["user.component.css"]
     }),
-    __metadata("design:paramtypes", [router_1.Router])
-], WelcomeComponent);
-exports.WelcomeComponent = WelcomeComponent;
-//# sourceMappingURL=welcome.component.js.map
+    __metadata("design:paramtypes", [user_service_1.UserService,
+        router_1.ActivatedRoute,
+        router_1.Router])
+], UserComponent);
+exports.UserComponent = UserComponent;
+//# sourceMappingURL=user.component.js.map

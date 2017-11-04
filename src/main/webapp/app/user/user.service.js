@@ -10,22 +10,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var router_1 = require("@angular/router");
-var WelcomeComponent = (function () {
-    function WelcomeComponent(router) {
-        this.router = router;
-        this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+var http_1 = require("@angular/http");
+require("rxjs/add/operator/map");
+require("rxjs/add/operator/catch");
+var UserService = (function () {
+    function UserService(http) {
+        this.http = http;
+        this.headers = new http_1.Headers();
     }
-    return WelcomeComponent;
+    UserService.prototype.getUser = function (userName) {
+        var userUrl = "/" + userName;
+        return this.http.get(userUrl, { headers: this.headers })
+            .map(function (response) { return response.json(); });
+    };
+    return UserService;
 }());
-WelcomeComponent = __decorate([
-    core_1.Component({
-        moduleId: module.id,
-        selector: "welcome",
-        templateUrl: "welcome.component.html",
-        styleUrls: ["welcome.component.css"]
-    }),
-    __metadata("design:paramtypes", [router_1.Router])
-], WelcomeComponent);
-exports.WelcomeComponent = WelcomeComponent;
-//# sourceMappingURL=welcome.component.js.map
+UserService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [http_1.Http])
+], UserService);
+exports.UserService = UserService;
+//# sourceMappingURL=user.service.js.map

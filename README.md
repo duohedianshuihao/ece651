@@ -17,10 +17,11 @@
 
 ### front-end todo list
 
-- **some Bootstrap js functions not working**
-- add css styles to pages login, signup, homepage
+- ~~**some Bootstrap js functions not working**~~
+- ~~add css styles to pages login, signup, homepage~~
 - add job details page
-- get jobinfo from server
+- ~~get jobinfo from server~~
 - add post job page
 - add user profile page
+- update userinfo
 - to be added

@@ -25,6 +25,9 @@ var NavbarComponent = (function () {
         // this.router.navigate(['jobList']);
         location.reload();
     };
+    NavbarComponent.prototype.redirect = function () {
+        this.router.navigate(['/userprofile', this.currentUser.userName]);
+    };
     return NavbarComponent;
 }());
 NavbarComponent = __decorate([
