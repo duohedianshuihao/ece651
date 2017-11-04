@@ -155,17 +155,17 @@ public class UserDao {
         return false;
     }
 
-    public boolean isRightUser(String userName, String password) {
+    private boolean isRightUser(String userName, String password) {
         User user = findUserInSharkJobUserTableThroughUsername(userName);
         return user.getPassword() == password;
     }
 
-    public boolean isUniqueEmail(String email) {
+    private boolean isUniqueEmail(String email) {
         User user = findUserInSharkJobUserTableThroughEmail(email);
         return user == null;
     }
 
-    public boolean isUniqueUserName(String userName) {
+    private boolean isUniqueUserName(String userName) {
         User user = findUserInSharkJobUserTableThroughUsername(userName);
         return user == null;
     }

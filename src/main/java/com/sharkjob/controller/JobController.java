@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.sharkjob.Dao.JobDao;
 import com.sharkjob.Dao.UserDao;
 import com.sharkjob.model.Job;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -69,6 +70,34 @@ public class JobController {
             return new ResponseEntity<>(job, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+    }
+    /*Situation of Content
+    1. Job Tittle;
+    2. Skills;
+    3. Location;
+    */
+    @RequestMapping(value = "/searchEngine", method = GET)
+    public ResponseEntity< List<Job> > searchEngine(@RequestParam String content) {
+        String[] parameter = content.split(" ");
+        List<Job> jobList = jobDao.getAllJobsInSharkJobInfoTable();
+        List <Job> resultList = new LinkedList<>();
+        for(val job:jobList){
+            for (val param:parameter) {
+                if (job.getJobTittle().toLowerCase().contains(param.toLowerCase())
+                    || job.getRequiredSkills().contains(param)
+                    || job.getRequiredSkills().contains(param.toLowerCase())
+                    || job.getRequiredSkills().contains(param.toUpperCase())
+                    || job.getLocation().toLowerCase().contains(param.toLowerCase())){
+
+                    resultList.add(job);
+                }
+            }
+        }
+        if (!resultList.isEmpty()) {
+            return new ResponseEntity<>(resultList, HttpStatus.OK);
+        } else{
+            return new ResponseEntity<>(resultList, HttpStatus.NO_CONTENT);
         }
     }
 

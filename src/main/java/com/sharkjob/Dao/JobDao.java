@@ -90,4 +90,31 @@ public class JobDao {
             });
         return jobs;
     }
+
+    /*Very very ugly and inefficient code.
+    public List<Job> findJobsInSharkJobInfoTableThroughTitle(String title){
+        List<Job> jobs = getAllJobsInSharkJobInfoTable();
+        List<Job> result = new ArrayList<>();
+        for(val job:jobs){
+            if (job.getJobTittle().contains(title)){
+                result.add(job);
+            }
+        }
+        return result;
+    }
+    //Very very ugly and inefficient code.
+    public List<Job> findJobsInSharkJobInfoTableThroughSkill(String skill){
+        List<Job> jobs = getAllJobsInSharkJobInfoTable();
+        List<Job> result = new ArrayList<>();
+        for(val job:jobs){
+            if (job.getRequiredSkills().contains(skill)
+                    || job.getRequiredSkills().contains(skill.toLowerCase())
+                    || job.getRequiredSkills().contains(skill.toUpperCase())){
+
+                    result.add(job);
+            }
+        }
+        return result;
+    }
+    */
 }
