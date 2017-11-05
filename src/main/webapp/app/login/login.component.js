@@ -13,7 +13,6 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var login_service_1 = require("./login.service");
 var alert_service_1 = require("../alert/alert.service");
-var userProfile_1 = require("../Models/userProfile");
 var loginForm_1 = require("../Models/loginForm");
 var LoginComponent = (function () {
     function LoginComponent(loginService, alertService, router, adrouter) {
@@ -25,7 +24,7 @@ var LoginComponent = (function () {
     }
     LoginComponent.prototype.ngOnInit = function () {
         this.loginform = new loginForm_1.loginForm("", "");
-        this.user = new userProfile_1.userProfile("", "");
+        this.user = [];
         this.returnUrl = this.adrouter.snapshot.queryParams['returnUrl'] || '/';
     };
     LoginComponent.prototype.get = function (form) {
@@ -35,7 +34,7 @@ var LoginComponent = (function () {
             .subscribe(function (data) {
             _this.router.navigate(['/jobInfo']);
         }, function (error) {
-            _this.alertService.error(error);
+            _this.alertService.error(error.text());
         });
     };
     return LoginComponent;

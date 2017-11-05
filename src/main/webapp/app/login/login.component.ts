@@ -17,7 +17,7 @@ import { loginForm } from "../Models/loginForm";
 export class LoginComponent {
   returnUrl: string;
   private loginform: loginForm;
-  private user: userProfile;
+  private user: any;
 
   public submitted = false;
 
@@ -31,7 +31,7 @@ export class LoginComponent {
 
   ngOnInit(){
     this.loginform = new loginForm("", "");
-    this.user = new userProfile("", "");
+    this.user = [];
     this.returnUrl = this.adrouter.snapshot.queryParams['returnUrl'] || '/';
   }
 
@@ -43,7 +43,7 @@ export class LoginComponent {
             this.router.navigate(['/jobInfo']);
           },
           error => {
-            this.alertService.error(error);
+            this.alertService.error(error.text());
           });
   }
 

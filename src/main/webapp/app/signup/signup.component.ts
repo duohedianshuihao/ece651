@@ -35,7 +35,7 @@ export class SignupComponent implements OnInit{
             this.alertService.success('Registration successful', true);
           },
           error => {
-            this.alertService.error(error);
+            this.alertService.error(error.text());
           });
   }
 }

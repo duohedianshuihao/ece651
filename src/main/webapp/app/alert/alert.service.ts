@@ -29,7 +29,7 @@ export class AlertService {
 
     error(message: any, keepAfterNav = false) {
         this.keepAfterNav = keepAfterNav;
-        this.subject.next({ type: 'error', text: message.text() });
+        this.subject.next({ type: 'error', text: message });
     }
 
     getMessage(): Observable<any> {

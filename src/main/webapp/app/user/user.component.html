@@ -1,5 +1,79 @@
+<alert></alert>
 <div class="container" *ngIf="dataLoaded">
-  <p>this is user page</p>
-  <p>{{ user.userName }}</p>
-  <p>{{ user.email }}</p>
+  <div class="row">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <div class="panel-title">
+          <h3>User Infomation</h3>
+        </div>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-offset-3 col-md-6">
+            <form #user="ngForm">
+              <div class="form-group">
+                <label for="userName">Username:</label>
+                <br>
+                <input type="text" class="form-control" id="userName" required pattern="^[a-zA-Z0-9]+$" maxlength="20" [(ngModel)]="user.userName" name="userName"  #userName="ngModel">
+                <div [hidden]="!submitted || userName.valid" class="alert alert-danger">Username Invalid</div>
+              </div>
+              <div class="form-group">
+                <label for="Email">Email:</label>
+                <br>
+                <input class="form-control" id="Email" required pattern="^[a-z0-9A-Z]+([._\\-]*[a-z0-9A-Z])*@([a-z0-9A-Z]+[-a-z0-9A-Z]*[a-z0-9A-Z]+.){1,63}[a-z0-9A-Z]+$" [(ngModel)]="user.email" name="email" #email="ngModel" value="{{ currentUser.email }}">
+                <div [hidden]="!submitted || email.valid" class="alert alert-danger">Email Invalid</div>
+              </div>
+              <div class="form-group">
+                <label for="userType">User Type:</label>
+                <br>
+                <select name="userType" id="userType" class="form-control" [(ngModel)]="user.userType" required name="userType" #userType="ngModel">
+                  <option value="Student">Student</option>
+                  <option value="Company">Company</option>
+                </select>
+                <div [hidden]="!submitted || userType.valid" class="alert alert-danger">Please Choose a type</div>
+              </div>
+              <div class="form-group">
+                <button class="btn btn-info" (click)="submitted=true; check_update(); user.form.valid && updateInfo(); show_info();">update</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <div class="panel-title">
+          <h3>Password</h3>
+        </div>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-offset-3 col-md-6">
+            <form #_passwordForm="ngForm">
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" [(ngModel)]="_password.oldPassword" required name="oldPassword" #oldPassword="ngModel">
+                <div [hidden]="!passwordSubmitted || oldPassword.valid" class="alert alert-danger">Old Password Required</div>
+              </div>
+              <div class="form-group">
+                <label for="new_password">New Password</label>
+                <input type="password" class="form-control" id="new_password" [(ngModel)]="_password.newPassword" required minlength="6" name="newPassword" #newPassword="ngModel">
+                <div [hidden]="!passwordSubmitted || (newPassword.valid && newPassword.value != oldPassword.value) " class="alert alert-danger">New Password Are Required and Should Be Different</div>
+              </div>
+              <div class="form-group">
+                <label for="new_password_again">New Password Again</label>
+                <input type="password" class="form-control" id="new_password_again" [(ngModel)]="_password.newPasswordAgain" required name="newPasswordAgain" #newPasswordAgain="ngModel">
+              </div>
+              <div [hidden]="!passwordSubmitted || newPassword.value==newPasswordAgain.value" class="alert alert-danger">New Password Should Be Same</div>
+              <div class="form-group">
+                <button class="btn btn-info" (click)="passwordSubmitted=true; _passwordForm.form.valid && check_password()">update</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

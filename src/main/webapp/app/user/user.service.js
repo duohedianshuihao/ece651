@@ -23,6 +23,53 @@ var UserService = (function () {
         return this.http.get(userUrl, { headers: this.headers })
             .map(function (response) { return response.json(); });
     };
+    UserService.prototype.updateEmail = function (user, currentUser) {
+        var updateUrl = "/" + currentUser.userName + "/changeEmail";
+        var body = JSON.stringify({
+            userName: currentUser.userName,
+            password: currentUser.password,
+            newEmail: user.email
+        });
+        return this.http.post(updateUrl, body, { headers: this.headers })
+            .map(function (response) { response.json(); });
+    };
+    UserService.prototype.updateUserName = function (user, currentUser) {
+        var updateUrl = "/" + currentUser.userName + "/changeUserName";
+        var body = JSON.stringify({
+            userName: currentUser.userName,
+            password: currentUser.password,
+            newUserName: user.userName
+        });
+        return this.http.post(updateUrl, body, { headers: this.headers })
+            .map(function (response) { response.json(); });
+    };
+    UserService.prototype.updatePassword = function (password, currentUser) {
+        var updateUrl = "/" + currentUser.userName + "/changePassword";
+        var body = JSON.stringify({
+            userName: currentUser.userName,
+            password: password.newPassword
+        });
+        return this.http.post(updateUrl, body, { headers: this.headers })
+            .map(function (response) { response.json(); });
+    };
+    UserService.prototype.updateSkills = function (user, currentUser) {
+        var updateUrl = "/" + currentUser.userName + "/updateSkills";
+        var body = JSON.stringify({
+            userName: currentUser.userName,
+            skills: user.skills
+        });
+        return this.http.post(updateUrl, body, { headers: this.headers })
+            .map(function (response) { response.json(); });
+    };
+    UserService.prototype.check_password = function (password, currentUser) {
+        var checkUrl = "/toLogin";
+        var body = JSON.stringify({
+            userName: currentUser.userName,
+            password: password.oldPassword
+        });
+        return this.http.post(checkUrl, body, { headers: this.headers })
+            .map(function (response) { response.json(); });
+    };
     return UserService;
 }());
 UserService = __decorate([

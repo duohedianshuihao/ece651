@@ -39,7 +39,7 @@ var AlertService = (function () {
     AlertService.prototype.error = function (message, keepAfterNav) {
         if (keepAfterNav === void 0) { keepAfterNav = false; }
         this.keepAfterNav = keepAfterNav;
-        this.subject.next({ type: 'error', text: message.text() });
+        this.subject.next({ type: 'error', text: message });
     };
     AlertService.prototype.getMessage = function () {
         return this.subject.asObservable();

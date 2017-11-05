@@ -32,7 +32,7 @@ var SignupComponent = (function () {
             _this.router.navigate(['/login']);
             _this.alertService.success('Registration successful', true);
         }, function (error) {
-            _this.alertService.error(error);
+            _this.alertService.error(error.text());
         });
     };
     return SignupComponent;

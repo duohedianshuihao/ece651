@@ -44,10 +44,7 @@
                 <label for="password_again">Ensure password</label>
                 <input type="password" class='form-control' id='password_again' placeholder="re-enter password" required [(ngModel)]="signupform.password_again" name="password_again" #password_again="ngModel" >
               </div>
-              <div [hidden]="password_again.untouched || password.value==password_again.value" class="alert alert-danger">Password </div>
-                <!--<div class="col-md-3">-->
-                  <!--<button [routerLink]="['/login']" class="btn btn-primary">login</button>-->
-                <!--</div>-->
+              <div [hidden]="password_again.untouched || password.value==password_again.value" class="alert alert-danger">Password Should Be Same</div>
               <br>
               <button type="submit" class="btn btn-primary" style="width:100%;"
               (click)="submitted=true; signupForm.form.valid && add(signupform)">
