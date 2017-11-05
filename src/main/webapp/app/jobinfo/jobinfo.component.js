@@ -30,7 +30,7 @@ JobinfoComponent = __decorate([
         moduleId: module.id,
         selector: 'jobinfo',
         templateUrl: 'jobinfo.component.html',
-        styles: ['jobinfo.component.css']
+        styleUrls: ['jobinfo.component.css']
     }),
     __metadata("design:paramtypes", [jobinfo_service_1.JobinfoService])
 ], JobinfoComponent);

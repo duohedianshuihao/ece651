@@ -7,7 +7,7 @@ import { JobDetails } from '../Models/jobDetails';
     moduleId: module.id,
     selector: 'jobinfo',
     templateUrl: 'jobinfo.component.html',
-    styles: ['jobinfo.component.css']
+    styleUrls: ['jobinfo.component.css']
 })
 
 export class JobinfoComponent implements OnInit{

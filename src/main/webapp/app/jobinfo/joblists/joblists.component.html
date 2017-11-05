@@ -10,30 +10,30 @@
     <li *ngFor="let job of jobModels" class="joblists-li">
       <div class="joblists-content">
         <div class="joblists-liner">
-          <div class="col-sm-2">
-            <div class="avatar-wrapper">
-              <span class="job-avater">
-                <img src="/app/static/avatar.jpg" alt="#" class="img-thumbnail job-avater">
-              </span>
-            </div>
-          </div>
-          <div class="col-sm-6">
-            <div class="job-title">
-              <h2>{{ job.jobTittle }}</h2>
-              <em class="timestamp">{{ job.createdTime | date }}</em>
-            </div>
-            <div class="job-content">
-              <p></p>
-            </div>
-            <div class="job-full">
-              <ul class="nav nav-tabs">
-                <li class="full-wrapper">
+          <div class="job-full">
+            <ul class="nav nav-tabs" onmouseover="this.style.background='#DEDEDE'" onmouseout="this.style.background='white'">
+              <li class="full-wrapper">
+                <div class="col-sm-4">
+                  <div class="avatar-wrapper">
+                    <span class="job-avater">
+                      <img src="/app/static/avatar.jpg" alt="#" class="img-thumbnail job-avater">
+                    </span>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="job-title">
+                    <h3><a href="#">{{ job.jobTittle }}</a></h3>
+                    <em class="timestamp">{{ job.createdTime | date }}</em>
+                  </div>
+                  <div class="job-content">
+                    <p>{{ job.jobDescription }}</p>
+                  </div>
                   <button class="btn btn-default" href="#">details</button>
-                </li>
-              </ul>
-            </div>
-          </div>
+                </div>
+              </li>
+            </ul>
         </div>
+       </div>
       </div>
     </li>
   </ul>

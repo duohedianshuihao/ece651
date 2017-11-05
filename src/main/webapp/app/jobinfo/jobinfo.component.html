@@ -1,3 +1,30 @@
-<navbar></navbar>
-
-<joblists [jobModels]="jobModels"></joblists>
+<div class="joblists-wrapper">
+    <navbar></navbar>
+    <joblists [jobModels]="jobModels"></joblists>
+    <footer class="Footer">
+        <br>
+        <div class="Footer-section Footer-section--bordered">
+            <div class="container footer">
+                <div class="Grid Grid--verticalCenter">
+                    <div class="col-sm-6">
+                        <div id="footerRegisteredUsersCount" class="SiteStat-value">6</div>
+                        <div class="SiteStat-name">
+                            <span class="SiteStat-name-text">Registered Users</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="SiteStat">
+                            <div id="footerTotalJobsPostedCount" class="SiteStat-value">
+                                4
+                            </div>
+                            <div class="SiteStat-name">
+                                <span class="SiteStat-name-text">Total Jobs Posted</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br><br>
+    </footer>
+</div>
