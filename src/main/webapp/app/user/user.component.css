@@ -10,3 +10,6 @@
 :-moz-placeholder { /* Firefox 18- */
   color: black;
 }
+.btn {
+  width:  100%;
+}
