@@ -105,4 +105,11 @@ public class JobController {
     public void addComment(@PathVariable String jobId, @RequestBody String newComment) {
 
     }
+
+    @RequestMapping(value ="/numberOfJobs", method = GET)
+    public ResponseEntity<Integer> getNumberOfJobs() {
+        Integer number = jobDao.getNumberOfJobsInSharkJobInfoTable();
+
+        return new ResponseEntity<>(number, HttpStatus.OK);
+    }
 }

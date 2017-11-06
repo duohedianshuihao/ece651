@@ -132,6 +132,7 @@ public class JobDaoTest {
         assertEquals(job.getComments().get(2).getComment(),"a new comment");
     }
 
+
 //    @Test
 //    public void sorted_getAllJobsInSharkInfoTable() {
 //        jobDao.saveJobInSharkJobInfoTable(job);

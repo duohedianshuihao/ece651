@@ -156,5 +156,11 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
     }
+
+    @RequestMapping(value="/numberOfUsers", method = GET)
+    public ResponseEntity<Integer> getNumberOfUsers() {
+        Integer number = userDao.getNumberofUsersInSharkUserInfoTable();
+        return new ResponseEntity<>(number, HttpStatus.OK);
+    }
 }
 

@@ -7,7 +7,9 @@
             <div class="container footer">
                 <div class="Grid Grid--verticalCenter">
                     <div class="col-sm-6">
-                        <div id="footerRegisteredUsersCount" class="SiteStat-value">6</div>
+                        <div id="footerRegisteredUsersCount" class="SiteStat-value">
+                            {{numberOfUsers}}
+                        </div>
                         <div class="SiteStat-name">
                             <span class="SiteStat-name-text">Registered Users</span>
                         </div>
@@ -15,7 +17,7 @@
                     <div class="col-sm-6">
                         <div class="SiteStat">
                             <div id="footerTotalJobsPostedCount" class="SiteStat-value">
-                                4
+                                {{numberOfJobs}}
                             </div>
                             <div class="SiteStat-name">
                                 <span class="SiteStat-name-text">Total Jobs Posted</span>

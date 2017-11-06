@@ -14,10 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -44,6 +41,7 @@ public class UserDao {
         } catch (ResourceInUseException e) {
             //swallow
             log.info("User Table has already exist.");
+            log.info("Number of users in table:"+getNumberofUsersInSharkUserInfoTable());
         }
     }
 
@@ -153,6 +151,11 @@ public class UserDao {
             return true;
         }
         return false;
+    }
+
+    public int getNumberofUsersInSharkUserInfoTable() {
+
+        return userMapper.count(User.class, new DynamoDBScanExpression());
     }
 
     private boolean isRightUser(String userName, String password) {

@@ -16,9 +16,19 @@ var JobinfoService = (function () {
         this.http = http;
         this.headers = new http_1.Headers();
         this.jobUrl = '/jobList';
+        this.jobnumberUrl = '/numberOfJobs';
+        this.usernumberUrl = '/numberOfUsers';
     }
     JobinfoService.prototype.getJobDetails = function () {
         return this.http.get(this.jobUrl, { headers: this.headers })
+            .map(function (response) { return response.json(); });
+    };
+    JobinfoService.prototype.getNumberOfJobs = function () {
+        return this.http.get(this.jobnumberUrl, { headers: this.headers })
+            .map(function (response) { return response.json(); });
+    };
+    JobinfoService.prototype.getNumberOfUsers = function () {
+        return this.http.get(this.usernumberUrl, { headers: this.headers })
             .map(function (response) { return response.json(); });
     };
     return JobinfoService;
