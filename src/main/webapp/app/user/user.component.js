@@ -60,7 +60,7 @@ var UserComponent = (function () {
         var _this = this;
         if (this.email_changed) {
             this.userService
-                .updateEmail(this.user, this.currentUser)
+                .updateEmail(user, this.currentUser)
                 .subscribe(function (info) {
                 _this.email_updated = true;
             }, function (error) {
@@ -69,7 +69,7 @@ var UserComponent = (function () {
         }
         if (this.userName_changed) {
             this.userService
-                .updateUserName(this.user, this.currentUser)
+                .updateUserName(user, this.currentUser)
                 .subscribe(function (info) {
                 _this.userName_updated = true;
             }, function (error) {
@@ -78,7 +78,7 @@ var UserComponent = (function () {
         }
         if (this.skills_changed) {
             this.userService
-                .updateSkills(this.user, this.currentUser)
+                .updateSkills(user, this.currentUser)
                 .subscribe(function (info) {
                 _this.skills_updated = true;
             }, function (error) {
@@ -93,8 +93,6 @@ var UserComponent = (function () {
     };
     UserComponent.prototype.check_password = function () {
         var _this = this;
-        console.log(this._password.oldPassword);
-        console.log(this._password.newPassword);
         this.userService.check_password(this._password, this.currentUser)
             .subscribe(function (info) {
             _this.update_password();

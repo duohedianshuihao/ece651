@@ -78,7 +78,7 @@ export class UserComponent implements OnInit {
     updateInfo(user) {
         if (this.email_changed) {
             this.userService
-            .updateEmail(this.user, this.currentUser)
+            .updateEmail(user, this.currentUser)
             .subscribe(
                 info => {
                     this.email_updated = true;
@@ -90,7 +90,7 @@ export class UserComponent implements OnInit {
 
         if (this.userName_changed) {
             this.userService
-            .updateUserName(this.user, this.currentUser)
+            .updateUserName(user, this.currentUser)
             .subscribe(
                 info => {
                     this.userName_updated = true;
@@ -102,7 +102,7 @@ export class UserComponent implements OnInit {
 
         if (this.skills_changed) {
             this.userService
-            .updateSkills(this.user, this.currentUser)
+            .updateSkills(user, this.currentUser)
             .subscribe(
                 info => {
                     this.skills_updated = true;
@@ -120,8 +120,6 @@ export class UserComponent implements OnInit {
     }
 
     check_password() {
-        console.log(this._password.oldPassword);
-        console.log(this._password.newPassword);
         this.userService.check_password(this._password, this.currentUser)
                         .subscribe(
                             info => {
