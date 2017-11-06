@@ -9,7 +9,7 @@
     <div class="tab-content">
       <div id="info" class="tab-pane fade in active">
         <br>
-        <form #user="ngForm">
+        <form #userForm="ngForm">
           <div class="form-group">
             <label for="userName">Username:</label>
             <br>
@@ -19,7 +19,7 @@
           <div class="form-group">
             <label for="Email">Email:</label>
             <br>
-            <input class="form-control" id="Email" required pattern="^[a-z0-9A-Z]+([._\\-]*[a-z0-9A-Z])*@([a-z0-9A-Z]+[-a-z0-9A-Z]*[a-z0-9A-Z]+.){1,63}[a-z0-9A-Z]+$" [(ngModel)]="user.email" name="email" #email="ngModel" value="{{ currentUser.email }}">
+            <input class="form-control" id="Email" required pattern="^[a-z0-9A-Z]+([._\\-]*[a-z0-9A-Z])*@([a-z0-9A-Z]+[-a-z0-9A-Z]*[a-z0-9A-Z]+.){1,63}[a-z0-9A-Z]+$" [(ngModel)]="user.email" name="email" #email="ngModel">
             <div [hidden]="!submitted || email.valid" class="alert alert-danger">Email Invalid</div>
           </div>
           <div class="form-group">
@@ -33,7 +33,7 @@
           </div>
           <br>
           <div class="form-group">
-            <button class="btn btn-info" (click)="submitted=true; check_update(user); user.form.valid && updateInfo(user); show_info();">update</button>
+            <button class="btn btn-info" (click)="submitted=true; check_update(); userForm.form.valid && updateInfo(user); show_info();">update</button>
           </div>
         </form>
       </div>
