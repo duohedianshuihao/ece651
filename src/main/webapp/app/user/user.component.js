@@ -40,14 +40,16 @@ var UserComponent = (function () {
             _this.dataLoaded = true;
         });
     };
-    UserComponent.prototype.check_update = function () {
-        if (this.currentUser.userName != this.user.userName) {
+    UserComponent.prototype.check_update = function (user) {
+        console.log(user.userName);
+        console.log(this.currentUser.userName);
+        if (this.currentUser.userName != user.userName) {
             this.userName_changed = true;
         }
-        if (this.currentUser.skills != this.user.skills) {
+        if (this.currentUser.skills != user.skills) {
             this.skills_changed = true;
         }
-        if (this.currentUser.email != this.user.email) {
+        if (this.currentUser.email != user.email) {
             this.email_changed = true;
         }
         if (!this.userName_changed && !this.email_changed) {

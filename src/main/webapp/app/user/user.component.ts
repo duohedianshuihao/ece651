@@ -57,14 +57,16 @@ export class UserComponent implements OnInit {
                             });
     }
 
-    check_update(){
-        if (this.currentUser.userName != this.user.userName){
+    check_update(user){
+        console.log(user.userName);
+        console.log(this.currentUser.userName);
+        if (this.currentUser.userName != user.userName){
             this.userName_changed = true;
         }
-        if (this.currentUser.skills != this.user.skills) {
+        if (this.currentUser.skills != user.skills) {
             this.skills_changed = true;
         }
-        if (this.currentUser.email != this.user.email) {
+        if (this.currentUser.email != user.email) {
             this.email_changed = true;
         }
 
@@ -73,7 +75,7 @@ export class UserComponent implements OnInit {
         }
     }
 
-    updateInfo(user: userProfile) {
+    updateInfo(user) {
         if (this.email_changed) {
             this.userService
             .updateEmail(this.user, this.currentUser)
