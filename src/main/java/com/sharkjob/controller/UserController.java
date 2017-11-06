@@ -106,9 +106,12 @@ public class UserController {
 
     @RequestMapping(value = "/{userName}/changeEmail", method = POST)
     public ResponseEntity<String> changeEmail(@PathVariable String userName,
-                                               @RequestBody String password,
-                                               @RequestBody String newEmail) {
+                                              @RequestParam(value = "newEmail", required = false) String newEmail,
+                                              @RequestParam(value = "password", required = false) String password ) {
 
+        log.info(userName+" ");
+        log.info(password+" ");
+        log.info(newEmail+" ");
         boolean changeEmail = userDao.changeEmailInSharkJobUserTableThroughUserName(userName, password, newEmail);
 
         if (changeEmail) {
@@ -120,8 +123,8 @@ public class UserController {
 
     @RequestMapping(value = "/{userName}/changeUserName", method = POST)
     public ResponseEntity<String> changeUserName(@PathVariable String userName,
-                                              @RequestBody String password,
-                                              @RequestBody String newUserName) {
+                                                 @RequestParam(value = "password") String password,
+                                                 @RequestParam(value = "newUserName") String newUserName) {
 
         boolean changeUserName = userDao.changeUserNameInSharkJobUserTableThroughUserName(userName, password, newUserName);
 

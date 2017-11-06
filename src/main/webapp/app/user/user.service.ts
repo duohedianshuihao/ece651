@@ -3,7 +3,7 @@ import { Http, Headers, Response } from '@angular/http';
 import { Observable }    from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-
+import { URLSearchParams } from '@angular/http';
 import { userProfile } from '../Models/userProfile';
 
 @Injectable()
@@ -22,22 +22,20 @@ export class UserService {
 
     updateEmail(user, currentUser) {
         let updateUrl = "/" + currentUser.userName + "/changeEmail";
-        let body = JSON.stringify({
-            userName: currentUser.userName,
-            password: currentUser.password,
-            newEmail: user.email
-        });
-        return this.http.post(updateUrl, body, {headers: this.headers})
+        let urlSearchParams = new URLSearchParams();
+        urlSearchParams.append('userName', currentUser.userName);
+        urlSearchParams.append('password', currentUser.password);
+        urlSearchParams.append('newEmail', user.email);
+        return this.http.post(updateUrl, urlSearchParams, {headers: this.headers})
                         .map((response: Response) => {response.json()});
     }
 
     updateUserName(user, currentUser) {
         let updateUrl = "/" + currentUser.userName + "/changeUserName";
-        let body = JSON.stringify({
-            userName: currentUser.userName,
-            password: currentUser.password,
-            newUserName: user.userName
-        });
+        let urlSearchParams = new URLSearchParams();
+        urlSearchParams.append('userName', currentUser.userName);
+        urlSearchParams.append('password', currentUser.password);
+        urlSearchParams.append('newUserName', user.userName);
         return this.http.post(updateUrl, body, {headers: this.headers})
                         .map((response: Response) => {response.json()});
     }

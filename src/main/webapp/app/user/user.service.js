@@ -13,6 +13,7 @@ var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 require("rxjs/add/operator/map");
 require("rxjs/add/operator/catch");
+var http_2 = require("@angular/http");
 var UserService = (function () {
     function UserService(http) {
         this.http = http;
@@ -25,21 +26,19 @@ var UserService = (function () {
     };
     UserService.prototype.updateEmail = function (user, currentUser) {
         var updateUrl = "/" + currentUser.userName + "/changeEmail";
-        var body = JSON.stringify({
-            userName: currentUser.userName,
-            password: currentUser.password,
-            newEmail: user.email
-        });
-        return this.http.post(updateUrl, body, { headers: this.headers })
+        var urlSearchParams = new http_2.URLSearchParams();
+        urlSearchParams.append('userName', currentUser.userName);
+        urlSearchParams.append('password', currentUser.password);
+        urlSearchParams.append('newEmail', user.email);
+        return this.http.post(updateUrl, urlSearchParams, { headers: this.headers })
             .map(function (response) { response.json(); });
     };
     UserService.prototype.updateUserName = function (user, currentUser) {
         var updateUrl = "/" + currentUser.userName + "/changeUserName";
-        var body = JSON.stringify({
-            userName: currentUser.userName,
-            password: currentUser.password,
-            newUserName: user.userName
-        });
+        var urlSearchParams = new http_2.URLSearchParams();
+        urlSearchParams.append('userName', currentUser.userName);
+        urlSearchParams.append('password', currentUser.password);
+        urlSearchParams.append('newUserName', user.userName);
         return this.http.post(updateUrl, body, { headers: this.headers })
             .map(function (response) { response.json(); });
     };
