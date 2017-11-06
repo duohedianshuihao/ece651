@@ -37,7 +37,7 @@ var NavbarComponent = (function () {
         // }
     };
     NavbarComponent.prototype.redirect = function () {
-        this.router.navigate(['/userprofile', this.currentUser.userName]);
+        this.router.navigate(['/userprofile']);
     };
     return NavbarComponent;
 }());

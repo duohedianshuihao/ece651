@@ -27,7 +27,7 @@ const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'signup', component: SignupComponent},
   {path: 'jobInfo', component: JobinfoComponent},
-  {path: 'userprofile/:userName', component: UserComponent},
+  {path: 'userprofile', component: UserComponent},
   {path: '', component: WelcomeComponent}
 ]
 

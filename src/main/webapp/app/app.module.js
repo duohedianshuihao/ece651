@@ -31,7 +31,7 @@ var appRoutes = [
     { path: 'login', component: login_component_1.LoginComponent },
     { path: 'signup', component: signup_component_1.SignupComponent },
     { path: 'jobInfo', component: jobinfo_component_1.JobinfoComponent },
-    { path: 'userprofile/:userName', component: user_component_1.UserComponent },
+    { path: 'userprofile', component: user_component_1.UserComponent },
     { path: '', component: welcome_component_1.WelcomeComponent }
 ];
 var AppModule = (function () {

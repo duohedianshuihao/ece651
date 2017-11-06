@@ -44,7 +44,7 @@ export class NavbarComponent implements OnInit{
     }
 
     redirect() {
-        this.router.navigate(['/userprofile', this.currentUser.userName]);
+        this.router.navigate(['/userprofile']);
     }
 
 }
