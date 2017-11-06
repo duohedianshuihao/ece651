@@ -8,7 +8,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
@@ -18,12 +17,6 @@ var NavbarService = (function () {
         this.router = router;
         this.http = http;
     }
-    NavbarService.prototype.searchJob = function (searchWords) {
-        var searchUrl = "/searchEngine";
-        var urlSearchParams = new http_1.URLSearchParams();
-        urlSearchParams.set("content", searchWords);
-        this.http.get(searchUrl, urlSearchParams);
-    };
     return NavbarService;
 }());
 NavbarService = __decorate([
@@ -32,11 +25,15 @@ NavbarService = __decorate([
         http_1.Http])
 ], NavbarService);
 exports.NavbarService = NavbarService;
-var params = new http_1.URLSearchParams();
-params.set('appid', StaticSettings.API_KEY);
-params.set('cnt', days.toString());
-//Http request-
-return this.http.get(StaticSettings.BASE_URL, {
-    search: params
-}).subscribe(function (response) { return _this.onGetForecastResult(response.json()); }, function (error) { return _this.onGetForecastError(error.json()); }, function () { return _this.onGetForecastComplete(); });
+// let params: URLSearchParams = new URLSearchParams();
+//  params.set('appid', StaticSettings.API_KEY);
+//  params.set('cnt', days.toString());
+//  //Http request-
+//  return this.http.get(StaticSettings.BASE_URL, {
+//    search: params
+//  }).subscribe(
+//    (response) => this.onGetForecastResult(response.json()),
+//    (error) => this.onGetForecastError(error.json()),
+//    () => this.onGetForecastComplete()
+//  );
 //# sourceMappingURL=navbar.service.js.map

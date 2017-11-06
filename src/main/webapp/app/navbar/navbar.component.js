@@ -31,10 +31,10 @@ var NavbarComponent = (function () {
         location.reload();
     };
     NavbarComponent.prototype.search = function () {
-        if (this.searchWord) {
-            this.navbarService.searchJob(this.searchWord)
-                .subscribe();
-        }
+        // if (this.searchWord) {
+        //     this.navbarService.searchJob(this.searchWord)
+        //                       .subscribe()
+        // }
     };
     NavbarComponent.prototype.redirect = function () {
         this.router.navigate(['/userprofile', this.currentUser.userName]);

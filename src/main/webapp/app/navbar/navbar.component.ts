@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { userProfile } from '../Models/userProfile';
 import { LoginService } from '../login/login.service';
 import { NavbarService } from './navbar.service';
-import { Http, Headers, Response, URLSearchParams } from '@angular/http';
 
 
 import { Router } from '@angular/router';
@@ -38,10 +37,10 @@ export class NavbarComponent implements OnInit{
     }
 
     search() {
-        if (this.searchWord) {
-            this.navbarService.searchJob(this.searchWord)
-                              .subscribe()
-        }
+        // if (this.searchWord) {
+        //     this.navbarService.searchJob(this.searchWord)
+        //                       .subscribe()
+        // }
     }
 
     redirect() {
