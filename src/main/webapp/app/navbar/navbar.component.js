@@ -11,19 +11,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var login_service_1 = require("../login/login.service");
+var navbar_service_1 = require("./navbar.service");
 var router_1 = require("@angular/router");
 var NavbarComponent = (function () {
-    function NavbarComponent(router, loginService) {
+    function NavbarComponent(router, loginService, navbarService) {
         this.router = router;
         this.loginService = loginService;
+        this.navbarService = navbarService;
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     }
+    NavbarComponent.prototype.ngOnInit = function () {
+        this.searchWord = "";
+    };
     NavbarComponent.prototype.logout = function () {
         // localStorage.removeItem('currentUser');
         this.loginService.logout();
         // following function would not work if nothing changed
         // this.router.navigate(['jobList']);
         location.reload();
+    };
+    NavbarComponent.prototype.search = function () {
+        if (this.searchWord) {
+            this.navbarService.searchJob(this.searchWord)
+                .subscribe();
+        }
     };
     NavbarComponent.prototype.redirect = function () {
         this.router.navigate(['/userprofile', this.currentUser.userName]);
@@ -38,7 +49,8 @@ NavbarComponent = __decorate([
         styleUrls: ['navbar.component.css']
     }),
     __metadata("design:paramtypes", [router_1.Router,
-        login_service_1.LoginService])
+        login_service_1.LoginService,
+        navbar_service_1.NavbarService])
 ], NavbarComponent);
 exports.NavbarComponent = NavbarComponent;
 //# sourceMappingURL=navbar.component.js.map

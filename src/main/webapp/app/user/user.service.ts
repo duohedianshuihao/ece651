@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
+import { Http, Headers, Response, URLSearchParams } from '@angular/http';
 import { Observable }    from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import { URLSearchParams } from '@angular/http';
 import { userProfile } from '../Models/userProfile';
 
 @Injectable()
@@ -36,27 +35,25 @@ export class UserService {
         urlSearchParams.append('userName', currentUser.userName);
         urlSearchParams.append('password', currentUser.password);
         urlSearchParams.append('newUserName', user.userName);
-        return this.http.post(updateUrl, body, {headers: this.headers})
+        return this.http.post(updateUrl, urlSearchParams, {headers: this.headers})
                         .map((response: Response) => {response.json()});
     }
 
     updatePassword(password, currentUser) {
         let updateUrl = "/" + currentUser.userName + "/changePassword";
-        let body = JSON.stringify({
-            userName: currentUser.userName,
-            password: password.newPassword
-        });
-        return this.http.post(updateUrl, body, {headers: this.headers})
+        let urlSearchParams = new URLSearchParams();
+        urlSearchParams.append('userName', currentUser.userName);
+        urlSearchParams.append('password', password.newPassword);
+        return this.http.post(updateUrl, urlSearchParams, {headers: this.headers})
                         .map((response: Response) => {response.json()});
     }
 
     updateSkills(user, currentUser) {
         let updateUrl = "/" + currentUser.userName + "/updateSkills";
-        let body = JSON.stringify({
-            userName: currentUser.userName,
-            skills: user.skills
-        });
-        return this.http.post(updateUrl, body, {headers: this.headers})
+        let urlSearchParams = new URLSearchParams();
+        urlSearchParams.append('userName', currentUser.userName);
+        urlSearchParams.append('skills', user.skills);
+        return this.http.post(updateUrl, urlSearchParams, {headers: this.headers})
                         .map((response: Response) => {response.json()});
     }
 

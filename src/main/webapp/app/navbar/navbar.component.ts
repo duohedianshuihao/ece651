@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { userProfile } from '../Models/userProfile';
 import { LoginService } from '../login/login.service';
+import { NavbarService } from './navbar.service';
+import { Http, Headers, Response, URLSearchParams } from '@angular/http';
+
 
 import { Router } from '@angular/router';
 
@@ -11,13 +14,19 @@ import { Router } from '@angular/router';
     styleUrls: ['navbar.component.css']
 })
 
-export class NavbarComponent{
+export class NavbarComponent implements OnInit{
     currentUser: userProfile;
+    searchWord: string;
     constructor(private router: Router,
-                private loginService: LoginService
+                private loginService: LoginService,
+                private navbarService: NavbarService
                 )
     {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    }
+
+    ngOnInit() {
+        this.searchWord = "";
     }
 
     logout() {
@@ -26,6 +35,13 @@ export class NavbarComponent{
         // following function would not work if nothing changed
         // this.router.navigate(['jobList']);
         location.reload();
+    }
+
+    search() {
+        if (this.searchWord) {
+            this.navbarService.searchJob(this.searchWord)
+                              .subscribe()
+        }
     }
 
     redirect() {
