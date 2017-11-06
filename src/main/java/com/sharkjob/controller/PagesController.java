@@ -25,9 +25,8 @@ public class PagesController {
         return "index";
     }
 
-    @RequestMapping(value = "/userprofile/**")
-    public String getUserPage(){
+    @RequestMapping(value = "/userprofile")
+    public String getUserprofile(){
         return "index";
     }
-
 }

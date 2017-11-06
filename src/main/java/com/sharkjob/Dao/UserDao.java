@@ -83,7 +83,7 @@ public class UserDao {
         eav.put(":v1", new AttributeValue().withS(username));
 
         DynamoDBScanExpression scanExpression = new DynamoDBScanExpression()
-                .withFilterExpression("begins_with(userName,:v1)")
+                .withFilterExpression("userName = :v1")
                 .withExpressionAttributeValues(eav);
 
         List<User> result = userMapper.scan(User.class, scanExpression);

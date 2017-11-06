@@ -66,7 +66,7 @@ public class UserController {
         Gson gson = new Gson();
         User user = gson.fromJson(emailorusername, User.class);
         User userInTable;
-
+        log.info(user.toString());
         if( user.getEmail()!=null ) {
             userInTable = userDao.findUserInSharkJobUserTableThroughEmail(user.getEmail());
         }
@@ -78,7 +78,6 @@ public class UserController {
             if (user.getPassword().equals(userInTable.getPassword())) {
                 //HttpHeaders header = new HttpHeaders();
                 //header.setLocation(builder.path("/index?username={username}").buildAndExpand(user.getUserName()).toUri());
-
                 return new ResponseEntity<>(gson.toJson(userInTable),HttpStatus.OK);
             }
             else {
