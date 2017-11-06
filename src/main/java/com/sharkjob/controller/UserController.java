@@ -109,6 +109,7 @@ public class UserController {
                                               @RequestParam(value = "newEmail", required = false) String newEmail,
                                               @RequestParam(value = "password", required = false) String password ) {
 
+        log.info(userName);
         log.info(userName+" ");
         log.info(password+" ");
         log.info(newEmail+" ");
