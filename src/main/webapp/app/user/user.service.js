@@ -45,7 +45,8 @@ var UserService = (function () {
         var updateUrl = "/" + currentUser.userName + "/changePassword";
         var urlSearchParams = new http_1.URLSearchParams();
         urlSearchParams.append('userName', currentUser.userName);
-        urlSearchParams.append('password', password.newPassword);
+        urlSearchParams.append('password', password.oldPassword);
+        urlSearchParams.append('newPassword', password.newPassword);
         return this.http.post(updateUrl, urlSearchParams, { headers: this.headers })
             .map(function (response) { response.json(); });
     };

@@ -62,11 +62,9 @@ public class UserController {
     public ResponseEntity<String> loginUser(@RequestBody String emailorusername) {
                                           //UriComponentsBuilder builder) {
 
-        log.info(emailorusername);
         Gson gson = new Gson();
         User user = gson.fromJson(emailorusername, User.class);
         User userInTable;
-        log.info(user.toString());
         if( user.getEmail()!=null ) {
             userInTable = userDao.findUserInSharkJobUserTableThroughEmail(user.getEmail());
         }
@@ -137,9 +135,10 @@ public class UserController {
 
     @RequestMapping(value = "/{userName}/changePassword", method = POST)
     public ResponseEntity<String> changePassword(@PathVariable String userName,
-                                                 @RequestBody String password,
-                                                 @RequestBody String newPassowrd) {
+                                                 @RequestParam("password") String password,
+                                                 @RequestParam("newPassword") String newPassowrd) {
 
+        log.info(userName + password + newPassowrd);
         boolean changePassword = userDao.changePasswordInSharkJobUserTableThroughUserName(userName, password, newPassowrd);
 
         if (changePassword) {

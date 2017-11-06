@@ -43,7 +43,8 @@ export class UserService {
         let updateUrl = "/" + currentUser.userName + "/changePassword";
         let urlSearchParams = new URLSearchParams();
         urlSearchParams.append('userName', currentUser.userName);
-        urlSearchParams.append('password', password.newPassword);
+        urlSearchParams.append('password', password.oldPassword);
+        urlSearchParams.append('newPassword', password.newPassword);
         return this.http.post(updateUrl, urlSearchParams, {headers: this.headers})
                         .map((response: Response) => {response.json()});
     }
