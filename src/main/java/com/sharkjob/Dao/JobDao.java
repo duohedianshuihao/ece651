@@ -40,6 +40,7 @@ public class JobDao {
         } catch (ResourceInUseException e) {
             //swallow
             log.info("Job Table has already exist.");
+            log.info("Number of jobs in talbe:"+getNumberOfJobsInSharkJobInfoTable());
         }
     }
 
@@ -89,6 +90,11 @@ public class JobDao {
             }
             });
         return jobs;
+    }
+
+    public int getNumberOfJobsInSharkJobInfoTable() {
+
+        return jobMapper.count(Job.class, new DynamoDBScanExpression());
     }
 
     /*Very very ugly and inefficient code.

@@ -22,6 +22,12 @@ var JobinfoComponent = (function () {
         this.jobinfoService.getJobDetails().subscribe(function (jobModels) {
             _this.jobModels = jobModels;
         });
+        this.jobinfoService.getNumberOfJobs().subscribe(function (numberOfJob) {
+            _this.numberOfJobs = numberOfJob;
+        });
+        this.jobinfoService.getNumberOfUsers().subscribe(function (numberOfUser) {
+            _this.numberOfUsers = numberOfUser;
+        });
     };
     return JobinfoComponent;
 }());
