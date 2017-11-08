@@ -33,6 +33,8 @@ export class UserComponent implements OnInit {
     public userType_changed: boolean;
     public userType_updated: boolean;
 
+    public skill: string;
+
     constructor(
         private userService: UserService,
         private alertService: AlertService,
@@ -55,15 +57,16 @@ export class UserComponent implements OnInit {
         this.skills_changed = false;
         this.passwordSubmitted = false;
 
-        console.log(this.currentUser.userName);
         this.userService
             .getUser(this.currentUser.userName)
             .subscribe(
                 data => {
                     this.user = data;
+                    if (!this.user.skills){
+                        this.user.skills = [];
+                    }
                     this.dataLoaded = true;
                 }, error => {
-                    console.log(error);
                     this.alertService.error(error.text());
                 });
     }
@@ -174,6 +177,30 @@ export class UserComponent implements OnInit {
                 error => {
                     this.alertService.error(error.text());
                 });
+    }
+
+    update_skills() {
+        console.log("update_skills");
+        this.userService
+            .updateSkills(this.user)
+            .subscribe(
+                info => {
+                    this.alertService.success("Skills Updated", true);
+                }, error => {
+                    this.alertService.error(error.text());
+                });
+    }
+
+    add_skills(skill) {
+        if (!this.user.skills.includes(skill)) {
+            this.user.skills.push(skill);
+        }
+        this.skill = "";
+    }
+
+    remove_skills(skill) {
+        this.user.skills = this.user.skills.filter(obj => obj !== skill);
+        console.log(this.user.skills);
     }
 
 }

@@ -23,7 +23,8 @@ var SignupService = (function () {
         var body = JSON.stringify({
             email: form.email,
             userName: form.username,
-            password: form.password
+            password: form.password,
+            userType: form.userType
         });
         return this.http
             .post(this.signUpUrl, body, { headers: this.headers })

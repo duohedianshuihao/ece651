@@ -37,14 +37,15 @@ var UserComponent = (function () {
         this.skills_updated = false;
         this.skills_changed = false;
         this.passwordSubmitted = false;
-        console.log(this.currentUser.userName);
         this.userService
             .getUser(this.currentUser.userName)
             .subscribe(function (data) {
             _this.user = data;
+            if (!_this.user.skills) {
+                _this.user.skills = [];
+            }
             _this.dataLoaded = true;
         }, function (error) {
-            console.log(error);
             _this.alertService.error(error.text());
         });
     };
@@ -140,6 +141,27 @@ var UserComponent = (function () {
         }, function (error) {
             _this.alertService.error(error.text());
         });
+    };
+    UserComponent.prototype.update_skills = function () {
+        var _this = this;
+        console.log("update_skills");
+        this.userService
+            .updateSkills(this.user)
+            .subscribe(function (info) {
+            _this.alertService.success("Skills Updated", true);
+        }, function (error) {
+            _this.alertService.error(error.text());
+        });
+    };
+    UserComponent.prototype.add_skills = function (skill) {
+        if (!this.user.skills.includes(skill)) {
+            this.user.skills.push(skill);
+        }
+        this.skill = "";
+    };
+    UserComponent.prototype.remove_skills = function (skill) {
+        this.user.skills = this.user.skills.filter(function (obj) { return obj !== skill; });
+        console.log(this.user.skills);
     };
     return UserComponent;
 }());

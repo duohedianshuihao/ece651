@@ -43,8 +43,16 @@
               <div class="form-group">
                 <label for="password_again">Ensure password</label>
                 <input type="password" class='form-control' id='password_again' placeholder="re-enter password" required [(ngModel)]="signupform.password_again" name="password_again" #password_again="ngModel" >
+                <div [hidden]="password_again.untouched || password.value==password_again.value" class="alert alert-danger">Password Should Be Same</div>
               </div>
-              <div [hidden]="password_again.untouched || password.value==password_again.value" class="alert alert-danger">Password Should Be Same</div>
+              <div class="form-group">
+                <label for="userType">User Type:</label>
+                <select name="userType" id="userType" class="form-control" [(ngModel)]="signupform.userType" required name="userType" #userType="ngModel">
+                  <option value="Student">Student</option>
+                  <option value="Company">Company</option>
+                </select>
+                <div [hidden]="!submitted || userType.valid" class="alert alert-danger">Please Choose a type</div>
+              </div>
               <br>
               <button type="submit" class="btn btn-primary" style="width:100%;"
               (click)="submitted=true; signupForm.form.valid && add(signupform)">

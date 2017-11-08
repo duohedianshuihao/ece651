@@ -51,17 +51,13 @@ export class UserService {
                         .map((response: Response) => response);
     }
 
-    updateSkills(user, currentUser) {
-        let updateUrl = "/" + currentUser.userName + "/updateSkills";
+    updateSkills(user) {
+        let updateUrl = "/" + user.userName + "/updateSkills";
         let urlSearchParams = new URLSearchParams();
-        urlSearchParams.append('userName', currentUser.userName);
-        urlSearchParams.append('skills', user.skills);
+        urlSearchParams.append('userName', user.userName);
+        urlSearchParams.append('skills', user.skills.toString());
         return this.http.post(updateUrl, urlSearchParams, {headers: this.headers})
                         .map((response: Response) => {response.json()});
-    }
-
-    updateUserType(user, currentUser) {
-        let updateUrl = "/" + currentUser.userName + "/update"
     }
 
     check_password(password, currentUser) {

@@ -22,10 +22,11 @@ var SignupComponent = (function () {
         this.submitted = false;
     }
     SignupComponent.prototype.ngOnInit = function () {
-        this.signupform = new signupForm_1.signupForm("", "", "", "");
+        this.signupform = new signupForm_1.signupForm("", "", "", "", "");
     };
     SignupComponent.prototype.add = function (form) {
         var _this = this;
+        console.log(form.userType);
         this.signupService
             .create(form)
             .subscribe(function (data) {

@@ -52,16 +52,13 @@ var UserService = (function () {
         return this.http.post(updateUrl, urlSearchParams, { headers: this.headers })
             .map(function (response) { return response; });
     };
-    UserService.prototype.updateSkills = function (user, currentUser) {
-        var updateUrl = "/" + currentUser.userName + "/updateSkills";
+    UserService.prototype.updateSkills = function (user) {
+        var updateUrl = "/" + user.userName + "/updateSkills";
         var urlSearchParams = new http_1.URLSearchParams();
-        urlSearchParams.append('userName', currentUser.userName);
-        urlSearchParams.append('skills', user.skills);
+        urlSearchParams.append('userName', user.userName);
+        urlSearchParams.append('skills', user.skills.toString());
         return this.http.post(updateUrl, urlSearchParams, { headers: this.headers })
             .map(function (response) { response.json(); });
-    };
-    UserService.prototype.updateUserType = function (user, currentUser) {
-        var updateUrl = "/" + currentUser.userName + "/update";
     };
     UserService.prototype.check_password = function (password, currentUser) {
         var checkUrl = "/toLogin";

@@ -13,3 +13,8 @@
 .btn {
   width:  100%;
 }
+
+.skills {
+    display: inline-block;
+    height: 7%;
+}

@@ -23,10 +23,11 @@ export class SignupComponent implements OnInit{
   ) { }
 
   ngOnInit(){
-    this.signupform = new signupForm("", "", "", "");
+    this.signupform = new signupForm("", "", "", "", "");
   }
 
   add(form: signupForm){
+    console.log(form.userType);
     this.signupService
         .create(form)
         .subscribe(
