@@ -11,13 +11,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var jobinfo_service_1 = require("../jobinfo.service");
+var router_1 = require("@angular/router");
 var JoblistsComponent = (function () {
-    function JoblistsComponent(jobinfoService) {
+    function JoblistsComponent(router, jobinfoService) {
+        this.router = router;
         this.jobinfoService = jobinfoService;
-        this.jobModels = [];
     }
-    JoblistsComponent.prototype.show = function (id) {
-        console.log(id);
+    JoblistsComponent.prototype.goToJobDetail = function (job) {
+        console.log(job.jobTittle);
+        this.jobdetail = job;
+        this.router.navigate(['/jobDetail']);
     };
     return JoblistsComponent;
 }());
@@ -32,7 +35,9 @@ JoblistsComponent = __decorate([
         templateUrl: 'joblists.component.html',
         styleUrls: ['joblists.component.css']
     }),
-    __metadata("design:paramtypes", [jobinfo_service_1.JobinfoService])
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [router_1.Router,
+        jobinfo_service_1.JobinfoService])
 ], JoblistsComponent);
 exports.JoblistsComponent = JoblistsComponent;
 //# sourceMappingURL=joblists.component.js.map

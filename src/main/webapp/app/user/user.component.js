@@ -31,16 +31,16 @@ var UserComponent = (function () {
         var _this = this;
         this.submitted = false;
         this.email_updated = false;
-        this.userName_updated = false;
-        this.skills_updated = false;
         this.email_changed = false;
+        this.userName_updated = false;
         this.userName_changed = false;
+        this.skills_updated = false;
         this.skills_changed = false;
+        this.passwordSubmitted = false;
         console.log(this.currentUser.userName);
         this.userService
             .getUser(this.currentUser.userName)
             .subscribe(function (data) {
-            console.log(data);
             _this.user = data;
             _this.dataLoaded = true;
         }, function (error) {
@@ -48,15 +48,18 @@ var UserComponent = (function () {
             _this.alertService.error(error.text());
         });
     };
-    UserComponent.prototype.check_update = function () {
-        if (this.currentUser.userName != this.user.userName) {
+    UserComponent.prototype.check_update = function (user) {
+        if (this.currentUser.userName != user.userName) {
             this.userName_changed = true;
         }
         // if (this.currentUser.skills != this.user.skills) {
         //     this.skills_changed = true;
         // }
-        if (this.currentUser.email != this.user.email) {
+        if (this.currentUser.email != user.email) {
             this.email_changed = true;
+        }
+        if (!this.currentUser.userType) {
+            this.userType_changed = true;
         }
         if (!this.userName_changed && !this.email_changed) {
             this.alertService.error("Nothing to be updated", true);
@@ -69,6 +72,7 @@ var UserComponent = (function () {
                 .updateEmail(user, this.currentUser)
                 .subscribe(function (info) {
                 _this.email_updated = true;
+                _this.show_info();
             }, function (error) {
                 _this.alertService.error(error.text());
             });
@@ -83,16 +87,15 @@ var UserComponent = (function () {
                 _this.alertService.error(error.text());
             });
         }
-        // if (this.skills_changed) {
+        // if (this.userType_changed) {
         //     this.userService
-        //     .updateSkills(user, this.currentUser)
-        //     .subscribe(
-        //         info => {
-        //             this.skills_updated = true;
-        //         },
-        //         error => {
-        //             this.alertService.error(error.text());
-        //         });
+        //         .updateUserType(user, this.currentUser)
+        //         .subscribe(
+        //             info => {
+        //                 console.log(info);
+        //             }, error => {
+        //                 this.alertService.error(error.text());
+        //             });
         // }
     };
     UserComponent.prototype.show_info = function () {
@@ -132,6 +135,8 @@ var UserComponent = (function () {
             .updatePassword(this._password, this.currentUser)
             .subscribe(function (info) {
             _this.alertService.success("Password Updated", true);
+            _this.passwordSubmitted = false;
+            _this._password = new password_1.password('', '', '');
         }, function (error) {
             _this.alertService.error(error.text());
         });

@@ -33,7 +33,7 @@
           </div>
           <br>
           <div class="form-group">
-            <button class="btn btn-info" (click)="submitted=true; check_update(); userForm.form.valid && updateInfo(user);">update</button>
+            <button class="btn btn-info" (click)="submitted=true; check_update(user); userForm.form.valid && updateInfo(user);">update</button>
           </div>
         </form>
       </div>
@@ -42,7 +42,7 @@
         <form #_passwordForm="ngForm">
           <div class="form-group">
             <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" [(ngModel)]="_password.oldPassword" required name="oldPassword" #oldPassword="ngModel">
+            <input type="password" class="form-control" id="passwordinput" [(ngModel)]="_password.oldPassword" required name="oldPassword" #oldPassword="ngModel">
             <div [hidden]="!passwordSubmitted || oldPassword.valid" class="alert alert-danger">Old Password Required</div>
           </div>
           <div class="form-group">

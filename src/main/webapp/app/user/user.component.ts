@@ -30,6 +30,8 @@ export class UserComponent implements OnInit {
     public userName_changed: boolean;
     public skills_changed: boolean;
     public skills_updated: boolean;
+    public userType_changed: boolean;
+    public userType_updated: boolean;
 
     constructor(
         private userService: UserService,
@@ -45,19 +47,19 @@ export class UserComponent implements OnInit {
 
     ngOnInit(){
         this.submitted = false;
-
         this.email_updated = false;
-        this.userName_updated = false;
-        this.skills_updated = false;
         this.email_changed = false;
+        this.userName_updated = false;
         this.userName_changed = false;
+        this.skills_updated = false;
         this.skills_changed = false;
+        this.passwordSubmitted = false;
+
         console.log(this.currentUser.userName);
         this.userService
             .getUser(this.currentUser.userName)
             .subscribe(
                 data => {
-                    console.log(data);
                     this.user = data;
                     this.dataLoaded = true;
                 }, error => {
@@ -66,15 +68,19 @@ export class UserComponent implements OnInit {
                 });
     }
 
-    check_update(){
-        if (this.currentUser.userName != this.user.userName){
+    check_update(user){
+        if (this.currentUser.userName != user.userName){
             this.userName_changed = true;
         }
         // if (this.currentUser.skills != this.user.skills) {
         //     this.skills_changed = true;
         // }
-        if (this.currentUser.email != this.user.email) {
+        if (this.currentUser.email != user.email) {
             this.email_changed = true;
+        }
+
+        if (!this.currentUser.userType) {
+            this.userType_changed = true;
         }
 
         if (!this.userName_changed && !this.email_changed ) {
@@ -85,39 +91,40 @@ export class UserComponent implements OnInit {
     updateInfo(user) {
         if (this.email_changed) {
             this.userService
-            .updateEmail(user, this.currentUser)
-            .subscribe(
-                info => {
-                    this.email_updated = true;
-                },
-                error => {
-                    this.alertService.error(error.text());
-                });
+                .updateEmail(user, this.currentUser)
+                .subscribe(
+                    info => {
+                        this.email_updated = true;
+                        this.show_info();
+                    },
+                    error => {
+                        this.alertService.error(error.text());
+                    });
         }
 
         if (this.userName_changed) {
             this.userService
-            .updateUserName(user, this.currentUser)
-            .subscribe(
-                info => {
-                    this.update_currentUser(user);
-                }, error => {
-                    console.log('there ' + error);
-                    this.alertService.error(error.text());
-                });
+                .updateUserName(user, this.currentUser)
+                .subscribe(
+                    info => {
+                        this.update_currentUser(user);
+                    }, error => {
+                        console.log('there ' + error);
+                        this.alertService.error(error.text());
+                    });
         }
 
-        // if (this.skills_changed) {
+        // if (this.userType_changed) {
         //     this.userService
-        //     .updateSkills(user, this.currentUser)
-        //     .subscribe(
-        //         info => {
-        //             this.skills_updated = true;
-        //         },
-        //         error => {
-        //             this.alertService.error(error.text());
-        //         });
+        //         .updateUserType(user, this.currentUser)
+        //         .subscribe(
+        //             info => {
+        //                 console.log(info);
+        //             }, error => {
+        //                 this.alertService.error(error.text());
+        //             });
         // }
+
     }
 
     show_info() {
@@ -141,7 +148,6 @@ export class UserComponent implements OnInit {
             }, error => {
                 this.alertService.error("Fail to update", true);
             });
-
     }
 
     check_password() {
@@ -162,6 +168,8 @@ export class UserComponent implements OnInit {
             .subscribe(
                 info => {
                     this.alertService.success("Password Updated", true);
+                    this.passwordSubmitted = false;
+                    this._password = new password('', '', '');
                 },
                 error => {
                     this.alertService.error(error.text());

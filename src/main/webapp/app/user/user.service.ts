@@ -27,7 +27,8 @@ export class UserService {
         urlSearchParams.append('password', currentUser.password);
         urlSearchParams.append('newEmail', user.email);
         return this.http.post(updateUrl, urlSearchParams, {headers: this.headers})
-                        .map((response: Response) => {response.json()});
+                        .map((response: Response) => response);
+                        // just return a message not a json
     }
 
     updateUserName(user, currentUser) {
@@ -47,7 +48,7 @@ export class UserService {
         urlSearchParams.append('password', password.oldPassword);
         urlSearchParams.append('newPassword', password.newPassword);
         return this.http.post(updateUrl, urlSearchParams, {headers: this.headers})
-                        .map((response: Response) => {response.json()});
+                        .map((response: Response) => response);
     }
 
     updateSkills(user, currentUser) {
@@ -57,6 +58,10 @@ export class UserService {
         urlSearchParams.append('skills', user.skills);
         return this.http.post(updateUrl, urlSearchParams, {headers: this.headers})
                         .map((response: Response) => {response.json()});
+    }
+
+    updateUserType(user, currentUser) {
+        let updateUrl = "/" + currentUser.userName + "/update"
     }
 
     check_password(password, currentUser) {

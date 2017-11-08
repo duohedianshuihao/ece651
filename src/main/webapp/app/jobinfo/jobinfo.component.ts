@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { JobinfoService } from './jobinfo.service';
 
-import { JobDetails } from '../Models/jobDetails';
+import { jobDetails } from '../Models/jobDetails';
 
 @Component({
     moduleId: module.id,
@@ -11,7 +11,7 @@ import { JobDetails } from '../Models/jobDetails';
 })
 
 export class JobinfoComponent implements OnInit{
-    public jobModels: JobDetails[] = [];
+    public jobModels: jobDetails[] = [];
     public numberOfJobs: number;
     public numberOfUsers: number;
 
@@ -37,5 +37,6 @@ export class JobinfoComponent implements OnInit{
         });
 
     }
+
 
 }

@@ -31,7 +31,8 @@ var UserService = (function () {
         urlSearchParams.append('password', currentUser.password);
         urlSearchParams.append('newEmail', user.email);
         return this.http.post(updateUrl, urlSearchParams, { headers: this.headers })
-            .map(function (response) { response.json(); });
+            .map(function (response) { return response; });
+        // just return a message not a json
     };
     UserService.prototype.updateUserName = function (user, currentUser) {
         var updateUrl = "/" + currentUser.userName + "/changeUserName";
@@ -49,7 +50,7 @@ var UserService = (function () {
         urlSearchParams.append('password', password.oldPassword);
         urlSearchParams.append('newPassword', password.newPassword);
         return this.http.post(updateUrl, urlSearchParams, { headers: this.headers })
-            .map(function (response) { response.json(); });
+            .map(function (response) { return response; });
     };
     UserService.prototype.updateSkills = function (user, currentUser) {
         var updateUrl = "/" + currentUser.userName + "/updateSkills";
@@ -58,6 +59,9 @@ var UserService = (function () {
         urlSearchParams.append('skills', user.skills);
         return this.http.post(updateUrl, urlSearchParams, { headers: this.headers })
             .map(function (response) { response.json(); });
+    };
+    UserService.prototype.updateUserType = function (user, currentUser) {
+        var updateUrl = "/" + currentUser.userName + "/update";
     };
     UserService.prototype.check_password = function (password, currentUser) {
         var checkUrl = "/toLogin";
