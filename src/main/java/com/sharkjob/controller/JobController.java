@@ -56,8 +56,7 @@ public class JobController {
     public ResponseEntity< List<Job> > showJobs() {
         List jobList = jobDao.getAllJobsInSharkJobInfoTable();
         if (!jobList.isEmpty()) {
-            return new ResponseEntity<>(jobList, HttpStatus.OK
-            );
+            return new ResponseEntity<>(jobList, HttpStatus.OK);
         } else{
             return new ResponseEntity<>(jobList, HttpStatus.NO_CONTENT);
         }
