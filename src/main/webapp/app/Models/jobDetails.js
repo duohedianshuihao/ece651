@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var JobDetails = (function () {
-    function JobDetails(jobID, jobTitle, jobDescription, company, requiredSkills, createdTime, startTime, expirTime, location, categories, comments) {
-        this.jobID = jobID;
-        this.jobTitle = jobTitle;
+var jobDetails = (function () {
+    function jobDetails(jobId, jobTittle, jobDescription, company, requiredSkills, createdTime, startTime, expirTime, location, categories, comments) {
+        this.jobId = jobId;
+        this.jobTittle = jobTittle;
         this.jobDescription = jobDescription;
         this.company = company;
         this.requiredSkills = requiredSkills;
@@ -14,7 +14,7 @@ var JobDetails = (function () {
         this.categories = categories;
         this.comments = comments;
     }
-    return JobDetails;
+    return jobDetails;
 }());
-exports.JobDetails = JobDetails;
+exports.jobDetails = jobDetails;
 //# sourceMappingURL=jobDetails.js.map

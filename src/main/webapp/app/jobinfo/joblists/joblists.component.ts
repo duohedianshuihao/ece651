@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import {Component, Injectable, Input, } from '@angular/core';
 import { JobinfoService } from '../jobinfo.service';
-import { JobDetails } from '../../Models/jobDetails';
+import { jobDetails } from '../../Models/jobDetails';
+import {Router} from "@angular/router";
 
 @Component({
     moduleId: module.id,
@@ -10,9 +11,32 @@ import { JobDetails } from '../../Models/jobDetails';
 
 })
 
+@Injectable()
 export class JoblistsComponent {
-    @Input() jobModels: JobDetails[] = [];
+    public jobId: string;
+    public jobTitle: string;
+    public jobDescription: string;
+    public company: string;
+    public requiredSkills: Array<string>;
+    public createdTime: Date;
+    public startTime: Date;
+    public expirTime: Date;
+    public location: string;
+    public categories: string;
+    public comments: Comment;
+    public jobdetail: jobDetails;
+    @Input() jobModels: jobDetails[];
     constructor (
+        private router: Router,
         private jobinfoService: JobinfoService
     ) {}
+
+    goToJobDetail (job) {
+        console.log(job.jobTittle);
+        this.jobdetail = job;
+
+        // this.router.navigate(['/jobDetail']);
+
+    }
+
 }

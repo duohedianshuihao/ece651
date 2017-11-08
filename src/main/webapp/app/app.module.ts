@@ -22,6 +22,7 @@ import { AlertService } from './alert/alert.service';
 import { JobinfoService} from './jobinfo/jobinfo.service';
 import { UserService } from './user/user.service';
 import { NavbarService } from './navbar/navbar.service';
+import {JobdetailComponent} from "./jobinfo/jobdetail/jobdetail.component";
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -50,6 +51,7 @@ const appRoutes: Routes = [
     NavbarComponent,
     JobinfoComponent,
     JoblistsComponent,
+    JobdetailComponent,
     AlertComponent,
     UserComponent
     ],

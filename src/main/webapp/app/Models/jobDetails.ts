@@ -1,7 +1,8 @@
-export class JobDetails {
+
+export class jobDetails {
     constructor(
-        public jobID: string,
-        public jobTitle: string,
+        public jobId: string,
+        public jobTittle: string,
         public jobDescription: string,
         public company: string,
         public requiredSkills: Array<string>,
