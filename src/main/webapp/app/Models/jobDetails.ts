@@ -11,7 +11,7 @@ export class jobDetails {
         public expirTime: Date,
         public location: string,
         public categories: string,
-        public comments: Comment
+        public comments: Array<Comment>
     ) {}
 }
 

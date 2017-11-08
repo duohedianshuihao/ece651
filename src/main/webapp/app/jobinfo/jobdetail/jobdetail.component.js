@@ -22,50 +22,6 @@ var JobdetailComponent = (function () {
 }());
 __decorate([
     core_1.Input(),
-    __metadata("design:type", String)
-], JobdetailComponent.prototype, "jobId", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", String)
-], JobdetailComponent.prototype, "jobTitle", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", String)
-], JobdetailComponent.prototype, "jobDescription", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", String)
-], JobdetailComponent.prototype, "company", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Array)
-], JobdetailComponent.prototype, "requiredSkills", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Date)
-], JobdetailComponent.prototype, "createdTime", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Date)
-], JobdetailComponent.prototype, "startTime", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Date)
-], JobdetailComponent.prototype, "expirTime", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", String)
-], JobdetailComponent.prototype, "location", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", String)
-], JobdetailComponent.prototype, "categories", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Comment)
-], JobdetailComponent.prototype, "comments", void 0);
-__decorate([
-    core_1.Input(),
     __metadata("design:type", jobDetails_1.jobDetails)
 ], JobdetailComponent.prototype, "jobdetail", void 0);
 JobdetailComponent = __decorate([
