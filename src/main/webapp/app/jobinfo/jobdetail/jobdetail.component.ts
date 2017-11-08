@@ -11,17 +11,6 @@ import { jobDetails } from '../../Models/jobDetails';
 })
 
 export class JobdetailComponent implements OnInit{
-    @Input() public jobId: string;
-    @Input() public jobTitle: string;
-    @Input() public jobDescription: string;
-    @Input() public company: string;
-    @Input() public requiredSkills: Array<string>;
-    @Input() public createdTime: Date;
-    @Input() public startTime: Date;
-    @Input() public expirTime: Date;
-    @Input() public location: string;
-    @Input() public categories: string;
-    @Input() public comments: Comment;
     @Input() jobdetail: jobDetails;
     constructor (
         private jobinfoService: JobinfoService,

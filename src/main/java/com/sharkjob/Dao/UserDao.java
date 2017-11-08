@@ -163,7 +163,11 @@ public class UserDao {
 
     private boolean isRightUser(String userName, String password) {
         User user = findUserInSharkJobUserTableThroughUsername(userName);
-        return user.getPassword().equals(password);
+        if (user != null){
+            return user.getPassword().equals(password);
+        }else {
+            return false;
+        }
     }
 
     private boolean isUniqueEmail(String email) {
