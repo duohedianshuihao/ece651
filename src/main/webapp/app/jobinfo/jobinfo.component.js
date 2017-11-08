@@ -18,9 +18,11 @@ var JobinfoComponent = (function () {
     }
     JobinfoComponent.prototype.ngOnInit = function () {
         var _this = this;
-        // console.log(this.jobModels);
-        this.jobinfoService.getJobDetails().subscribe(function (jobModels) {
+        this.jobinfoService.getJobDetails()
+            .subscribe(function (jobModels) {
             _this.jobModels = jobModels;
+        }, function (error) {
+            console.log(error.text());
         });
         this.jobinfoService.getNumberOfJobs().subscribe(function (numberOfJob) {
             _this.numberOfJobs = numberOfJob;

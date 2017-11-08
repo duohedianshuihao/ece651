@@ -15,4 +15,12 @@ export class JoblistsComponent {
     constructor (
         private jobinfoService: JobinfoService
     ) {}
+
+    jobUrl: string;
+
+    show(id) {
+        console.log(id);
+    }
+
+
 }

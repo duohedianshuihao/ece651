@@ -15,8 +15,9 @@ export class UserService {
 
     getUser(userName) {
         let userUrl = "/" + userName;
-        return this.http.get(userUrl, {headers: this.headers})
-                        .map((response: Response) => response.json());
+        return this.http
+                    .get(userUrl, {headers: this.headers})
+                    .map((response: Response) => response.json()); // why there should not be {}
     }
 
     updateEmail(user, currentUser) {
@@ -36,7 +37,7 @@ export class UserService {
         urlSearchParams.append('password', currentUser.password);
         urlSearchParams.append('newUserName', user.userName);
         return this.http.post(updateUrl, urlSearchParams, {headers: this.headers})
-                        .map((response: Response) => {response.json()});
+                        .map((response: Response) => response);
     }
 
     updatePassword(password, currentUser) {

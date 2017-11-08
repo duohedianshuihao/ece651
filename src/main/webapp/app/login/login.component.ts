@@ -36,6 +36,7 @@ export class LoginComponent {
   }
 
   get(form: loginForm) {
+    this.loginService.logout();
     this.loginService
         .login(form)
         .subscribe(

@@ -20,8 +20,9 @@ var UserService = (function () {
     }
     UserService.prototype.getUser = function (userName) {
         var userUrl = "/" + userName;
-        return this.http.get(userUrl, { headers: this.headers })
-            .map(function (response) { return response.json(); });
+        return this.http
+            .get(userUrl, { headers: this.headers })
+            .map(function (response) { return response.json(); }); // why there should not be {}
     };
     UserService.prototype.updateEmail = function (user, currentUser) {
         var updateUrl = "/" + currentUser.userName + "/changeEmail";
@@ -39,7 +40,7 @@ var UserService = (function () {
         urlSearchParams.append('password', currentUser.password);
         urlSearchParams.append('newUserName', user.userName);
         return this.http.post(updateUrl, urlSearchParams, { headers: this.headers })
-            .map(function (response) { response.json(); });
+            .map(function (response) { return response; });
     };
     UserService.prototype.updatePassword = function (password, currentUser) {
         var updateUrl = "/" + currentUser.userName + "/changePassword";

@@ -21,10 +21,12 @@ export class JobinfoComponent implements OnInit{
 
     ngOnInit () {
 
-        // console.log(this.jobModels);
-        this.jobinfoService.getJobDetails().subscribe(jobModels => {
-            this.jobModels = jobModels;
-        });
+        this.jobinfoService.getJobDetails()
+                           .subscribe(jobModels => {
+                               this.jobModels = jobModels;
+                           }, error => {
+                               console.log(error.text());
+                           });
 
         this.jobinfoService.getNumberOfJobs().subscribe(numberOfJob => {
             this.numberOfJobs = numberOfJob;

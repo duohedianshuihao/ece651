@@ -16,6 +16,9 @@ var JoblistsComponent = (function () {
         this.jobinfoService = jobinfoService;
         this.jobModels = [];
     }
+    JoblistsComponent.prototype.show = function (id) {
+        console.log(id);
+    };
     return JoblistsComponent;
 }());
 __decorate([

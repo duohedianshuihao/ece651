@@ -29,6 +29,7 @@ var LoginComponent = (function () {
     };
     LoginComponent.prototype.get = function (form) {
         var _this = this;
+        this.loginService.logout();
         this.loginService
             .login(form)
             .subscribe(function (data) {
