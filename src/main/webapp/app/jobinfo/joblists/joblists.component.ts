@@ -21,7 +21,6 @@ export class JoblistsComponent {
     ) {}
 
     goToJobDetail (job) {
-        console.log(job.jobTittle);
         this.jobdetail = job;
 
         this.router.navigate(['/jobDetail']);

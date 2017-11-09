@@ -16,6 +16,7 @@ export class JobinfoComponent implements OnInit{
     public jobModels: jobDetails[] = [];
     public numberOfJobs: number;
     public numberOfUsers: number;
+    public inJobInfo: boolean = true;
 
     constructor (
         private jobinfoService: JobinfoService,

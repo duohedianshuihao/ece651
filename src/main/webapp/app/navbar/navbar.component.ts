@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { userProfile } from '../Models/userProfile';
 import { jobDetails } from "../Models/jobDetails";
 
@@ -20,7 +20,8 @@ import { Router } from '@angular/router';
 export class NavbarComponent implements OnInit{
     currentUser: userProfile;
     searchWord: string;
-    @Output() jobUpdate:EventEmitter<jobDetails> = new EventEmitter();
+    @Input() inJobInfo: boolean;
+    @Output() jobUpdate:EventEmitter<{}> = new EventEmitter();
 
     constructor(private router: Router,
                 private loginService: LoginService,

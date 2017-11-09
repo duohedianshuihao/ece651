@@ -18,7 +18,6 @@ var JoblistsComponent = (function () {
         this.jobinfoService = jobinfoService;
     }
     JoblistsComponent.prototype.goToJobDetail = function (job) {
-        console.log(job.jobTittle);
         this.jobdetail = job;
         this.router.navigate(['/jobDetail']);
     };

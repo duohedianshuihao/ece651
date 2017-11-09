@@ -19,6 +19,7 @@ var JobinfoComponent = (function () {
         this.navbarService = navbarService;
         this.router = router;
         this.jobModels = [];
+        this.inJobInfo = true;
     }
     JobinfoComponent.prototype.ngOnInit = function () {
         var _this = this;

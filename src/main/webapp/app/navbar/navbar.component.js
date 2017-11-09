@@ -52,6 +52,10 @@ var NavbarComponent = (function () {
     return NavbarComponent;
 }());
 __decorate([
+    core_1.Input(),
+    __metadata("design:type", Boolean)
+], NavbarComponent.prototype, "inJobInfo", void 0);
+__decorate([
     core_1.Output(),
     __metadata("design:type", core_1.EventEmitter)
 ], NavbarComponent.prototype, "jobUpdate", void 0);
