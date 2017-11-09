@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { userProfile } from '../Models/userProfile';
+import { jobDetails } from "../Models/jobDetails";
+
 import { LoginService } from '../login/login.service';
 import { NavbarService } from './navbar.service';
+import { AlertService } from '../alert/alert.service';
+import { JobinfoService } from '../jobinfo/jobinfo.service';
 
 
 import { Router } from '@angular/router';
@@ -16,9 +20,13 @@ import { Router } from '@angular/router';
 export class NavbarComponent implements OnInit{
     currentUser: userProfile;
     searchWord: string;
+    @Output() jobUpdate:EventEmitter<jobDetails> = new EventEmitter();
+
     constructor(private router: Router,
                 private loginService: LoginService,
-                private navbarService: NavbarService
+                private navbarService: NavbarService,
+                private alertService: AlertService,
+                private jobinfoService: JobinfoService
                 )
     {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -36,11 +44,16 @@ export class NavbarComponent implements OnInit{
         location.reload();
     }
 
-    search() {
-        // if (this.searchWord) {
-        //     this.navbarService.searchJob(this.searchWord)
-        //                       .subscribe()
-        // }
+    searchJob(word){
+        this.navbarService
+            .search(word)
+            .subscribe(
+                jobs => {
+                    this.jobUpdate.emit(jobs);
+                    this.searchWord = "";
+                }, error => {
+                    this.alertService.error(error);
+                });
     }
 
     redirect() {

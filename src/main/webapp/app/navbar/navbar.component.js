@@ -12,12 +12,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var login_service_1 = require("../login/login.service");
 var navbar_service_1 = require("./navbar.service");
+var alert_service_1 = require("../alert/alert.service");
+var jobinfo_service_1 = require("../jobinfo/jobinfo.service");
 var router_1 = require("@angular/router");
 var NavbarComponent = (function () {
-    function NavbarComponent(router, loginService, navbarService) {
+    function NavbarComponent(router, loginService, navbarService, alertService, jobinfoService) {
         this.router = router;
         this.loginService = loginService;
         this.navbarService = navbarService;
+        this.alertService = alertService;
+        this.jobinfoService = jobinfoService;
+        this.jobUpdate = new core_1.EventEmitter();
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     }
     NavbarComponent.prototype.ngOnInit = function () {
@@ -30,17 +35,26 @@ var NavbarComponent = (function () {
         // this.router.navigate(['jobList']);
         location.reload();
     };
-    NavbarComponent.prototype.search = function () {
-        // if (this.searchWord) {
-        //     this.navbarService.searchJob(this.searchWord)
-        //                       .subscribe()
-        // }
+    NavbarComponent.prototype.searchJob = function (word) {
+        var _this = this;
+        this.navbarService
+            .search(word)
+            .subscribe(function (jobs) {
+            _this.jobUpdate.emit(jobs);
+            _this.searchWord = "";
+        }, function (error) {
+            _this.alertService.error(error);
+        });
     };
     NavbarComponent.prototype.redirect = function () {
         this.router.navigate(['/userprofile']);
     };
     return NavbarComponent;
 }());
+__decorate([
+    core_1.Output(),
+    __metadata("design:type", core_1.EventEmitter)
+], NavbarComponent.prototype, "jobUpdate", void 0);
 NavbarComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
@@ -50,7 +64,9 @@ NavbarComponent = __decorate([
     }),
     __metadata("design:paramtypes", [router_1.Router,
         login_service_1.LoginService,
-        navbar_service_1.NavbarService])
+        navbar_service_1.NavbarService,
+        alert_service_1.AlertService,
+        jobinfo_service_1.JobinfoService])
 ], NavbarComponent);
 exports.NavbarComponent = NavbarComponent;
 //# sourceMappingURL=navbar.component.js.map

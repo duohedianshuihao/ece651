@@ -117,17 +117,6 @@ export class UserComponent implements OnInit {
                     });
         }
 
-        // if (this.userType_changed) {
-        //     this.userService
-        //         .updateUserType(user, this.currentUser)
-        //         .subscribe(
-        //             info => {
-        //                 console.log(info);
-        //             }, error => {
-        //                 this.alertService.error(error.text());
-        //             });
-        // }
-
     }
 
     show_info() {
@@ -143,7 +132,6 @@ export class UserComponent implements OnInit {
         let form = new loginForm("", "");
         form.info = user.userName;
         form.password = _user_passwd;
-        console.log(form);
         this.loginService.login(form).subscribe(
             data => {
                 this.userName_updated = true;

@@ -17,6 +17,14 @@ var NavbarService = (function () {
         this.router = router;
         this.http = http;
     }
+    NavbarService.prototype.search = function (word) {
+        var searchUrl = "/searchEngine";
+        var params = new http_1.URLSearchParams();
+        params.set("content", word);
+        return this.http
+            .get(searchUrl, { search: params })
+            .map(function (response) { return response.json(); });
+    };
     return NavbarService;
 }());
 NavbarService = __decorate([
@@ -25,15 +33,4 @@ NavbarService = __decorate([
         http_1.Http])
 ], NavbarService);
 exports.NavbarService = NavbarService;
-// let params: URLSearchParams = new URLSearchParams();
-//  params.set('appid', StaticSettings.API_KEY);
-//  params.set('cnt', days.toString());
-//  //Http request-
-//  return this.http.get(StaticSettings.BASE_URL, {
-//    search: params
-//  }).subscribe(
-//    (response) => this.onGetForecastResult(response.json()),
-//    (error) => this.onGetForecastError(error.json()),
-//    () => this.onGetForecastComplete()
-//  );
 //# sourceMappingURL=navbar.service.js.map

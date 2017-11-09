@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { JobinfoService } from './jobinfo.service';
+import { NavbarService } from "../navbar/navbar.service";
 
 import { jobDetails } from '../Models/jobDetails';
 
@@ -17,26 +19,29 @@ export class JobinfoComponent implements OnInit{
 
     constructor (
         private jobinfoService: JobinfoService,
+        private navbarService: NavbarService,
+        private router: Router
         ) {}
 
     ngOnInit () {
+      this.jobinfoService
+          .getJobDetails()
+          .subscribe(jobModels => {
+              this.jobModels = jobModels;
+          }, error => {
+              console.log(error);
+          });
 
-        this.jobinfoService.getJobDetails()
-                           .subscribe(jobModels => {
-                               this.jobModels = jobModels;
-                           }, error => {
-                               console.log(error.text());
-                           });
-
-        this.jobinfoService.getNumberOfJobs().subscribe(numberOfJob => {
+      this.jobinfoService.getNumberOfJobs().subscribe(numberOfJob => {
             this.numberOfJobs = numberOfJob;
         });
-
-        this.jobinfoService.getNumberOfUsers().subscribe(numberOfUser => {
-            this.numberOfUsers = numberOfUser;
-        });
-
+      this.jobinfoService.getNumberOfUsers().subscribe(numberOfUser => {
+          this.numberOfUsers = numberOfUser;
+      });
     }
 
-
+    searchJob(jobs) {
+      console.log(jobs);
+      this.jobModels = jobs;
+    }
 }

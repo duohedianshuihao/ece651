@@ -10,19 +10,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
 var jobinfo_service_1 = require("./jobinfo.service");
+var navbar_service_1 = require("../navbar/navbar.service");
 var JobinfoComponent = (function () {
-    function JobinfoComponent(jobinfoService) {
+    function JobinfoComponent(jobinfoService, navbarService, router) {
         this.jobinfoService = jobinfoService;
+        this.navbarService = navbarService;
+        this.router = router;
         this.jobModels = [];
     }
     JobinfoComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.jobinfoService.getJobDetails()
+        this.jobinfoService
+            .getJobDetails()
             .subscribe(function (jobModels) {
             _this.jobModels = jobModels;
         }, function (error) {
-            console.log(error.text());
+            console.log(error);
         });
         this.jobinfoService.getNumberOfJobs().subscribe(function (numberOfJob) {
             _this.numberOfJobs = numberOfJob;
@@ -30,6 +35,10 @@ var JobinfoComponent = (function () {
         this.jobinfoService.getNumberOfUsers().subscribe(function (numberOfUser) {
             _this.numberOfUsers = numberOfUser;
         });
+    };
+    JobinfoComponent.prototype.searchJob = function (jobs) {
+        console.log(jobs);
+        this.jobModels = jobs;
     };
     return JobinfoComponent;
 }());
@@ -40,7 +49,9 @@ JobinfoComponent = __decorate([
         templateUrl: 'jobinfo.component.html',
         styleUrls: ['jobinfo.component.css']
     }),
-    __metadata("design:paramtypes", [jobinfo_service_1.JobinfoService])
+    __metadata("design:paramtypes", [jobinfo_service_1.JobinfoService,
+        navbar_service_1.NavbarService,
+        router_1.Router])
 ], JobinfoComponent);
 exports.JobinfoComponent = JobinfoComponent;
 //# sourceMappingURL=jobinfo.component.js.map

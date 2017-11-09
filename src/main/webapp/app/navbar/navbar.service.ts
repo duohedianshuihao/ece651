@@ -11,24 +11,12 @@ export class NavbarService {
                 private http: Http,
                 ) {}
 
-    // searchJob(searchWords) {
-    //     let searchUrl = "/searchEngine";
-    //     let urlSearchParams = new URLSearchParams();
-    //     urlSearchParams.set("content", searchWords);
-    //     this.http.get(searchUrl, urlSearchParams)
-    // }
+    search(word) {
+        let searchUrl = "/searchEngine";
+        let params: URLSearchParams = new URLSearchParams();
+        params.set("content", word);
+        return this.http
+                   .get(searchUrl, {search: params})
+                   .map((response: Response) => response.json());
+    }
 }
-
-
-// let params: URLSearchParams = new URLSearchParams();
-//  params.set('appid', StaticSettings.API_KEY);
-//  params.set('cnt', days.toString());
-
-//  //Http request-
-//  return this.http.get(StaticSettings.BASE_URL, {
-//    search: params
-//  }).subscribe(
-//    (response) => this.onGetForecastResult(response.json()),
-//    (error) => this.onGetForecastError(error.json()),
-//    () => this.onGetForecastComplete()
-//  );

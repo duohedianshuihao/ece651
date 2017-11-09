@@ -88,16 +88,6 @@ var UserComponent = (function () {
                 _this.alertService.error(error.text());
             });
         }
-        // if (this.userType_changed) {
-        //     this.userService
-        //         .updateUserType(user, this.currentUser)
-        //         .subscribe(
-        //             info => {
-        //                 console.log(info);
-        //             }, error => {
-        //                 this.alertService.error(error.text());
-        //             });
-        // }
     };
     UserComponent.prototype.show_info = function () {
         if (this.email_updated || this.userName_updated) {
@@ -112,7 +102,6 @@ var UserComponent = (function () {
         var form = new loginForm_1.loginForm("", "");
         form.info = user.userName;
         form.password = _user_passwd;
-        console.log(form);
         this.loginService.login(form).subscribe(function (data) {
             _this.userName_updated = true;
             _this.show_info();
