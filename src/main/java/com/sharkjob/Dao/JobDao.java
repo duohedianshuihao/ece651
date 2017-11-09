@@ -69,8 +69,9 @@ public class JobDao {
     public void addCommentInSharkJobInfoTable(String jobId, Comment comment) {
         Job job = findJobInSharkJobInfoTableThroughJobId(jobId);
         ArrayList<Comment> comments = job.getComments();
-        comments.add(comment);
+        comments.add(0, comment);
         job.setComments(comments);
+        jobMapper.save(job);
     }
 
     public List<Job> getAllJobsInSharkJobInfoTable() {

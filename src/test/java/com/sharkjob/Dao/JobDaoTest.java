@@ -129,7 +129,7 @@ public class JobDaoTest {
     public void valid_addCommentInSharkJobInfoTable_Successfully() {
         when(mockJobMapper.load(Job.class,job.getJobId())).thenReturn(job);
         jobDao.addCommentInSharkJobInfoTable(job.getJobId(), newComment);
-        assertEquals(job.getComments().get(2).getComment(),"a new comment");
+        assertEquals(job.getComments().get(0).getComment(),"a new comment");
     }
 
 

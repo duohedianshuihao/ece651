@@ -102,21 +102,22 @@ public class JobController {
         }
     }
 
-    @RequestMapping(value = "/jobsAddComment", method = POST)
+    @RequestMapping(value = "/jobAddComments/{jobId}", method = POST)
     public ResponseEntity<String> addComment(@PathVariable String jobId,
                                              @RequestParam(value = "currentUser") String userName,
                                              @RequestParam(value = "comment") String newComment) {
-        Gson gson = new Gson();
+
         User replier = userDao.findUserInSharkJobUserTableThroughUsername(userName);
         if(replier != null) {
-            Comment comment = gson.fromJson(newComment, Comment.class);
+            Comment comment = new Comment();
+            comment.setComment(newComment);
             comment.setReplier(replier);
             Date commentDate = new Date();
             comment.setCommentTime(commentDate);
             jobDao.addCommentInSharkJobInfoTable(jobId,comment);
             return new ResponseEntity<>("Comment saved", HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("Current user not exists", HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>("Fake User", HttpStatus.NO_CONTENT);
         }
     }
 
