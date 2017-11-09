@@ -3,7 +3,9 @@ package com.sharkjob.controller;
 import com.google.gson.Gson;
 import com.sharkjob.Dao.JobDao;
 import com.sharkjob.Dao.UserDao;
+import com.sharkjob.model.Comment;
 import com.sharkjob.model.Job;
+import com.sharkjob.model.User;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -101,8 +103,21 @@ public class JobController {
     }
 
     @RequestMapping(value = "/jobsAddComment", method = POST)
-    public void addComment(@PathVariable String jobId, @RequestBody String newComment) {
-
+    public ResponseEntity<String> addComment(@PathVariable String jobId,
+                                             @RequestParam(value = "currentUser") String userName,
+                                             @RequestParam(value = "comment") String newComment) {
+        Gson gson = new Gson();
+        User replier = userDao.findUserInSharkJobUserTableThroughUsername(userName);
+        if(replier != null) {
+            Comment comment = gson.fromJson(newComment, Comment.class);
+            comment.setReplier(replier);
+            Date commentDate = new Date();
+            comment.setCommentTime(commentDate);
+            jobDao.addCommentInSharkJobInfoTable(jobId,comment);
+            return new ResponseEntity<>("Comment saved", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Current user not exists", HttpStatus.NO_CONTENT);
+        }
     }
 
     @RequestMapping(value ="/numberOfJobs", method = GET)
