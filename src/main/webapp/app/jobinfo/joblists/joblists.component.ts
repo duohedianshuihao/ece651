@@ -1,4 +1,4 @@
-import {Component, Injectable, Input, } from '@angular/core';
+import {Component, Injectable, Input,  } from '@angular/core';
 import { JobinfoService } from '../jobinfo.service';
 import { jobDetails } from '../../Models/jobDetails';
 import {Router} from "@angular/router";
@@ -18,12 +18,17 @@ export class JoblistsComponent {
     constructor (
         private router: Router,
         private jobinfoService: JobinfoService
-    ) {}
+    ) {
+        if(localStorage.getItem("jobdetail") !== null) {
+            this.jobdetail = JSON.parse(localStorage.getItem("jobdetail"));
+        }
+    }
+
 
     goToJobDetail (job) {
         this.jobdetail = job;
-
-        this.router.navigate(['/jobDetail']);
+        localStorage.setItem("jobdetail", JSON.stringify(job));
+        //this.router.navigate(['/jobDetail']);
 
     }
 

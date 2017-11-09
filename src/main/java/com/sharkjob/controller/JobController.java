@@ -100,7 +100,7 @@ public class JobController {
         }
     }
 
-    @RequestMapping(value = "/jobsAddComment/{jobId}", method = POST)
+    @RequestMapping(value = "/jobsAddComment", method = POST)
     public void addComment(@PathVariable String jobId, @RequestBody String newComment) {
 
     }

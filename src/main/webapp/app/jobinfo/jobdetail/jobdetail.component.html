@@ -32,11 +32,19 @@
                 <div class="panel-heading panel-heading-custom">
                     <h1 class="panel-title">Your Comment</h1>
                 </div>
-                <textarea class="form-control" rows="3"></textarea>
-                <button type="button" class="btn btn-primary">Reply</button>
+                <!--<form #comments="ngForm">-->
+                    <!--<div class="form-group">-->
+                        <!--<label for="comment">-->
+                <textarea #comment class="form-control" rows="3"></textarea>
+                        <!--</label>-->
+                    <!--</div>-->
+                <!--</form>-->
+                <button type="button" class="btn btn-primary" (click)="addComment(comment.value)">
+                    Reply
+                </button>
             </div>
         </div>
     </div>
-    <a href="/jobInfo"><h3>Back</h3></a>
+    <a (click)="goback()"><h3>Back</h3></a>
 </div>
 

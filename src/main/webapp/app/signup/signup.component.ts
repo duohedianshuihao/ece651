@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { signupForm } from "../Models/signupForm";
-
 import { SignupService } from './signup.service';
 import { AlertService } from '../alert/alert.service';
 

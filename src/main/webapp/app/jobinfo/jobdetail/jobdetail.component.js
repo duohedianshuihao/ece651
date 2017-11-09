@@ -10,13 +10,44 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
 var jobinfo_service_1 = require("../jobinfo.service");
+var jobdetail_service_1 = require("./jobdetail.service");
 var jobDetails_1 = require("../../Models/jobDetails");
+var alert_service_1 = require("../../alert/alert.service");
 var JobdetailComponent = (function () {
-    function JobdetailComponent(jobinfoService) {
+    function JobdetailComponent(jobinfoService, jobdetailService, alertService, router) {
         this.jobinfoService = jobinfoService;
+        this.jobdetailService = jobdetailService;
+        this.alertService = alertService;
+        this.router = router;
     }
     JobdetailComponent.prototype.ngOnInit = function () {
+        // this.usercomment = new comments("", "", new Date);
+    };
+    JobdetailComponent.prototype.addComment = function (inputcomment) {
+        var _this = this;
+        if (inputcomment != "") {
+            console.log(inputcomment);
+            // this.usercomment.comment = inputcomment;
+            // this.usercomment.replier = localStorage.getItem('currentUser');
+            // this.usercomment.commentTime = new Date();
+            this.jobdetailService
+                .create(inputcomment, this.jobdetail.jobId)
+                .subscribe(function (data) {
+                _this.router.navigate(['/jobInfo']);
+                _this.alertService.success('Registration successful', true);
+            }, function (error) {
+                _this.alertService.error(error.text());
+            });
+        }
+        else {
+            console.log("nothing in it!!");
+        }
+    };
+    JobdetailComponent.prototype.goback = function () {
+        localStorage.removeItem("jobdetail");
+        window.location.reload();
     };
     return JobdetailComponent;
 }());
@@ -31,7 +62,10 @@ JobdetailComponent = __decorate([
         templateUrl: 'jobdetail.component.html',
         styleUrls: ['jobdetail.component.css']
     }),
-    __metadata("design:paramtypes", [jobinfo_service_1.JobinfoService])
+    __metadata("design:paramtypes", [jobinfo_service_1.JobinfoService,
+        jobdetail_service_1.JobdetailService,
+        alert_service_1.AlertService,
+        router_1.Router])
 ], JobdetailComponent);
 exports.JobdetailComponent = JobdetailComponent;
 //# sourceMappingURL=jobdetail.component.js.map
