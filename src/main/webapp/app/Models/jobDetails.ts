@@ -3,7 +3,7 @@ export class jobDetails {
         public jobId: string,
         public jobTittle: string,
         public jobDescription: string,
-        public company: string,
+        public company: any,
         public requiredSkills: Array<string>,
         public createdTime: Date,
         public startTime: Date,

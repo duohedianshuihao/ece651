@@ -19,6 +19,11 @@ var JobdetailService = (function () {
         this.headers = new http_1.Headers();
         this.commentUrl = 'http://localhost:8080/jobsAddComment';
     }
+    JobdetailService.prototype.getJobDetails = function (jobId) {
+        var jobdataUrl = "/jobs/" + jobId;
+        return this.http.get(jobdataUrl, { headers: this.headers })
+            .map(function (response) { return response.json(); });
+    };
     JobdetailService.prototype.create = function (comment, jobId) {
         var body = JSON.stringify({
             comment: comment,
