@@ -30,8 +30,8 @@ public class PagesController {
         return "index";
     }
 
-    @RequestMapping(value = "/jobdetail")
-    public String getDetailPage(){
-        return "index";
-    }
+//    @RequestMapping(value = "/jobdetail")
+//    public String getDetailPage(){
+//        return "index";
+//    }
 }

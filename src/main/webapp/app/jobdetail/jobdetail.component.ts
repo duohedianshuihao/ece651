@@ -20,17 +20,28 @@ export class JobdetailComponent implements OnInit{
     subscription: any;
     constructor (
         private joblistService: JoblistsService,
-        // private jobdetailService: JobdetailService,
+        private jobdetailService: JobdetailService,
         // private alertService: AlertService,
         private router: Router,
     ) {
         // jobinfoService.getjobDetail.subscribe((emitjob:jobDetails)=>{
         //     this.jobdetail = emitjob;
         // })
+        console.log(this.joblistService.jobdata.jobId);
+        this.jobdetailService
+            .getJobDetails(this.joblistService.jobdata.jobId)
+            .subscribe(jobDetail => {
+                // console.log(jobDetail.jobTittle);
+                this.jobdetail = jobDetail;
+                console.log(this.jobdetail.jobTittle)
+            }, error => {
+                console.log(error);
+            });
     }
 
     ngOnInit() {
-        this.jobdetail = this.joblistService.jobdata;
+
+        // this.jobdetail = this.joblistService.jobdata;
         // console.log(this.jobinfoService.jobdata.jobTittle);
         // this.subscription = this.jobinfoService.getJobdetailEmitter()
         //     .subscribe(item => this.savejobdetail(item));

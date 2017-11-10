@@ -26,7 +26,7 @@
                     <em class="timestamp">{{ job.createdTime | date }}</em>
                   </div>
                   <div class="job-content">
-                    <p>{{ job.jobDescription }}</p>
+                    <p> Job Category:  {{ job.categories }}</p>
                   </div>
                   <button class="btn btn-default" (click)="goToJobDetail(job);">details</button>
                 </div>

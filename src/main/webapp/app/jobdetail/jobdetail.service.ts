@@ -18,6 +18,12 @@ export class JobdetailService {
         private http: Http,
     ) { }
 
+    getJobDetails(jobId) {
+        let jobdataUrl = "/jobs/" + jobId;
+        return this.http.get(jobdataUrl, {headers: this.headers})
+            .map((response: Response) => response.json());
+    }
+
     create(comment: string, jobId: string) {
         let body = JSON.stringify({
             comment: comment,
