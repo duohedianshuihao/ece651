@@ -68,7 +68,7 @@ public class JobController {
         if (job != null){
             return new ResponseEntity<>(job, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(new Job(), HttpStatus.NO_CONTENT);
         }
     }
     /*Situation of Content
