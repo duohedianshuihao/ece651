@@ -1,7 +1,7 @@
 export class comments {
     constructor(
 
-        public replier: string,
+        public replier: any,
         public comment: string,
         public commentTime: Date
 

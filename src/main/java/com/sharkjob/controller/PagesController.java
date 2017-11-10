@@ -31,7 +31,5 @@ public class PagesController {
     }
 
 //    @RequestMapping(value = "/jobdetail")
-//    public String getDetailPage(){
-//        return "index";
-//    }
+//    public String getDetailPage(){ return "index"; }
 }

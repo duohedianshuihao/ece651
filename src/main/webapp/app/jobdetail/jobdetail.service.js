@@ -16,7 +16,7 @@ var JobdetailService = (function () {
         this.subject = new Subject_1.Subject();
     }
     JobdetailService.prototype.jobDetail = function (job) {
-        console.log(job);
+        // console.log(job);
         this.subject
             .next({ info: job });
     };

@@ -15,7 +15,7 @@ export class JobdetailService {
     private subject = new Subject<any>();
 
     jobDetail(job: jobDetails) {
-        console.log(job);
+        // console.log(job);
         this.subject
             .next({info: job});
     }
