@@ -30,7 +30,7 @@ export class JoblistsComponent {
             this.jobdetailService
                 .jobDetail(job);
         },
-        1);
+        5);
     }
 
 }
