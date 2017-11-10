@@ -1,7 +1,7 @@
-import {Component, Injectable, Input,  } from '@angular/core';
-import { JobinfoService } from '../jobinfo.service';
+import { Component, Injectable, Input } from '@angular/core';
+import { JobdetailService } from '../../jobdetail/jobdetail.service';
 import { jobDetails } from '../../Models/jobDetails';
-import {Router} from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 
 @Component({
     moduleId: module.id,
@@ -14,22 +14,23 @@ import {Router} from "@angular/router";
 @Injectable()
 export class JoblistsComponent {
     public jobdetail: jobDetails;
+
     @Input() jobModels: jobDetails[];
+
     constructor (
         private router: Router,
-        private jobinfoService: JobinfoService
+        private jobdetailService: JobdetailService
     ) {
-        if(localStorage.getItem("jobdetail") !== null) {
-            this.jobdetail = JSON.parse(localStorage.getItem("jobdetail"));
-        }
     }
 
-
-    goToJobDetail (job) {
-        this.jobdetail = job;
-        localStorage.setItem("jobdetail", JSON.stringify(job));
-        //this.router.navigate(['/jobDetail']);
-
+    goToJobDetail (job:jobDetails) {
+        this.router.navigate(['jobdetail']);
+        setTimeout(() =>
+        {
+            this.jobdetailService
+                .jobDetail(job);
+        },
+        1);
     }
 
 }

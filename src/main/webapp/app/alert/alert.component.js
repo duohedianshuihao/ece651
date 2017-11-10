@@ -17,6 +17,7 @@ var AlertComponent = (function () {
         this.alertService = alertService;
         this.subscription = this.alertService.getMessage().subscribe(function (message) {
             _this.message = message;
+            console.log(_this.message);
         });
     }
     AlertComponent.prototype.ngOnDestroy = function () {

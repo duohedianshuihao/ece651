@@ -21,20 +21,22 @@ var jobinfo_component_1 = require("./jobinfo/jobinfo.component");
 var joblists_component_1 = require("./jobinfo/joblists/joblists.component");
 var alert_component_1 = require("./alert/alert.component");
 var user_component_1 = require("./user/user.component");
+var jobdetail_component_1 = require("./jobdetail/jobdetail.component");
 var login_service_1 = require("./login/login.service");
 var signup_service_1 = require("./signup/signup.service");
 var alert_service_1 = require("./alert/alert.service");
-var jobinfo_service_1 = require("./jobinfo/jobinfo.service");
 var user_service_1 = require("./user/user.service");
 var navbar_service_1 = require("./navbar/navbar.service");
-var jobdetail_component_1 = require("./jobinfo/jobdetail/jobdetail.component");
-var jobdetail_service_1 = require("./jobinfo/jobdetail/jobdetail.service");
+var jobinfo_service_1 = require("./jobinfo/jobinfo.service");
+var jobdetail_service_1 = require("./jobdetail/jobdetail.service");
+var joblists_service_1 = require("./jobinfo/joblists/joblists.service");
 var appRoutes = [
     { path: 'login', component: login_component_1.LoginComponent },
     { path: 'signup', component: signup_component_1.SignupComponent },
     { path: 'jobInfo', component: jobinfo_component_1.JobinfoComponent },
     { path: 'userprofile', component: user_component_1.UserComponent },
-    { path: '', component: welcome_component_1.WelcomeComponent }
+    { path: '', component: welcome_component_1.WelcomeComponent },
+    { path: "jobdetail", component: jobdetail_component_1.JobdetailComponent }
 ];
 var AppModule = (function () {
     function AppModule() {
@@ -69,7 +71,8 @@ AppModule = __decorate([
             jobinfo_service_1.JobinfoService,
             jobdetail_service_1.JobdetailService,
             user_service_1.UserService,
-            navbar_service_1.NavbarService
+            navbar_service_1.NavbarService,
+            joblists_service_1.JoblistsService
         ],
         bootstrap: [
             app_component_1.AppComponent

@@ -10,9 +10,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var Subject_1 = require("rxjs/Subject");
 var JobdetailService = (function () {
     function JobdetailService() {
+        this.subject = new Subject_1.Subject();
     }
+    JobdetailService.prototype.jobDetail = function (job) {
+        console.log(job);
+        this.subject
+            .next({ info: job });
+    };
+    JobdetailService.prototype.getJobDetail = function () {
+        return this.subject.asObservable();
+    };
     return JobdetailService;
 }());
 JobdetailService = __decorate([

@@ -10,20 +10,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var jobinfo_service_1 = require("../jobinfo.service");
+var jobdetail_service_1 = require("../../jobdetail/jobdetail.service");
 var router_1 = require("@angular/router");
 var JoblistsComponent = (function () {
-    function JoblistsComponent(router, jobinfoService) {
+    function JoblistsComponent(router, jobdetailService) {
         this.router = router;
-        this.jobinfoService = jobinfoService;
-        if (localStorage.getItem("jobdetail") !== null) {
-            this.jobdetail = JSON.parse(localStorage.getItem("jobdetail"));
-        }
+        this.jobdetailService = jobdetailService;
     }
     JoblistsComponent.prototype.goToJobDetail = function (job) {
-        this.jobdetail = job;
-        localStorage.setItem("jobdetail", JSON.stringify(job));
-        //this.router.navigate(['/jobDetail']);
+        var _this = this;
+        this.router.navigate(['jobdetail']);
+        setTimeout(function () {
+            _this.jobdetailService
+                .jobDetail(job);
+        }, 1);
     };
     return JoblistsComponent;
 }());
@@ -40,7 +40,7 @@ JoblistsComponent = __decorate([
     }),
     core_1.Injectable(),
     __metadata("design:paramtypes", [router_1.Router,
-        jobinfo_service_1.JobinfoService])
+        jobdetail_service_1.JobdetailService])
 ], JoblistsComponent);
 exports.JoblistsComponent = JoblistsComponent;
 //# sourceMappingURL=joblists.component.js.map

@@ -10,20 +10,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var joblists_service_1 = require("../jobinfo/joblists/joblists.service");
+var jobdetail_service_1 = require("./jobdetail.service");
 var Subscription_1 = require("rxjs/Subscription");
 var JobdetailComponent = (function () {
-    function JobdetailComponent(joblistsService) {
+    function JobdetailComponent(jobdetailService) {
         var _this = this;
-        this.joblistsService = joblistsService;
+        this.jobdetailService = jobdetailService;
         this.subscription = new Subscription_1.Subscription();
-        this.subscription = this.joblistsService
-            .getJob()
+        this.subscription = this.jobdetailService
+            .getJobDetail()
             .subscribe(function (job) {
-            console.log('here');
-            _this.jobdetail = job;
             console.log(job);
-            console.log(_this.jobdetail);
+            _this.jobdetail = job.info;
+            console.log("jobdetails: " + _this.jobdetail.jobTittle);
         });
     }
     JobdetailComponent.prototype.ngOnDestroy = function () {
@@ -38,8 +37,7 @@ JobdetailComponent = __decorate([
         templateUrl: "jobdetail.component.html",
         styleUrls: ['jobdetail.component.css']
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof joblists_service_1.JoblistsService !== "undefined" && joblists_service_1.JoblistsService) === "function" && _a || Object])
+    __metadata("design:paramtypes", [jobdetail_service_1.JobdetailService])
 ], JobdetailComponent);
 exports.JobdetailComponent = JobdetailComponent;
-var _a;
 //# sourceMappingURL=jobdetail.component.js.map

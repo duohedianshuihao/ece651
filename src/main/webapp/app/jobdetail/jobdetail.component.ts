@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { JoblistsService } from "../jobinfo/joblists/joblists.service";
+import { JobdetailService } from "./jobdetail.service";
 import { jobDetails } from '../Models/jobDetails';
 
 import { Subscription } from 'rxjs/Subscription';
@@ -16,18 +16,20 @@ export class JobdetailComponent implements OnDestroy{
     public jobdetail: jobDetails;
 
     constructor(
-        private joblistsService: JoblistsService
-        ) {
-        this.subscription = this.joblistsService
-                                .getJob()
+        private jobdetailService: JobdetailService
+        )
+    {
+        this.subscription = this.jobdetailService
+                                .getJobDetail()
                                 .subscribe(
-                                    (job: jobDetails) => {
-                                        console.log('here');
-                                        this.jobdetail = job;
+                                    job => {
                                         console.log(job);
-                                        console.log(this.jobdetail);
+                                        this.jobdetail = job.info;
+                                        console.log("jobdetails: " + this.jobdetail.jobTittle);
                                     });
     }
+
+
     ngOnDestroy() {
         this.subscription.unsubscribe();
     }
