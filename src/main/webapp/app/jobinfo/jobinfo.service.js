@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var JobinfoService = (function () {
+    // getjobDetail: EventEmitter<any>;
     function JobinfoService(http) {
         this.http = http;
         this.headers = new http_1.Headers();

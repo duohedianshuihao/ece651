@@ -70,6 +70,7 @@ AppModule = __decorate([
             alert_service_1.AlertService,
             jobinfo_service_1.JobinfoService,
             jobdetail_service_1.JobdetailService,
+            joblists_service_1.JoblistsService,
             user_service_1.UserService,
             navbar_service_1.NavbarService,
             joblists_service_1.JoblistsService

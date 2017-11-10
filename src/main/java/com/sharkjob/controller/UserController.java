@@ -90,7 +90,7 @@ public class UserController {
 
     @RequestMapping(value = "/{userName}/updateSkills", method = POST)
     public ResponseEntity<String> updateSkills(@PathVariable String userName,
-                                @RequestBody List<String> skills) {
+                                @RequestParam("skills") List<String> skills) {
 
         boolean updateSkill = userDao.updateSkillsInSharkJobUserTableThroughUserName(userName, skills);
 

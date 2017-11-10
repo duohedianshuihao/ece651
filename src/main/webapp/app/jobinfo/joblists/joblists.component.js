@@ -23,7 +23,7 @@ var JoblistsComponent = (function () {
         setTimeout(function () {
             _this.jobdetailService
                 .jobDetail(job);
-        }, 1);
+        }, 5);
     };
     return JoblistsComponent;
 }());
