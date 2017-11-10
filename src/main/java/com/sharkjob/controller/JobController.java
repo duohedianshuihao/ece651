@@ -33,7 +33,8 @@ public class JobController {
     private UserDao userDao;
 
     @RequestMapping(value = "/newJob", method = POST)
-    public ResponseEntity<String> post(@RequestBody String newJob, @RequestBody String email) {
+    public ResponseEntity<String> post(@RequestParam(value = "newJob") String newJob,
+                                       @RequestParam(value = "email") String email) {
 
         Gson gson = new Gson();
         Job job = gson.fromJson(newJob, Job.class);
@@ -49,7 +50,8 @@ public class JobController {
     }
 
     @RequestMapping(value = "/updateJobInfo", method = POST)
-    public void updateJobInfo(@RequestBody String jobId, @RequestBody String jobDescription) {
+    public void updateJobInfo(@RequestParam(value = "jobId") String jobId,
+                               @RequestParam(value = "jobDescription") String jobDescription) {
 
         jobDao.updateJobInSharkJobInfoTable(jobId, jobDescription);
     }

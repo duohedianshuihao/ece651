@@ -4,6 +4,7 @@ package com.sharkjob.Dao;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
+import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedScanList;
 import com.amazonaws.services.dynamodbv2.model.CreateTableRequest;
 import com.amazonaws.services.dynamodbv2.model.ResourceInUseException;
 import com.sharkjob.model.Comment;
@@ -13,6 +14,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.time.LocalDateTime;
@@ -32,11 +34,14 @@ public class JobDaoTest {
     @Mock
     private AmazonDynamoDB mockAmazonDyanmoDB;
     @Mock private DynamoDBMapper mockJobMapper;
+    @Mock private  PaginatedScanList mockPaginatedScanList;
+    private List<Job> jobs;
     private JobDao jobDao = new JobDao();
     private Job job = new Job();
     private Job newJob = new Job();
     private User company = new User();
     private User wrongCompany = new User();
+    private User company2 = new User();
     private final String newJobDescription = "job description is updated";
     private Comment newComment = new Comment();
 //    private List<job>
@@ -47,12 +52,13 @@ public class JobDaoTest {
         jobDao.setDynamoDBClient(mockAmazonDyanmoDB);
         jobDao.setJobMapper(mockJobMapper);
         when(mockJobMapper.generateCreateTableRequest(any())).thenReturn(new CreateTableRequest());
+        when(mockJobMapper.scan(any(),any())).thenReturn(mockPaginatedScanList);
         company.setEmail("c423liu@uwaterloo.ca");
         company.setUserType("Company");
         company.setUserName("Chino");
         company.setPassword("123456");
 
-        company.setEmail("wrong@example.com");
+        wrongCompany.setEmail("wrong@example.com");
 
         Date startDate = new Date();
         Date commentDate1 = new Date();
@@ -72,6 +78,11 @@ public class JobDaoTest {
         comments.add(comment1);
         comments.add(comment2);
 
+        company2.setEmail("company2@uwaterloo.ca");
+        company2.setUserType("Company");
+        company2.setUserName("company2");
+        company2.setPassword("123456");
+
         job.setCreatedTime(createdDate1);
         job.setStartTime(startDate);
         job.setJobTittle("Software Internship");
@@ -83,6 +94,7 @@ public class JobDaoTest {
         job.setComments(comments);
 
         newJob.setCreatedTime(createdDate2);
+        newJob.setCompany(company2);
 
         Date newCommentTime = new Date();
         newComment.setReplier(company);
@@ -105,7 +117,7 @@ public class JobDaoTest {
     }
 
     @Test
-    public void saveUserInSharkJobInfoTable_Successfully() {
+    public void saveJobInSharkJobInfoTable_Successfully() {
         when(mockJobMapper.load(Job.class,job.getJobId())).thenReturn(job);
         jobDao.saveJobInSharkJobInfoTable(job);
         verify(mockJobMapper,times(1)).save(job);
@@ -134,12 +146,13 @@ public class JobDaoTest {
 
 
 //    @Test
-//    public void sorted_getAllJobsInSharkInfoTable() {
-//        jobDao.saveJobInSharkJobInfoTable(job);
-//        jobDao.saveJobInSharkJobInfoTable(newJob);
-//
-//        DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
-//        when(mockJobMapper.scan(Job.class,scanExpression)).thenReturn;
+//    public void vaild_getAllJobsInSharkInfoTable() {
+//        mockPaginatedScanList.add(job);
+//        mockPaginatedScanList.add(newJob);
+//        when(mockJobMapper.scan(any(),any())).thenReturn(mockPaginatedScanList);
+//        jobDao.getAllJobsInSharkJobInfoTable();
+////        assertEquals(mockPaginatedScanList.indexOf(job), 1);
+//        assertEquals(mockPaginatedScanList.indexOf(newJob), 0);
 //    }
 
 }
