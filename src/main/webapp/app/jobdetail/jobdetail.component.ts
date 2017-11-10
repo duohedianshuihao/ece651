@@ -1,6 +1,6 @@
 import { Component, Input, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
-import { JobinfoService } from '../jobinfo/jobinfo.service';
+import { JoblistsService } from "../jobinfo/joblists/joblists.service";
 import { JobdetailService } from "./jobdetail.service";
 import { jobDetails } from '../Models/jobDetails';
 import { comments } from "../Models/comments";
@@ -19,7 +19,7 @@ export class JobdetailComponent implements OnInit{
     public usercomment: comments;
     subscription: any;
     constructor (
-        private jobinfoService: JobinfoService,
+        private joblistService: JoblistsService,
         // private jobdetailService: JobdetailService,
         // private alertService: AlertService,
         private router: Router,
@@ -30,7 +30,7 @@ export class JobdetailComponent implements OnInit{
     }
 
     ngOnInit() {
-        this.jobdetail = this.jobinfoService.jobdata;
+        this.jobdetail = this.joblistService.jobdata;
         // console.log(this.jobinfoService.jobdata.jobTittle);
         // this.subscription = this.jobinfoService.getJobdetailEmitter()
         //     .subscribe(item => this.savejobdetail(item));

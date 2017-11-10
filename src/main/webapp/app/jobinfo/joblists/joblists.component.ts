@@ -2,6 +2,7 @@ import {Component, Injectable, Input, Output, EventEmitter, } from '@angular/cor
 import { JobinfoService } from '../jobinfo.service';
 import { jobDetails } from '../../Models/jobDetails';
 import {Router} from "@angular/router";
+import { JoblistsService} from "./joblists.service";
 
 @Component({
     moduleId: module.id,
@@ -17,7 +18,8 @@ export class JoblistsComponent {
     @Input() jobModels: jobDetails[];
     constructor (
         private router: Router,
-        private jobinfoService: JobinfoService
+        private jobinfoService: JobinfoService,
+        private joblistService: JoblistsService
     ) {
         // if(localStorage.getItem("jobdetail") !== null) {
         //     this.jobdetail = JSON.parse(localStorage.getItem("jobdetail"));
@@ -29,7 +31,7 @@ export class JoblistsComponent {
         // this.jobdetail = job;
         // this.jobinfoService.emitJobdetail(job.jobTittle);
         // localStorage.setItem("jobdetail", JSON.stringify(job));
-        this.jobinfoService.jobdata = job;
+        this.joblistService.jobdata = job;
         this.router.navigate(['/jobdetail']);
 
     }

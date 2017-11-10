@@ -11,20 +11,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var jobinfo_service_1 = require("../jobinfo/jobinfo.service");
+var joblists_service_1 = require("../jobinfo/joblists/joblists.service");
 var JobdetailComponent = (function () {
-    function JobdetailComponent(jobinfoService, 
+    function JobdetailComponent(joblistService, 
         // private jobdetailService: JobdetailService,
         // private alertService: AlertService,
         router) {
-        this.jobinfoService = jobinfoService;
+        this.joblistService = joblistService;
         this.router = router;
         // jobinfoService.getjobDetail.subscribe((emitjob:jobDetails)=>{
         //     this.jobdetail = emitjob;
         // })
     }
     JobdetailComponent.prototype.ngOnInit = function () {
-        this.jobdetail = this.jobinfoService.jobdata;
+        this.jobdetail = this.joblistService.jobdata;
         // console.log(this.jobinfoService.jobdata.jobTittle);
         // this.subscription = this.jobinfoService.getJobdetailEmitter()
         //     .subscribe(item => this.savejobdetail(item));
@@ -39,7 +39,7 @@ JobdetailComponent = __decorate([
         templateUrl: 'jobdetail.component.html',
         styleUrls: ['jobdetail.component.css']
     }),
-    __metadata("design:paramtypes", [jobinfo_service_1.JobinfoService,
+    __metadata("design:paramtypes", [joblists_service_1.JoblistsService,
         router_1.Router])
 ], JobdetailComponent);
 exports.JobdetailComponent = JobdetailComponent;

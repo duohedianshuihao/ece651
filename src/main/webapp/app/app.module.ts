@@ -15,14 +15,15 @@ import { JobinfoComponent } from './jobinfo/jobinfo.component';
 import { JoblistsComponent } from './jobinfo/joblists/joblists.component';
 import { AlertComponent } from './alert/alert.component';
 import { UserComponent } from './user/user.component';
+import { JobdetailComponent } from "./jobdetail/jobdetail.component";
 
+import { JoblistsService} from "./jobinfo/joblists/joblists.service";
 import { LoginService } from './login/login.service';
 import { SignupService} from './signup/signup.service';
 import { AlertService } from './alert/alert.service';
 import { JobinfoService} from './jobinfo/jobinfo.service';
 import { UserService } from './user/user.service';
 import { NavbarService } from './navbar/navbar.service';
-import { JobdetailComponent } from "./jobdetail/jobdetail.component";
 import { JobdetailService } from "./jobdetail/jobdetail.service";
 
 const appRoutes: Routes = [
@@ -64,6 +65,7 @@ const appRoutes: Routes = [
     AlertService,
     JobinfoService,
     JobdetailService,
+    JoblistsService,
     UserService,
     NavbarService
   ],

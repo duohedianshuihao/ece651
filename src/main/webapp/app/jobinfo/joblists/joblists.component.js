@@ -12,10 +12,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var jobinfo_service_1 = require("../jobinfo.service");
 var router_1 = require("@angular/router");
+var joblists_service_1 = require("./joblists.service");
 var JoblistsComponent = (function () {
-    function JoblistsComponent(router, jobinfoService) {
+    function JoblistsComponent(router, jobinfoService, joblistService) {
         this.router = router;
         this.jobinfoService = jobinfoService;
+        this.joblistService = joblistService;
         // if(localStorage.getItem("jobdetail") !== null) {
         //     this.jobdetail = JSON.parse(localStorage.getItem("jobdetail"));
         // }
@@ -25,7 +27,7 @@ var JoblistsComponent = (function () {
         // this.jobdetail = job;
         // this.jobinfoService.emitJobdetail(job.jobTittle);
         // localStorage.setItem("jobdetail", JSON.stringify(job));
-        this.jobinfoService.jobdata = job;
+        this.joblistService.jobdata = job;
         this.router.navigate(['/jobdetail']);
     };
     return JoblistsComponent;
@@ -43,7 +45,8 @@ JoblistsComponent = __decorate([
     }),
     core_1.Injectable(),
     __metadata("design:paramtypes", [router_1.Router,
-        jobinfo_service_1.JobinfoService])
+        jobinfo_service_1.JobinfoService,
+        joblists_service_1.JoblistsService])
 ], JoblistsComponent);
 exports.JoblistsComponent = JoblistsComponent;
 //# sourceMappingURL=joblists.component.js.map

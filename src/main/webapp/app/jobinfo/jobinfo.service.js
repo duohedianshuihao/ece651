@@ -12,14 +12,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var JobinfoService = (function () {
+    // getjobDetail: EventEmitter<any>;
     function JobinfoService(http) {
         this.http = http;
         this.headers = new http_1.Headers();
         this.jobUrl = '/jobList';
         this.jobnumberUrl = '/numberOfJobs';
         this.usernumberUrl = '/numberOfUsers';
-        this.jobdata = null;
-        this.getjobDetail = new core_1.EventEmitter();
+        // this.getjobDetail = new EventEmitter();
     }
     JobinfoService.prototype.getJobDetails = function () {
         return this.http.get(this.jobUrl, { headers: this.headers })
@@ -32,12 +32,6 @@ var JobinfoService = (function () {
     JobinfoService.prototype.getNumberOfUsers = function () {
         return this.http.get(this.usernumberUrl, { headers: this.headers })
             .map(function (response) { return response.json(); });
-    };
-    JobinfoService.prototype.emitJobdetail = function (job) {
-        this.getjobDetail.emit(job);
-    };
-    JobinfoService.prototype.getJobdetailEmitter = function () {
-        return this.getjobDetail;
     };
     return JobinfoService;
 }());

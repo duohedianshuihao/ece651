@@ -11,12 +11,12 @@ export class JobinfoService {
     private jobUrl = '/jobList';
     private jobnumberUrl = '/numberOfJobs';
     private usernumberUrl = '/numberOfUsers';
-    getjobDetail: EventEmitter<any>;
-    public jobdata : jobDetails = null;
+    // getjobDetail: EventEmitter<any>;
+
     constructor(
         private http: Http,
     ) {
-        this.getjobDetail = new EventEmitter();
+        // this.getjobDetail = new EventEmitter();
     }
 
     getJobDetails() {
@@ -33,12 +33,12 @@ export class JobinfoService {
         return this.http.get(this.usernumberUrl, {headers: this.headers})
                         .map((response: Response) => response.json());
     }
-    emitJobdetail(job) {
-        this.getjobDetail.emit(job);
-    }
-    getJobdetailEmitter() {
-        return this.getjobDetail;
-    }
+    // emitJobdetail(job) {
+    //     this.getjobDetail.emit(job);
+    // }
+    // getJobdetailEmitter() {
+    //     return this.getjobDetail;
+    // }
 
 }
 
