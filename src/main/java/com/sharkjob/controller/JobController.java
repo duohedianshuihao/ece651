@@ -72,7 +72,7 @@ public class JobController {
         if (job != null){
             return new ResponseEntity<>(job, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(new Job(), HttpStatus.NO_CONTENT);
         }
     }
     /*Situation of Content
@@ -88,11 +88,8 @@ public class JobController {
         for(val job:jobList){
             for (val param:parameter) {
                 if (job.getJobTittle().toLowerCase().contains(param.toLowerCase())
-                    || job.getRequiredSkills().contains(param)
-                    || job.getRequiredSkills().contains(param.toLowerCase())
-                    || job.getRequiredSkills().contains(param.toUpperCase())
-                    || job.getLocation().toLowerCase().contains(param.toLowerCase())){
-
+                        || findSkillsInJobInfo(job, param)
+                        || job.getLocation().toLowerCase().contains(param.toLowerCase())){
                     resultList.add(job);
                 }
             }
@@ -128,5 +125,14 @@ public class JobController {
         Integer number = jobDao.getNumberOfJobsInSharkJobInfoTable();
 
         return new ResponseEntity<>(number, HttpStatus.OK);
+    }
+
+    private boolean findSkillsInJobInfo(Job job, String content){
+        for(val skill: job.getRequiredSkills()) {
+            if (skill.toLowerCase().contains(content.toLowerCase())){
+                return true;
+            }
+        }
+        return false;
     }
 }

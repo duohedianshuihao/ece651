@@ -20,11 +20,4 @@ export class WelcomeComponent {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     }
 
-    // logout() {
-    //     // localStorage.removeItem('currentUser');
-    //     this.loginService.logout();
-    //     // following function would not work if nothing changed
-    //     // this.router.navigate(['jobList']);
-    //     location.reload();
-    // }
 }

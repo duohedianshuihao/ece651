@@ -29,4 +29,7 @@ public class PagesController {
     public String getUserprofile(){
         return "index";
     }
+
+//    @RequestMapping(value = "/jobdetail")
+//    public String getDetailPage(){ return "index"; }
 }

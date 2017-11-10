@@ -10,29 +10,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var alert_service_1 = require("./alert.service");
-var AlertComponent = (function () {
-    function AlertComponent(alertService) {
+var jobdetail_service_1 = require("./jobdetail.service");
+var Subscription_1 = require("rxjs/Subscription");
+var JobdetailComponent = (function () {
+    function JobdetailComponent(jobdetailService) {
         var _this = this;
-        this.alertService = alertService;
-        this.subscription = this.alertService.getMessage().subscribe(function (message) {
-            _this.message = message;
-            console.log(_this.message);
+        this.jobdetailService = jobdetailService;
+        this.subscription = new Subscription_1.Subscription();
+        this.subscription = this.jobdetailService
+            .getJobDetail()
+            .subscribe(function (job) {
+            _this.jobdetail = job.info;
         });
     }
-    AlertComponent.prototype.ngOnDestroy = function () {
+    JobdetailComponent.prototype.ngOnDestroy = function () {
         this.subscription.unsubscribe();
     };
-    return AlertComponent;
+    return JobdetailComponent;
 }());
-AlertComponent = __decorate([
+JobdetailComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
-        selector: 'alert',
-        templateUrl: 'alert.component.html',
-        styles: ['alert.component.css']
+        selector: "jobdetail",
+        templateUrl: "jobdetail.component.html",
+        styleUrls: ['jobdetail.component.css']
     }),
-    __metadata("design:paramtypes", [alert_service_1.AlertService])
-], AlertComponent);
-exports.AlertComponent = AlertComponent;
-//# sourceMappingURL=alert.component.js.map
+    __metadata("design:paramtypes", [jobdetail_service_1.JobdetailService])
+], JobdetailComponent);
+exports.JobdetailComponent = JobdetailComponent;
+//# sourceMappingURL=jobdetail.component.js.map

@@ -15,22 +15,25 @@ import { JobinfoComponent } from './jobinfo/jobinfo.component';
 import { JoblistsComponent } from './jobinfo/joblists/joblists.component';
 import { AlertComponent } from './alert/alert.component';
 import { UserComponent } from './user/user.component';
+import { JobdetailComponent } from "./jobdetail/jobdetail.component";
 
 import { LoginService } from './login/login.service';
 import { SignupService} from './signup/signup.service';
 import { AlertService } from './alert/alert.service';
-import { JobinfoService} from './jobinfo/jobinfo.service';
 import { UserService } from './user/user.service';
 import { NavbarService } from './navbar/navbar.service';
-import {JobdetailComponent} from "./jobinfo/jobdetail/jobdetail.component";
-import {JobdetailService} from "./jobinfo/jobdetail/jobdetail.service";
+import { JobinfoService} from './jobinfo/jobinfo.service';
+import { JobdetailService } from "./jobdetail/jobdetail.service";
+import { JoblistsService} from "./jobinfo/joblists/joblists.service";
+
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'signup', component: SignupComponent},
   {path: 'jobInfo', component: JobinfoComponent},
   {path: 'userprofile', component: UserComponent},
-  {path: '', component: WelcomeComponent}
+  {path: '', component: WelcomeComponent},
+  {path: "jobdetail", component: JobdetailComponent}
 ]
 
 @NgModule({
@@ -63,8 +66,10 @@ const appRoutes: Routes = [
     AlertService,
     JobinfoService,
     JobdetailService,
+    JoblistsService,
     UserService,
-    NavbarService
+    NavbarService,
+    JoblistsService
   ],
 
   bootstrap: [

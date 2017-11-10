@@ -10,36 +10,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var http_1 = require("@angular/http");
-require("rxjs/add/operator/map");
-require("rxjs/add/operator/catch");
+var Subject_1 = require("rxjs/Subject");
 var JobdetailService = (function () {
-    function JobdetailService(http) {
-        this.http = http;
-        this.headers = new http_1.Headers();
-        this.commentUrl = 'http://localhost:8080/jobsAddComment';
+    function JobdetailService() {
+        this.subject = new Subject_1.Subject();
     }
-    JobdetailService.prototype.create = function (comment, jobId) {
-        var body = JSON.stringify({
-            comment: comment,
-            jobId: jobId,
-        });
-        return this.http
-            .post(this.commentUrl, body, { headers: this.headers })
-            .map(this.handleData.bind(this));
+    JobdetailService.prototype.jobDetail = function (job) {
+        // console.log(job);
+        this.subject
+            .next({ info: job });
     };
-    JobdetailService.prototype.handleData = function (response) {
-        var body = response.json();
-        if (body) {
-            return body;
-        }
-        return body || {};
+    JobdetailService.prototype.getJobDetail = function () {
+        return this.subject.asObservable();
     };
     return JobdetailService;
 }());
 JobdetailService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
+    __metadata("design:paramtypes", [])
 ], JobdetailService);
 exports.JobdetailService = JobdetailService;
 //# sourceMappingURL=jobdetail.service.js.map
