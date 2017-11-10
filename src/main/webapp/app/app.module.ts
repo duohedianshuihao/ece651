@@ -22,8 +22,8 @@ import { AlertService } from './alert/alert.service';
 import { JobinfoService} from './jobinfo/jobinfo.service';
 import { UserService } from './user/user.service';
 import { NavbarService } from './navbar/navbar.service';
-import {JobdetailComponent} from "./jobinfo/jobdetail/jobdetail.component";
-import {JobdetailService} from "./jobinfo/jobdetail/jobdetail.service";
+import { JobdetailComponent } from "./jobdetail/jobdetail.component";
+import { JobdetailService } from "./jobdetail/jobdetail.service";
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -63,6 +63,7 @@ const appRoutes: Routes = [
     SignupService,
     AlertService,
     JobinfoService,
+    JobdetailService,
     UserService,
     NavbarService
   ],
