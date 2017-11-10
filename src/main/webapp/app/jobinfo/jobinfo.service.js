@@ -18,6 +18,8 @@ var JobinfoService = (function () {
         this.jobUrl = '/jobList';
         this.jobnumberUrl = '/numberOfJobs';
         this.usernumberUrl = '/numberOfUsers';
+        this.jobdata = null;
+        this.getjobDetail = new core_1.EventEmitter();
     }
     JobinfoService.prototype.getJobDetails = function () {
         return this.http.get(this.jobUrl, { headers: this.headers })
@@ -30,6 +32,12 @@ var JobinfoService = (function () {
     JobinfoService.prototype.getNumberOfUsers = function () {
         return this.http.get(this.usernumberUrl, { headers: this.headers })
             .map(function (response) { return response.json(); });
+    };
+    JobinfoService.prototype.emitJobdetail = function (job) {
+        this.getjobDetail.emit(job);
+    };
+    JobinfoService.prototype.getJobdetailEmitter = function () {
+        return this.getjobDetail;
     };
     return JobinfoService;
 }());

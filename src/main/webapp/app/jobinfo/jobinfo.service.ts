@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter, } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Observable }    from 'rxjs/Observable';
+import {jobDetails} from "../Models/jobDetails";
 
 
 @Injectable()
@@ -10,9 +11,13 @@ export class JobinfoService {
     private jobUrl = '/jobList';
     private jobnumberUrl = '/numberOfJobs';
     private usernumberUrl = '/numberOfUsers';
+    getjobDetail: EventEmitter<any>;
+    public jobdata : jobDetails = null;
     constructor(
         private http: Http,
-    ) {}
+    ) {
+        this.getjobDetail = new EventEmitter();
+    }
 
     getJobDetails() {
         return this.http.get(this.jobUrl, {headers: this.headers})
@@ -28,5 +33,12 @@ export class JobinfoService {
         return this.http.get(this.usernumberUrl, {headers: this.headers})
                         .map((response: Response) => response.json());
     }
+    emitJobdetail(job) {
+        this.getjobDetail.emit(job);
+    }
+    getJobdetailEmitter() {
+        return this.getjobDetail;
+    }
+
 }
 

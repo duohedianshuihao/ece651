@@ -1,45 +1,40 @@
-<ul *ngIf="jobdetail" class="footpart">
-  <jobdetail [jobdetail]="jobdetail"></jobdetail>
-</ul>
-<ul *ngIf="!jobdetail" class="footpart">
-  <div class="container">
-    <div class="row joblists-head">
-      <div class="col-md-10">
-        <div class="head-wrapper">
-          <h3 class="head-title">Job List</h3>
-        </div>
+<div class="container">
+  <div class="row joblists-head">
+    <div class="col-md-10">
+      <div class="head-wrapper">
+        <h3 class="head-title">Job List</h3>
       </div>
     </div>
-    <ul class="joblists-content">
-      <li *ngFor="let job of jobModels" class="joblists-li">
-        <div class="joblists-content">
-          <div class="joblists-liner">
-            <div class="job-full">
-              <ul class="nav nav-tabs" onmouseover="this.style.background='#DEDEDE'" onmouseout="this.style.background='white'">
-                <li class="full-wrapper">
-                  <div class="col-sm-4">
-                    <div class="avatar-wrapper">
-                      <span class="job-avater">
-                        <img src="/app/static/avatar.jpg" alt="#" class="img-thumbnail job-avater">
-                      </span>
-                    </div>
-                  </div>
-                  <div class="col-sm-6">
-                    <div class="job-title">
-                      <h3><a (click)="goToJobDetail(job);">{{ job.jobTittle }}</a></h3>
-                      <em class="timestamp">{{ job.createdTime | date }}</em>
-                    </div>
-                    <div class="job-content">
-                      <p>{{ job.jobDescription }}</p>
-                    </div>
-                    <button class="btn btn-default" (click)="goToJobDetail(job);">details</button>
-                  </div>
-                </li>
-              </ul>
-          </div>
-         </div>
-        </div>
-      </li>
-    </ul>
   </div>
-</ul>
+  <ul class="joblists-content">
+    <li *ngFor="let job of jobModels" class="joblists-li">
+      <div class="joblists-content">
+        <div class="joblists-liner">
+          <div class="job-full">
+            <ul class="nav nav-tabs" onmouseover="this.style.background='#DEDEDE'" onmouseout="this.style.background='white'">
+              <li class="full-wrapper">
+                <div class="col-sm-4">
+                  <div class="avatar-wrapper">
+                    <span class="job-avater">
+                      <img src="/app/static/avatar.jpg" alt="#" class="img-thumbnail job-avater">
+                    </span>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="job-title">
+                    <h3><a (click)="goToJobDetail(job);">{{ job.jobTittle }}</a></h3>
+                    <em class="timestamp">{{ job.createdTime | date }}</em>
+                  </div>
+                  <div class="job-content">
+                    <p>{{ job.jobDescription }}</p>
+                  </div>
+                  <button class="btn btn-default" (click)="goToJobDetail(job);">details</button>
+                </div>
+              </li>
+            </ul>
+        </div>
+       </div>
+      </div>
+    </li>
+  </ul>
+</div>

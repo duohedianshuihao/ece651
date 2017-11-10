@@ -28,12 +28,12 @@ var jobinfo_service_1 = require("./jobinfo/jobinfo.service");
 var user_service_1 = require("./user/user.service");
 var navbar_service_1 = require("./navbar/navbar.service");
 var jobdetail_component_1 = require("./jobinfo/jobdetail/jobdetail.component");
-var jobdetail_service_1 = require("./jobinfo/jobdetail/jobdetail.service");
 var appRoutes = [
     { path: 'login', component: login_component_1.LoginComponent },
     { path: 'signup', component: signup_component_1.SignupComponent },
     { path: 'jobInfo', component: jobinfo_component_1.JobinfoComponent },
     { path: 'userprofile', component: user_component_1.UserComponent },
+    { path: 'jobdetail', component: jobdetail_component_1.JobdetailComponent },
     { path: '', component: welcome_component_1.WelcomeComponent }
 ];
 var AppModule = (function () {
@@ -67,7 +67,6 @@ AppModule = __decorate([
             signup_service_1.SignupService,
             alert_service_1.AlertService,
             jobinfo_service_1.JobinfoService,
-            jobdetail_service_1.JobdetailService,
             user_service_1.UserService,
             navbar_service_1.NavbarService
         ],

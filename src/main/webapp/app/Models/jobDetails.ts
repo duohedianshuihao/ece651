@@ -10,7 +10,7 @@ export class jobDetails {
         public expirTime: Date,
         public location: string,
         public categories: string,
-        public comments: Array<Comment>
+        public comments: Array<any>
     ) {}
 }
 

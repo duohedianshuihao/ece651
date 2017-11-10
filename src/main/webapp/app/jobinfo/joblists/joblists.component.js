@@ -16,14 +16,17 @@ var JoblistsComponent = (function () {
     function JoblistsComponent(router, jobinfoService) {
         this.router = router;
         this.jobinfoService = jobinfoService;
-        if (localStorage.getItem("jobdetail") !== null) {
-            this.jobdetail = JSON.parse(localStorage.getItem("jobdetail"));
-        }
+        // if(localStorage.getItem("jobdetail") !== null) {
+        //     this.jobdetail = JSON.parse(localStorage.getItem("jobdetail"));
+        // }
     }
     JoblistsComponent.prototype.goToJobDetail = function (job) {
-        this.jobdetail = job;
-        localStorage.setItem("jobdetail", JSON.stringify(job));
-        //this.router.navigate(['/jobDetail']);
+        // console.log(job.jobTittle);
+        // this.jobdetail = job;
+        // this.jobinfoService.emitJobdetail(job.jobTittle);
+        // localStorage.setItem("jobdetail", JSON.stringify(job));
+        this.jobinfoService.jobdata = job;
+        this.router.navigate(['/jobdetail']);
     };
     return JoblistsComponent;
 }());

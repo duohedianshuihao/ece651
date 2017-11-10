@@ -30,6 +30,7 @@ const appRoutes: Routes = [
   {path: 'signup', component: SignupComponent},
   {path: 'jobInfo', component: JobinfoComponent},
   {path: 'userprofile', component: UserComponent},
+  {path: 'jobdetail', component: JobdetailComponent},
   {path: '', component: WelcomeComponent}
 ]
 
@@ -62,7 +63,6 @@ const appRoutes: Routes = [
     SignupService,
     AlertService,
     JobinfoService,
-    JobdetailService,
     UserService,
     NavbarService
   ],
