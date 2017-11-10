@@ -55,7 +55,7 @@ public class JobDao {
     public Job findJobInSharkJobInfoTableThroughJobId(String jobId) {
         Job job = jobMapper.load(Job.class, jobId);
         if (job != null) {
-            log.info(job.toString());
+//            log.info(job.toString());
         }
         return job;
     }
@@ -67,6 +67,8 @@ public class JobDao {
     }
 
     public void addCommentInSharkJobInfoTable(String jobId, Comment comment) {
+        log.info(jobId);
+        log.info(comment.getComment());
         Job job = findJobInSharkJobInfoTableThroughJobId(jobId);
         ArrayList<Comment> comments = job.getComments();
         comments.add(0, comment);

@@ -11,8 +11,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var Subject_1 = require("rxjs/Subject");
+var http_1 = require("@angular/http");
 var JobdetailService = (function () {
-    function JobdetailService() {
+    function JobdetailService(http) {
+        this.http = http;
+        this.headers = new http_1.Headers();
         this.subject = new Subject_1.Subject();
     }
     JobdetailService.prototype.jobDetail = function (job) {
@@ -20,14 +23,33 @@ var JobdetailService = (function () {
         this.subject
             .next({ info: job });
     };
+    JobdetailService.prototype.getJobDetails = function (jobId) {
+        var jobdataUrl = "/jobs/" + jobId;
+        return this.http.get(jobdataUrl, { headers: this.headers })
+            .map(function (response) { return response.json(); });
+    };
     JobdetailService.prototype.getJobDetail = function () {
         return this.subject.asObservable();
     };
+    JobdetailService.prototype.addComment = function (comment, jobId) {
+        var addcomentUrl = "/jobAddComments/" + jobId;
+        var user = JSON.parse(localStorage.getItem('currentUser'));
+        console.log(comment);
+        console.log(jobId);
+        console.log(user.userName);
+        var urlSearchParams = new http_1.URLSearchParams();
+        urlSearchParams.append('jobId', jobId);
+        urlSearchParams.append('currentUser', user.userName);
+        urlSearchParams.append('comment', comment);
+        return this.http.post(addcomentUrl, urlSearchParams, { headers: this.headers })
+            .map(function (response) { return response; });
+    };
+    ;
     return JobdetailService;
 }());
 JobdetailService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [http_1.Http])
 ], JobdetailService);
 exports.JobdetailService = JobdetailService;
 //# sourceMappingURL=jobdetail.service.js.map
