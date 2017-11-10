@@ -17,12 +17,16 @@ var JobdetailComponent = (function () {
         var _this = this;
         this.jobdetailService = jobdetailService;
         this.subscription = new Subscription_1.Subscription();
+        if (this.jobdetail) {
+            console.log('123');
+        }
         this.subscription = this.jobdetailService
             .getJobDetail()
             .subscribe(function (job) {
-            console.log(job);
             _this.jobdetail = job.info;
-            console.log("jobdetails: " + _this.jobdetail.jobTittle);
+            if (_this.jobdetail.jobId) {
+                console.log('asdf');
+            }
         });
     }
     JobdetailComponent.prototype.ngOnDestroy = function () {

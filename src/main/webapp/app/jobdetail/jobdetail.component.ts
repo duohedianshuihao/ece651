@@ -19,13 +19,17 @@ export class JobdetailComponent implements OnDestroy{
         private jobdetailService: JobdetailService
         )
     {
+        if (this.jobdetail==null||angular.equals({}, this.jobdetail)){
+            console.log('123');
+        }
         this.subscription = this.jobdetailService
                                 .getJobDetail()
                                 .subscribe(
                                     job => {
-                                        console.log(job);
                                         this.jobdetail = job.info;
-                                        console.log("jobdetails: " + this.jobdetail.jobTittle);
+                                        if (this.jobdetail.jobId){
+                                            console.log('asdf');
+                                        }
                                     });
     }
 
