@@ -25,12 +25,16 @@ export class JoblistsComponent {
 
     goToJobDetail (job:jobDetails) {
         this.router.navigate(['jobdetail']);
-        setTimeout(() =>
-        {
-            this.jobdetailService
-                .jobDetail(job);
-        },
-        5);
+        if (localStorage.getItem('jobId') != null) {
+            localStorage.removeItem('jobId');
+        }
+        localStorage.setItem('jobId', job.jobId);
+        // setTimeout(() =>
+        // {
+        //     this.jobdetailService
+        //         .jobDetail(job);
+        // },
+        // 5);
     }
 
 }

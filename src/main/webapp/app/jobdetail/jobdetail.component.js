@@ -11,20 +11,42 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var jobdetail_service_1 = require("./jobdetail.service");
+var router_1 = require("@angular/router");
+var alert_service_1 = require("../alert/alert.service");
 var Subscription_1 = require("rxjs/Subscription");
 var JobdetailComponent = (function () {
-    function JobdetailComponent(jobdetailService) {
+    function JobdetailComponent(alertService, router, jobdetailService) {
+        // this.subscription = this.jobdetailService
+        //                         .getJobDetail()
+        //                         .subscribe(
+        //                             job => {
+        //                                 this.jobdetail = job.info;
+        //                             });
         var _this = this;
+        this.alertService = alertService;
+        this.router = router;
         this.jobdetailService = jobdetailService;
         this.subscription = new Subscription_1.Subscription();
-        this.subscription = this.jobdetailService
-            .getJobDetail()
-            .subscribe(function (job) {
-            _this.jobdetail = job.info;
+        this.jobdetailService
+            .getJobDetails(localStorage.getItem('jobId'))
+            .subscribe(function (jobDetail) {
+            _this.jobdetail = jobDetail;
+        }, function (error) {
+            console.log(error);
         });
     }
     JobdetailComponent.prototype.ngOnDestroy = function () {
-        this.subscription.unsubscribe();
+        // this.subscription.unsubscribe();
+    };
+    JobdetailComponent.prototype.addComment = function (comment) {
+        var _this = this;
+        this.jobdetailService.addComment(comment, this.jobdetail.jobId)
+            .subscribe(function (info) {
+            window.location.reload();
+            _this.alertService.success("Comment Added", true);
+        }, function (error) {
+            _this.alertService.error(error.text());
+        });
     };
     return JobdetailComponent;
 }());
@@ -35,7 +57,9 @@ JobdetailComponent = __decorate([
         templateUrl: "jobdetail.component.html",
         styleUrls: ['jobdetail.component.css']
     }),
-    __metadata("design:paramtypes", [jobdetail_service_1.JobdetailService])
+    __metadata("design:paramtypes", [alert_service_1.AlertService,
+        router_1.Router,
+        jobdetail_service_1.JobdetailService])
 ], JobdetailComponent);
 exports.JobdetailComponent = JobdetailComponent;
 //# sourceMappingURL=jobdetail.component.js.map

@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Observable } from 'rxjs';
 import { Subject } from 'rxjs/Subject';
-
+import { Headers, Http, Response, URLSearchParams } from '@angular/http';
 import { jobDetails } from "../Models/jobDetails";
 
 
@@ -9,9 +9,10 @@ import { jobDetails } from "../Models/jobDetails";
 @Injectable()
 
 export class JobdetailService {
+    private headers = new Headers();
     constructor(
+        private http : Http,
         ) {}
-
     private subject = new Subject<any>();
 
     jobDetail(job: jobDetails) {
@@ -20,7 +21,28 @@ export class JobdetailService {
             .next({info: job});
     }
 
+    getJobDetails(jobId) {
+        let jobdataUrl = "/jobs/" + jobId;
+        return this.http.get(jobdataUrl, {headers: this.headers})
+            .map((response: Response) => response.json());
+    }
+
     getJobDetail(): Observable<any>{
         return this.subject.asObservable();
     }
+
+    addComment(comment:string, jobId:string) {
+        let addcomentUrl = "/jobAddComments/"+ jobId;
+        let user = JSON.parse(localStorage.getItem('currentUser'));
+        console.log(comment);
+        console.log(jobId);
+        console.log(user.userName);
+        let urlSearchParams = new URLSearchParams();
+        urlSearchParams.append('jobId', jobId);
+        urlSearchParams.append('currentUser', user.userName );
+        urlSearchParams.append('comment', comment);
+        return this.http.post(addcomentUrl, urlSearchParams, {headers: this.headers})
+            .map((response: Response) => response);
+    };
+
 }

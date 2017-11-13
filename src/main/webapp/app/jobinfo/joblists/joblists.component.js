@@ -18,12 +18,17 @@ var JoblistsComponent = (function () {
         this.jobdetailService = jobdetailService;
     }
     JoblistsComponent.prototype.goToJobDetail = function (job) {
-        var _this = this;
         this.router.navigate(['jobdetail']);
-        setTimeout(function () {
-            _this.jobdetailService
-                .jobDetail(job);
-        }, 5);
+        if (localStorage.getItem('jobId') != null) {
+            localStorage.removeItem('jobId');
+        }
+        localStorage.setItem('jobId', job.jobId);
+        // setTimeout(() =>
+        // {
+        //     this.jobdetailService
+        //         .jobDetail(job);
+        // },
+        // 5);
     };
     return JoblistsComponent;
 }());
