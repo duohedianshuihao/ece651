@@ -46,6 +46,9 @@ var NavbarComponent = (function () {
             _this.alertService.error(error);
         });
     };
+    NavbarComponent.prototype.postjob = function () {
+        this.router.navigate((['/postjob']));
+    };
     NavbarComponent.prototype.redirect = function () {
         this.router.navigate(['/userprofile']);
     };

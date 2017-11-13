@@ -57,6 +57,10 @@ export class NavbarComponent implements OnInit{
                 });
     }
 
+    postjob() {
+        this.router.navigate((['/postjob']));
+    }
+
     redirect() {
         this.router.navigate(['/userprofile']);
     }
