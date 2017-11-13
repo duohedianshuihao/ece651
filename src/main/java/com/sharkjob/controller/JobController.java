@@ -46,7 +46,7 @@ public class JobController {
 
         jobDao.saveJobInSharkJobInfoTable(job);
 
-        return new ResponseEntity<>("Job saved", HttpStatus.CREATED);
+        return new ResponseEntity<>(gson.toJson(job), HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/updateJobInfo", method = POST)

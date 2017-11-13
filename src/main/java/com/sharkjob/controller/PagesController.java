@@ -32,4 +32,7 @@ public class PagesController {
 
     @RequestMapping(value = "/jobdetail")
     public String getDetailPage(){ return "index"; }
+
+    @RequestMapping(value = "/postjob")
+    public String getPostPage(){ return "index"; }
 }
