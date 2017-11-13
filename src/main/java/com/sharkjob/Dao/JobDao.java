@@ -70,9 +70,15 @@ public class JobDao {
         log.info(jobId);
         log.info(comment.getComment());
         Job job = findJobInSharkJobInfoTableThroughJobId(jobId);
-        ArrayList<Comment> comments = job.getComments();
-        comments.add(comment);
-        job.setComments(comments);
+        if(job.getComments() == null)  {
+            ArrayList<Comment> comments = new ArrayList<>();
+            comments.add(comment);
+            job.setComments(comments);
+        } else {
+            ArrayList<Comment> comments = job.getComments();
+            comments.add(comment);
+            job.setComments(comments);
+        }
         jobMapper.save(job);
     }
 
