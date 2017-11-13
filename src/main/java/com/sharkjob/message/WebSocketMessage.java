@@ -2,11 +2,15 @@ package com.sharkjob.message;
 
 
 
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.ListMultimap;
+import com.google.common.collect.Multimaps;
+import com.google.gson.Gson;
+import lombok.Data;
+
 import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -15,27 +19,27 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Not finished.
  * Need requirements!
  */
-@ServerEndpoint("/messageSystem/{jobId}/{userName}")
+@ServerEndpoint("/messageSystem/{jobId}")
 public class WebSocketMessage {
-    private static Map<String, Session> userSet = new ConcurrentHashMap<>();
-    private static Map<Session, String> jobSet = new ConcurrentHashMap<>();
+    private static ListMultimap<String, Session> jobSet = Multimaps.synchronizedListMultimap(ArrayListMultimap.<String, Session> create());
     private AtomicInteger connections = new AtomicInteger(0);
 
     @OnOpen
-    public void onOpen(@PathParam("userName") String name, @PathParam("jobId") String jobId, Session session ){
-        userSet.put(name, session);
-        jobSet.put(session,jobId);
+    public void onOpen(@PathParam("jobId") String jobId, Session session ){
+        jobSet.put(jobId,session);
         connections.addAndGet(1);
     }
 
     @OnMessage
-    public void onMessage(String message, Session session){
-        String jobId = jobSet.get(session);
-        for (Session session1: jobSet.keySet())
-        {
-            if (jobId == jobSet.get(session1)){
+    public void onMessage(String message, @PathParam("jobId") String jobId){
+        /*
+            Save this msg in the DB for future development.
+            Gson gson = new Gson();
+            Message msg= gson.fromJson(message, Message.class);
+        */
+
+        for (Session session1: jobSet.get(jobId)) {
                 session1.getAsyncRemote().sendText(message);
-            }
         }
     }
 
@@ -44,10 +48,14 @@ public class WebSocketMessage {
     }
 
     @OnClose
-    public void onClose(@PathParam("userName") String name,@PathParam("jobId") String jobId, Session session){
-        userSet.remove(name, session);
-        jobSet.remove(session, jobId);
+    public void onClose(@PathParam("jobId") String jobId, Session session){
+        jobSet.remove(jobId,session);
         connections.addAndGet(-1);
+    }
+
+    public Integer getChatRoomConnections(String jobId){
+        return jobSet.get(jobId).size();
+
     }
 
 }
