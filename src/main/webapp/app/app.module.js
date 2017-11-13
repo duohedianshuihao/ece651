@@ -22,6 +22,7 @@ var joblists_component_1 = require("./jobinfo/joblists/joblists.component");
 var alert_component_1 = require("./alert/alert.component");
 var user_component_1 = require("./user/user.component");
 var jobdetail_component_1 = require("./jobdetail/jobdetail.component");
+var postjob_component_1 = require("./postjob/postjob.component");
 var login_service_1 = require("./login/login.service");
 var signup_service_1 = require("./signup/signup.service");
 var alert_service_1 = require("./alert/alert.service");
@@ -30,13 +31,15 @@ var navbar_service_1 = require("./navbar/navbar.service");
 var jobinfo_service_1 = require("./jobinfo/jobinfo.service");
 var jobdetail_service_1 = require("./jobdetail/jobdetail.service");
 var joblists_service_1 = require("./jobinfo/joblists/joblists.service");
+var postjob_service_1 = require("./postjob/postjob.service");
 var appRoutes = [
     { path: 'login', component: login_component_1.LoginComponent },
     { path: 'signup', component: signup_component_1.SignupComponent },
     { path: 'jobInfo', component: jobinfo_component_1.JobinfoComponent },
     { path: 'userprofile', component: user_component_1.UserComponent },
     { path: '', component: welcome_component_1.WelcomeComponent },
-    { path: "jobdetail", component: jobdetail_component_1.JobdetailComponent }
+    { path: "jobdetail", component: jobdetail_component_1.JobdetailComponent },
+    { path: "postjob", component: postjob_component_1.PostjobComponent },
 ];
 var AppModule = (function () {
     function AppModule() {
@@ -62,7 +65,8 @@ AppModule = __decorate([
             joblists_component_1.JoblistsComponent,
             jobdetail_component_1.JobdetailComponent,
             alert_component_1.AlertComponent,
-            user_component_1.UserComponent
+            user_component_1.UserComponent,
+            postjob_component_1.PostjobComponent,
         ],
         providers: [
             login_service_1.LoginService,
@@ -73,7 +77,8 @@ AppModule = __decorate([
             joblists_service_1.JoblistsService,
             user_service_1.UserService,
             navbar_service_1.NavbarService,
-            joblists_service_1.JoblistsService
+            joblists_service_1.JoblistsService,
+            postjob_service_1.PostjobService,
         ],
         bootstrap: [
             app_component_1.AppComponent

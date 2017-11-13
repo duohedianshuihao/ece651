@@ -16,6 +16,7 @@ import { JoblistsComponent } from './jobinfo/joblists/joblists.component';
 import { AlertComponent } from './alert/alert.component';
 import { UserComponent } from './user/user.component';
 import { JobdetailComponent } from "./jobdetail/jobdetail.component";
+import { PostjobComponent } from "./postjob/postjob.component";
 
 import { LoginService } from './login/login.service';
 import { SignupService} from './signup/signup.service';
@@ -25,6 +26,7 @@ import { NavbarService } from './navbar/navbar.service';
 import { JobinfoService} from './jobinfo/jobinfo.service';
 import { JobdetailService } from "./jobdetail/jobdetail.service";
 import { JoblistsService} from "./jobinfo/joblists/joblists.service";
+import { PostjobService } from "./postjob/postjob.service";
 
 
 const appRoutes: Routes = [
@@ -33,7 +35,8 @@ const appRoutes: Routes = [
   {path: 'jobInfo', component: JobinfoComponent},
   {path: 'userprofile', component: UserComponent},
   {path: '', component: WelcomeComponent},
-  {path: "jobdetail", component: JobdetailComponent}
+  {path: "jobdetail", component: JobdetailComponent},
+  {path: "postjob", component: PostjobComponent},
 ]
 
 @NgModule({
@@ -57,7 +60,8 @@ const appRoutes: Routes = [
     JoblistsComponent,
     JobdetailComponent,
     AlertComponent,
-    UserComponent
+    UserComponent,
+    PostjobComponent,
     ],
 
   providers: [
@@ -69,7 +73,8 @@ const appRoutes: Routes = [
     JoblistsService,
     UserService,
     NavbarService,
-    JoblistsService
+    JoblistsService,
+    PostjobService,
   ],
 
   bootstrap: [
