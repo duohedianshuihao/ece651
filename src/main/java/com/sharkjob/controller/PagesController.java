@@ -34,5 +34,5 @@ public class PagesController {
     public String getDetailPage(){ return "index"; }
 
     @RequestMapping(value = "/postjob")
-    public String getPostPage(){ return "index"; }
+    public String getPostPage(){ return "index" ; }
 }
