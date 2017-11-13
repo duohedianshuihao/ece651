@@ -17,6 +17,7 @@ import { AlertComponent } from './alert/alert.component';
 import { UserComponent } from './user/user.component';
 import { JobdetailComponent } from "./jobdetail/jobdetail.component";
 import { PostjobComponent } from "./postjob/postjob.component";
+import { ChatComponent } from "./chat/chat.component";
 
 import { LoginService } from './login/login.service';
 import { SignupService} from './signup/signup.service';
@@ -59,6 +60,7 @@ const appRoutes: Routes = [
     JobinfoComponent,
     JoblistsComponent,
     JobdetailComponent,
+    ChatComponent,
     AlertComponent,
     UserComponent,
     PostjobComponent,

@@ -23,6 +23,7 @@ var alert_component_1 = require("./alert/alert.component");
 var user_component_1 = require("./user/user.component");
 var jobdetail_component_1 = require("./jobdetail/jobdetail.component");
 var postjob_component_1 = require("./postjob/postjob.component");
+var chat_component_1 = require("./chat/chat.component");
 var login_service_1 = require("./login/login.service");
 var signup_service_1 = require("./signup/signup.service");
 var alert_service_1 = require("./alert/alert.service");
@@ -64,6 +65,7 @@ AppModule = __decorate([
             jobinfo_component_1.JobinfoComponent,
             joblists_component_1.JoblistsComponent,
             jobdetail_component_1.JobdetailComponent,
+            chat_component_1.ChatComponent,
             alert_component_1.AlertComponent,
             user_component_1.UserComponent,
             postjob_component_1.PostjobComponent,
