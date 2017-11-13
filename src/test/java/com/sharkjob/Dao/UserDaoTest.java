@@ -2,6 +2,7 @@ package com.sharkjob.Dao;
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedScanList;
 import com.amazonaws.services.dynamodbv2.model.CreateTableRequest;
 import com.amazonaws.services.dynamodbv2.model.ResourceInUseException;
 import com.sharkjob.model.User;
@@ -9,7 +10,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import static org.mockito.Matchers.any;
+
+import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -28,6 +30,7 @@ public class UserDaoTest {
     @Mock
     private AmazonDynamoDB mockAmazonDyanmoDB;
     @Mock private DynamoDBMapper mockUserMapper;
+    @Mock private  PaginatedScanList mockPaginatedScanList;
     private UserDao userDao = new UserDao();
     private User user = new User();
     private final String email = "c423liu@uwaterloo.ca";
@@ -38,6 +41,8 @@ public class UserDaoTest {
         userDao.setDynamoDBClient(mockAmazonDyanmoDB);
         userDao.setUserMapper(mockUserMapper);
         when(mockUserMapper.generateCreateTableRequest(any())).thenReturn(new CreateTableRequest());
+        when(mockUserMapper.scan(any(),any())).thenReturn(mockPaginatedScanList);
+        when(userDao.findUserInSharkJobUserTableThroughUsername("Chinohoo")).thenReturn(null);
         user.setEmail("c423liu@uwaterloo.ca");
         user.setUserType("Student");
         user.setUserName("Chino");
@@ -108,4 +113,53 @@ public class UserDaoTest {
         assertFalse(flag);
     }
 
+    @Test
+    public void vaild_changeEmailInSharkJobUserTableThroughUserName(){
+        mockPaginatedScanList.add(user);
+        when(userDao.findUserInSharkJobUserTableThroughUsername("Noying")).thenReturn(user);
+        boolean flag = userDao.changeEmailInSharkJobUserTableThroughUserName("Noying","22222","adssa");
+        assertFalse(flag);
+    }
+    @Test
+    public void vaild_changeEmailInSharkJobUserTableThroughUserName2(){
+        mockPaginatedScanList.add(user);
+        when(userDao.findUserInSharkJobUserTableThroughUsername("Chino")).thenReturn(user);
+        boolean flag = userDao.changeEmailInSharkJobUserTableThroughUserName("Chino","123456","c423liu@uwaterloo.ca");
+        assertTrue(flag);
+    }
+    @Test
+    public void vaild_changePasswordInSharkJobUserTableThroughUserName(){
+        mockPaginatedScanList.add(user);
+        when(userDao.findUserInSharkJobUserTableThroughUsername("Chino")).thenReturn(user);
+        boolean flag = userDao.changePasswordInSharkJobUserTableThroughUserName("Chino","123456","12345678");
+        assertTrue(flag);
+    }
+    @Test
+    public void vaild_changePasswordInSharkJobUserTableThroughUserName2(){
+        mockPaginatedScanList.add(user);
+        when(userDao.findUserInSharkJobUserTableThroughUsername("Chino")).thenReturn(user);
+        boolean flag = userDao.changePasswordInSharkJobUserTableThroughUserName("Chino","12456","12345678");
+        assertFalse(flag);
+    }
+
+    @Test
+    public void vaild_changeUserNameInSharkJobUserTableThroughUserName(){
+        mockPaginatedScanList.add(user);
+        when(userDao.findUserInSharkJobUserTableThroughUsername("Chino")).thenReturn(user);
+        boolean flag = userDao.changeUserNameInSharkJobUserTableThroughUserName("Chino","123456","Chino");
+        assertFalse(flag);
+    }
+
+    @Test
+    public void valid_updateSkillsThourghUserName(){
+        when(userDao.findUserInSharkJobUserTableThroughUsername("Chino")).thenReturn(user);
+        boolean flag = userDao.updateSkillsInSharkJobUserTableThroughUserName("Chino", skills);
+        assertTrue(flag);
+    }
+    @Test
+    public void valid_updateSkillsThourghUserName2(){
+        when(userDao.findUserInSharkJobUserTableThroughUsername("Chino")).thenReturn(null);
+        boolean flag = userDao.updateSkillsInSharkJobUserTableThroughUserName("Chino", skills);
+        assertFalse(flag);
+    }
 }

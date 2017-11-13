@@ -62,11 +62,9 @@ public class UserController {
     public ResponseEntity<String> loginUser(@RequestBody String emailorusername) {
                                           //UriComponentsBuilder builder) {
 
-        log.info(emailorusername);
         Gson gson = new Gson();
         User user = gson.fromJson(emailorusername, User.class);
         User userInTable;
-
         if( user.getEmail()!=null ) {
             userInTable = userDao.findUserInSharkJobUserTableThroughEmail(user.getEmail());
         }
@@ -78,7 +76,6 @@ public class UserController {
             if (user.getPassword().equals(userInTable.getPassword())) {
                 //HttpHeaders header = new HttpHeaders();
                 //header.setLocation(builder.path("/index?username={username}").buildAndExpand(user.getUserName()).toUri());
-
                 return new ResponseEntity<>(gson.toJson(userInTable),HttpStatus.OK);
             }
             else {
@@ -93,7 +90,7 @@ public class UserController {
 
     @RequestMapping(value = "/{userName}/updateSkills", method = POST)
     public ResponseEntity<String> updateSkills(@PathVariable String userName,
-                                @RequestBody List<String> skills) {
+                                @RequestParam("skills") List<String> skills) {
 
         boolean updateSkill = userDao.updateSkillsInSharkJobUserTableThroughUserName(userName, skills);
 
@@ -109,6 +106,7 @@ public class UserController {
                                               @RequestParam(value = "newEmail", required = false) String newEmail,
                                               @RequestParam(value = "password", required = false) String password ) {
 
+        log.info(userName);
         log.info(userName+" ");
         log.info(password+" ");
         log.info(newEmail+" ");
@@ -137,9 +135,10 @@ public class UserController {
 
     @RequestMapping(value = "/{userName}/changePassword", method = POST)
     public ResponseEntity<String> changePassword(@PathVariable String userName,
-                                                 @RequestBody String password,
-                                                 @RequestBody String newPassowrd) {
+                                                 @RequestParam("password") String password,
+                                                 @RequestParam("newPassword") String newPassowrd) {
 
+        log.info(userName + password + newPassowrd);
         boolean changePassword = userDao.changePasswordInSharkJobUserTableThroughUserName(userName, password, newPassowrd);
 
         if (changePassword) {
@@ -156,8 +155,15 @@ public class UserController {
         if (user != null) {
             return  new ResponseEntity<>(user, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            User nullUser = new User();
+            return new ResponseEntity<>(nullUser, HttpStatus.NO_CONTENT);
         }
+    }
+
+    @RequestMapping(value="/numberOfUsers", method = GET)
+    public ResponseEntity<Integer> getNumberOfUsers() {
+        Integer number = userDao.getNumberofUsersInSharkUserInfoTable();
+        return new ResponseEntity<>(number, HttpStatus.OK);
     }
 }
 

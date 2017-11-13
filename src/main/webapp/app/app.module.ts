@@ -15,19 +15,29 @@ import { JobinfoComponent } from './jobinfo/jobinfo.component';
 import { JoblistsComponent } from './jobinfo/joblists/joblists.component';
 import { AlertComponent } from './alert/alert.component';
 import { UserComponent } from './user/user.component';
+import { JobdetailComponent } from "./jobdetail/jobdetail.component";
+import { PostjobComponent } from "./postjob/postjob.component";
+import { ChatComponent } from "./chat/chat.component";
 
 import { LoginService } from './login/login.service';
 import { SignupService} from './signup/signup.service';
 import { AlertService } from './alert/alert.service';
-import { JobinfoService} from './jobinfo/jobinfo.service';
 import { UserService } from './user/user.service';
+import { NavbarService } from './navbar/navbar.service';
+import { JobinfoService} from './jobinfo/jobinfo.service';
+import { JobdetailService } from "./jobdetail/jobdetail.service";
+import { JoblistsService} from "./jobinfo/joblists/joblists.service";
+import { PostjobService } from "./postjob/postjob.service";
+
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'signup', component: SignupComponent},
   {path: 'jobInfo', component: JobinfoComponent},
-  {path: 'userprofile/:userName', component: UserComponent},
-  {path: '', component: WelcomeComponent}
+  {path: 'userprofile', component: UserComponent},
+  {path: '', component: WelcomeComponent},
+  {path: "jobdetail", component: JobdetailComponent},
+  {path: "postjob", component: PostjobComponent},
 ]
 
 @NgModule({
@@ -49,8 +59,11 @@ const appRoutes: Routes = [
     NavbarComponent,
     JobinfoComponent,
     JoblistsComponent,
+    JobdetailComponent,
+    ChatComponent,
     AlertComponent,
-    UserComponent
+    UserComponent,
+    PostjobComponent,
     ],
 
   providers: [
@@ -58,7 +71,12 @@ const appRoutes: Routes = [
     SignupService,
     AlertService,
     JobinfoService,
-    UserService
+    JobdetailService,
+    JoblistsService,
+    UserService,
+    NavbarService,
+    JoblistsService,
+    PostjobService,
   ],
 
   bootstrap: [

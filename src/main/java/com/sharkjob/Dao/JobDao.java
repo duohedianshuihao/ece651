@@ -40,6 +40,7 @@ public class JobDao {
         } catch (ResourceInUseException e) {
             //swallow
             log.info("Job Table has already exist.");
+            log.info("Number of jobs in talbe:"+getNumberOfJobsInSharkJobInfoTable());
         }
     }
 
@@ -54,7 +55,7 @@ public class JobDao {
     public Job findJobInSharkJobInfoTableThroughJobId(String jobId) {
         Job job = jobMapper.load(Job.class, jobId);
         if (job != null) {
-            log.info(job.toString());
+//            log.info(job.toString());
         }
         return job;
     }
@@ -66,10 +67,19 @@ public class JobDao {
     }
 
     public void addCommentInSharkJobInfoTable(String jobId, Comment comment) {
+        log.info(jobId);
+        log.info(comment.getComment());
         Job job = findJobInSharkJobInfoTableThroughJobId(jobId);
-        ArrayList<Comment> comments = job.getComments();
-        comments.add(comment);
-        job.setComments(comments);
+        if(job.getComments() == null)  {
+            ArrayList<Comment> comments = new ArrayList<>();
+            comments.add(comment);
+            job.setComments(comments);
+        } else {
+            ArrayList<Comment> comments = job.getComments();
+            comments.add(comment);
+            job.setComments(comments);
+        }
+        jobMapper.save(job);
     }
 
     public List<Job> getAllJobsInSharkJobInfoTable() {
@@ -89,6 +99,11 @@ public class JobDao {
             }
             });
         return jobs;
+    }
+
+    public int getNumberOfJobsInSharkJobInfoTable() {
+
+        return jobMapper.count(Job.class, new DynamoDBScanExpression());
     }
 
     /*Very very ugly and inefficient code.

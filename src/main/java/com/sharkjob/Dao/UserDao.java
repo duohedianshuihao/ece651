@@ -14,10 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -44,6 +41,7 @@ public class UserDao {
         } catch (ResourceInUseException e) {
             //swallow
             log.info("User Table has already exist.");
+            log.info("Number of users in table:"+getNumberofUsersInSharkUserInfoTable());
         }
     }
 
@@ -80,12 +78,12 @@ public class UserDao {
     }
 
     public User findUserInSharkJobUserTableThroughUsername(String username) {
-
+        log.info(username);
         Map<String, AttributeValue> eav = new HashMap<>();
         eav.put(":v1", new AttributeValue().withS(username));
 
         DynamoDBScanExpression scanExpression = new DynamoDBScanExpression()
-                .withFilterExpression("begins_with(userName,:v1)")
+                .withFilterExpression("userName = :v1")
                 .withExpressionAttributeValues(eav);
 
         List<User> result = userMapper.scan(User.class, scanExpression);
@@ -127,7 +125,10 @@ public class UserDao {
 
     public boolean changeEmailInSharkJobUserTableThroughUserName(String userName, String password, String email) {
         User user = findUserInSharkJobUserTableThroughUsername(userName);
+        log.info(user.toString());
         if (isRightUser(userName, password) && isUniqueEmail(email)) {
+            log.info(email);
+            userMapper.delete(user);
             user.setEmail(email);
             userMapper.save(user);
             return true;
@@ -155,9 +156,18 @@ public class UserDao {
         return false;
     }
 
+    public int getNumberofUsersInSharkUserInfoTable() {
+
+        return userMapper.count(User.class, new DynamoDBScanExpression());
+    }
+
     private boolean isRightUser(String userName, String password) {
         User user = findUserInSharkJobUserTableThroughUsername(userName);
-        return user.getPassword() == password;
+        if (user != null){
+            return user.getPassword().equals(password);
+        }else {
+            return false;
+        }
     }
 
     private boolean isUniqueEmail(String email) {

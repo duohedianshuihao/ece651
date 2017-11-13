@@ -3,8 +3,12 @@ package com.sharkjob.controller;
 import com.google.gson.Gson;
 import com.sharkjob.Dao.JobDao;
 import com.sharkjob.Dao.UserDao;
+import com.sharkjob.model.Comment;
 import com.sharkjob.model.Job;
+import com.sharkjob.model.User;
 import lombok.val;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,25 +33,25 @@ public class JobController {
 
     @Autowired
     private UserDao userDao;
+    private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
     @RequestMapping(value = "/newJob", method = POST)
-    public ResponseEntity<String> post(@RequestBody String newJob, @RequestBody String email) {
+    public ResponseEntity<String> post(@RequestBody String newJob) {
 
         Gson gson = new Gson();
         Job job = gson.fromJson(newJob, Job.class);
 
         Date date = new Date();
-
-        job.setCompany(userDao.findUserInSharkJobUserTableThroughEmail(email));
         job.setCreatedTime(date);
 
         jobDao.saveJobInSharkJobInfoTable(job);
 
-        return new ResponseEntity<>("Job saved", HttpStatus.CREATED);
+        return new ResponseEntity<>(gson.toJson(job), HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/updateJobInfo", method = POST)
-    public void updateJobInfo(@RequestBody String jobId, @RequestBody String jobDescription) {
+    public void updateJobInfo(@RequestParam(value = "jobId") String jobId,
+                               @RequestParam(value = "jobDescription") String jobDescription) {
 
         jobDao.updateJobInSharkJobInfoTable(jobId, jobDescription);
     }
@@ -56,8 +60,7 @@ public class JobController {
     public ResponseEntity< List<Job> > showJobs() {
         List jobList = jobDao.getAllJobsInSharkJobInfoTable();
         if (!jobList.isEmpty()) {
-            return new ResponseEntity<>(jobList, HttpStatus.OK
-            );
+            return new ResponseEntity<>(jobList, HttpStatus.OK);
         } else{
             return new ResponseEntity<>(jobList, HttpStatus.NO_CONTENT);
         }
@@ -69,7 +72,7 @@ public class JobController {
         if (job != null){
             return new ResponseEntity<>(job, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(new Job(), HttpStatus.NO_CONTENT);
         }
     }
     /*Situation of Content
@@ -85,11 +88,8 @@ public class JobController {
         for(val job:jobList){
             for (val param:parameter) {
                 if (job.getJobTittle().toLowerCase().contains(param.toLowerCase())
-                    || job.getRequiredSkills().contains(param)
-                    || job.getRequiredSkills().contains(param.toLowerCase())
-                    || job.getRequiredSkills().contains(param.toUpperCase())
-                    || job.getLocation().toLowerCase().contains(param.toLowerCase())){
-
+                        || findSkillsInJobInfo(job, param)
+                        || job.getLocation().toLowerCase().contains(param.toLowerCase())){
                     resultList.add(job);
                 }
             }
@@ -101,8 +101,38 @@ public class JobController {
         }
     }
 
-    @RequestMapping(value = "/jobsAddComment/{jobId}", method = POST)
-    public void addComment(@PathVariable String jobId, @RequestBody String newComment) {
+    @RequestMapping(value = "/jobAddComments/{jobId}", method = POST)
+    public ResponseEntity<String> addComment(@PathVariable String jobId,
+                                             @RequestParam(value = "currentUser") String userName,
+                                             @RequestParam(value = "comment") String newComment) {
 
+        User replier = userDao.findUserInSharkJobUserTableThroughUsername(userName);
+        if(replier != null) {
+            Comment comment = new Comment();
+            comment.setComment(newComment);
+            comment.setReplier(replier);
+            Date commentDate = new Date();
+            comment.setCommentTime(commentDate);
+            jobDao.addCommentInSharkJobInfoTable(jobId,comment);
+            return new ResponseEntity<>("Comment saved", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Fake User", HttpStatus.NO_CONTENT);
+        }
+    }
+
+    @RequestMapping(value ="/numberOfJobs", method = GET)
+    public ResponseEntity<Integer> getNumberOfJobs() {
+        Integer number = jobDao.getNumberOfJobsInSharkJobInfoTable();
+
+        return new ResponseEntity<>(number, HttpStatus.OK);
+    }
+
+    private boolean findSkillsInJobInfo(Job job, String content){
+        for(val skill: job.getRequiredSkills()) {
+            if (skill.toLowerCase().contains(content.toLowerCase())){
+                return true;
+            }
+        }
+        return false;
     }
 }

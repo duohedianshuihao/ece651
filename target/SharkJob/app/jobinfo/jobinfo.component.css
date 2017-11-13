@@ -1,0 +1,17 @@
+.joblists-wrapper {
+    background-color: #F0F0F0;
+}
+.Footer {
+    background-color: #161e2c;
+    color: #FFFFFF;
+}
+.SiteStat-value {
+    font-size: 35px;
+}
+.SiteStat-name {
+    font-size: 16px;
+    line-height: 1.2;
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}

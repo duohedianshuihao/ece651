@@ -1,6 +1,5 @@
 <div class="outside">
-  <navbar></navbar>
-
+  <navbar [inJobInfo]="false"></navbar>
     <div class="slide">
       <div id="carousel-example-generic" class="carousel slide" data-interval="4000" data-ride="carousel">
         <!-- Indicators -->
@@ -12,7 +11,7 @@
         <!-- Wrapper for slides -->
         <div class="carousel-inner" role="listbox">
           <div class="item active">
-            <img src="/app/static/nserc-1920.jpg" alt="waterloo">
+            <img class="welcome-pic" src="/app/static/nserc-1920.jpg" alt="waterloo">
             <ul *ngIf="!currentUser" class="welcomejump">
               <a href="/signup">
                 <div class="carousel-caption">
@@ -37,7 +36,7 @@
             </ul>
           </div>
           <div class="item">
-            <img src="/app/static/boy-girl-feet.jpg" alt="waterloo2">
+            <img class="welcome-pic" src="/app/static/boy-girl-feet.jpg" alt="waterloo2">
             <ul *ngIf="!currentUser" class="welcomejump">
               <a href="/signup">
                 <div class="carousel-caption">
@@ -81,6 +80,7 @@
         <ul *ngIf="currentUser" class="footpart">
           <h3>Welcome back to Shark Job {{ currentUser.userName }}!</h3>
         </ul>
+        <chat></chat>
       </footer>
 
   </div>

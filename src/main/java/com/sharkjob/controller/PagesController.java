@@ -25,9 +25,14 @@ public class PagesController {
         return "index";
     }
 
-    @RequestMapping(value = "/userprofile/**")
-    public String getUserPage(){
+    @RequestMapping(value = "/userprofile")
+    public String getUserprofile(){
         return "index";
     }
 
+    @RequestMapping(value = "/jobdetail")
+    public String getDetailPage(){ return "index"; }
+
+    @RequestMapping(value = "/postjob")
+    public String getPostPage(){ return "index"; }
 }
