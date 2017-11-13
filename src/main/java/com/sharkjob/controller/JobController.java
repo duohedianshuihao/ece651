@@ -33,15 +33,12 @@ public class JobController {
     private UserDao userDao;
 
     @RequestMapping(value = "/newJob", method = POST)
-    public ResponseEntity<String> post(@RequestParam(value = "newJob") String newJob,
-                                       @RequestParam(value = "email") String email) {
+    public ResponseEntity<String> post(@RequestBody String newJob) {
 
         Gson gson = new Gson();
         Job job = gson.fromJson(newJob, Job.class);
 
         Date date = new Date();
-
-        job.setCompany(userDao.findUserInSharkJobUserTableThroughEmail(email));
         job.setCreatedTime(date);
 
         jobDao.saveJobInSharkJobInfoTable(job);

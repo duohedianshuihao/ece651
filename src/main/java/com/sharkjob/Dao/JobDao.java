@@ -69,7 +69,7 @@ public class JobDao {
     public void addCommentInSharkJobInfoTable(String jobId, Comment comment) {
         Job job = findJobInSharkJobInfoTableThroughJobId(jobId);
         ArrayList<Comment> comments = job.getComments();
-        comments.add(0, comment);
+        comments.add(comment);
         job.setComments(comments);
         jobMapper.save(job);
     }
