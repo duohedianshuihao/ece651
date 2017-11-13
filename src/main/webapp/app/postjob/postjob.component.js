@@ -26,6 +26,7 @@ var PostjobComponent = (function () {
     };
     PostjobComponent.prototype.add = function (form) {
         var _this = this;
+        form.company = JSON.parse(localStorage.getItem("currentUser"));
         this.postjobService
             .create(form)
             .subscribe(function (data) {

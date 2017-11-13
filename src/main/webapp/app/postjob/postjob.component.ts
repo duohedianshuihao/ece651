@@ -29,6 +29,7 @@ export class PostjobComponent implements OnInit{
     }
 
     add(form:jobDetails) {
+        form.company = JSON.parse(localStorage.getItem("currentUser"));
         this.postjobService
             .create(form)
             .subscribe(

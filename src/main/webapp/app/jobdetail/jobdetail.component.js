@@ -31,12 +31,29 @@ var JobdetailComponent = (function () {
             .getJobDetails(localStorage.getItem('jobId'))
             .subscribe(function (jobDetail) {
             _this.jobdetail = jobDetail;
+            console.log(_this.jobdetail);
         }, function (error) {
             console.log(error);
         });
     }
     JobdetailComponent.prototype.ngOnDestroy = function () {
         // this.subscription.unsubscribe();
+    };
+    JobdetailComponent.prototype.gotoUserview = function () {
+        var _this = this;
+        this.router.navigate(['userview']);
+        setTimeout(function () {
+            _this.jobdetailService
+                .userView(_this.jobdetail.company);
+        }, 5);
+    };
+    JobdetailComponent.prototype.gotoCommentuser = function (username) {
+        var _this = this;
+        this.router.navigate(['userview']);
+        setTimeout(function () {
+            _this.jobdetailService
+                .userView(username);
+        }, 5);
     };
     JobdetailComponent.prototype.addComment = function (comment) {
         var _this = this;

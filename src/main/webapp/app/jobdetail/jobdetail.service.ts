@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { Subject } from 'rxjs/Subject';
 import { Headers, Http, Response, URLSearchParams } from '@angular/http';
 import { jobDetails } from "../Models/jobDetails";
-
+import { userProfile } from "../Models/userProfile";
 
 
 @Injectable()
@@ -14,6 +14,11 @@ export class JobdetailService {
         private http : Http,
         ) {}
     private subject = new Subject<any>();
+
+    userView(user: userProfile) {
+        this.subject
+            .next({info: user});
+    }
 
     jobDetail(job: jobDetails) {
         // console.log(job);
@@ -27,8 +32,19 @@ export class JobdetailService {
             .map((response: Response) => response.json());
     }
 
-    getJobDetail(): Observable<any>{
+    getJobDetail(): Observable<any> {
         return this.subject.asObservable();
+    }
+
+    getUserview(): Observable<any> {
+        return this.subject.asObservable();
+    }
+
+    getUser(userName) {
+        let userUrl = "/" + userName;
+        return this.http
+            .get(userUrl, {headers: this.headers})
+            .map((response: Response) => response.json());
     }
 
     addComment(comment:string, jobId:string) {

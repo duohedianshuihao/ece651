@@ -4,6 +4,7 @@ import { jobDetails } from '../Models/jobDetails';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AlertService } from '../alert/alert.service';
 import { Subscription } from 'rxjs/Subscription';
+import { userProfile } from "../Models/userProfile";
 
 @Component({
     moduleId: module.id,
@@ -33,13 +34,36 @@ export class JobdetailComponent implements OnDestroy{
             .getJobDetails(localStorage.getItem('jobId'))
             .subscribe(jobDetail => {
                 this.jobdetail = jobDetail;
+                console.log(this.jobdetail);
             }, error => {
                 console.log(error);
             });
+
     }
 
     ngOnDestroy() {
         // this.subscription.unsubscribe();
+    }
+
+    gotoUserview() {
+        this.router.navigate(['userview']);
+        setTimeout(() =>
+        {
+            this.jobdetailService
+                .userView(this.jobdetail.company);
+        },
+        5);
+    }
+
+    gotoCommentuser(username) {
+
+        this.router.navigate(['userview']);
+        setTimeout(() =>
+            {
+                this.jobdetailService
+                    .userView(username);
+            },
+            5);
     }
 
     addComment(comment) {

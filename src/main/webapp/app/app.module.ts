@@ -18,6 +18,7 @@ import { UserComponent } from './user/user.component';
 import { JobdetailComponent } from "./jobdetail/jobdetail.component";
 import { PostjobComponent } from "./postjob/postjob.component";
 import { ChatComponent } from "./chat/chat.component";
+import { UserviewComponent } from "./userview/userview.component";
 
 import { LoginService } from './login/login.service';
 import { SignupService} from './signup/signup.service';
@@ -38,6 +39,7 @@ const appRoutes: Routes = [
   {path: '', component: WelcomeComponent},
   {path: "jobdetail", component: JobdetailComponent},
   {path: "postjob", component: PostjobComponent},
+  {path: "userview", component: UserviewComponent},
 ]
 
 @NgModule({
@@ -62,6 +64,7 @@ const appRoutes: Routes = [
     JobdetailComponent,
     ChatComponent,
     AlertComponent,
+    UserviewComponent,
     UserComponent,
     PostjobComponent,
     ],

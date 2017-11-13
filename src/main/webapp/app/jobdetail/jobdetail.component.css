@@ -6,6 +6,9 @@
     background: #161e2c;
     color: #FFFFFF;
 }
+.post-user {
+    color: #FFFFFF;
+}
 .jobcoment-li {
     list-style-type: none;
     height: 200px;
@@ -21,4 +24,8 @@
 }
 .backbutton {
     color: #161e2c;
+}
+
+.panel-title-1 {
+    text-align-last: right;
 }

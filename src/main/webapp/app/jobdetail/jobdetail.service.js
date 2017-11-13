@@ -18,6 +18,10 @@ var JobdetailService = (function () {
         this.headers = new http_1.Headers();
         this.subject = new Subject_1.Subject();
     }
+    JobdetailService.prototype.userView = function (user) {
+        this.subject
+            .next({ info: user });
+    };
     JobdetailService.prototype.jobDetail = function (job) {
         // console.log(job);
         this.subject
@@ -30,6 +34,15 @@ var JobdetailService = (function () {
     };
     JobdetailService.prototype.getJobDetail = function () {
         return this.subject.asObservable();
+    };
+    JobdetailService.prototype.getUserview = function () {
+        return this.subject.asObservable();
+    };
+    JobdetailService.prototype.getUser = function (userName) {
+        var userUrl = "/" + userName;
+        return this.http
+            .get(userUrl, { headers: this.headers })
+            .map(function (response) { return response.json(); });
     };
     JobdetailService.prototype.addComment = function (comment, jobId) {
         var addcomentUrl = "/jobAddComments/" + jobId;
