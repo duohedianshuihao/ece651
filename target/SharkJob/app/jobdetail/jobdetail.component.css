@@ -1,0 +1,24 @@
+.job-description {
+    font-size: 18px;
+}
+
+.panel-default > .panel-heading-custom {
+    background: #161e2c;
+    color: #FFFFFF;
+}
+.jobcoment-li {
+    list-style-type: none;
+    height: 200px;
+
+}
+
+.jobdetail-wrapper {
+    background-color: #F0F0F0;
+}
+
+.username {
+    color: #0087e0;
+}
+.backbutton {
+    color: #161e2c;
+}
