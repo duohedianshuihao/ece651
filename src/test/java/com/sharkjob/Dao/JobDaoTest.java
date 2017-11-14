@@ -52,7 +52,6 @@ public class JobDaoTest {
         jobDao.setDynamoDBClient(mockAmazonDyanmoDB);
         jobDao.setJobMapper(mockJobMapper);
         when(mockJobMapper.generateCreateTableRequest(any())).thenReturn(new CreateTableRequest());
-        when(mockJobMapper.scan(any(),any())).thenReturn(mockPaginatedScanList);
         company.setEmail("c423liu@uwaterloo.ca");
         company.setUserType("Company");
         company.setUserName("Chino");
@@ -100,6 +99,9 @@ public class JobDaoTest {
         newComment.setReplier(company);
         newComment.setComment("a new comment");
         newComment.setCommentTime(newCommentTime);
+
+        mockPaginatedScanList.add(job);
+        mockPaginatedScanList.add(newJob);
 
     }
 
@@ -154,12 +156,10 @@ public class JobDaoTest {
 
 //    @Test
 //    public void vaild_getAllJobsInSharkInfoTable() {
-//        mockPaginatedScanList.add(job);
-//        mockPaginatedScanList.add(newJob);
 //        when(mockJobMapper.scan(any(),any())).thenReturn(mockPaginatedScanList);
-//        jobDao.getAllJobsInSharkJobInfoTable();
+//        jobs = jobDao.getAllJobsInSharkJobInfoTable();
 ////        assertEquals(mockPaginatedScanList.indexOf(job), 1);
-//        assertEquals(mockPaginatedScanList.indexOf(newJob), 0);
+//        assertEquals(jobs.indexOf(newJob), 0);
 //    }
 
 }
