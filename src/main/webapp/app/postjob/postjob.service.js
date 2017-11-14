@@ -15,7 +15,7 @@ var PostjobService = (function () {
     function PostjobService(http) {
         this.http = http;
         this.headers = new http_1.Headers();
-        this.postjobUrl = 'http://localhost:8080/newJob';
+        this.postjobUrl = '/newJob';
     }
     PostjobService.prototype.create = function (form) {
         var body = JSON.stringify({

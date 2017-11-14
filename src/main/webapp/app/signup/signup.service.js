@@ -17,7 +17,7 @@ var SignupService = (function () {
     function SignupService(http) {
         this.http = http;
         this.headers = new http_1.Headers();
-        this.signUpUrl = 'http://localhost:8080/regUser';
+        this.signUpUrl = '/regUser';
     }
     SignupService.prototype.create = function (form) {
         var body = JSON.stringify({

@@ -78,7 +78,6 @@ public class UserDao {
     }
 
     public User findUserInSharkJobUserTableThroughUsername(String username) {
-        log.info(username);
         Map<String, AttributeValue> eav = new HashMap<>();
         eav.put(":v1", new AttributeValue().withS(username));
 

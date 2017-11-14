@@ -11,7 +11,7 @@ import { signupForm } from '../Models/signupForm';
 
 export class SignupService {
     private headers = new Headers();
-    private signUpUrl = 'http://localhost:8080/regUser';
+    private signUpUrl = '/regUser';
 
     public user: signupForm[];
 

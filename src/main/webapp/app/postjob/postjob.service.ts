@@ -6,7 +6,7 @@ import {jobDetails} from "../Models/jobDetails";
 @Injectable()
 export class PostjobService {
     private headers = new Headers();
-    private postjobUrl = 'http://localhost:8080/newJob';
+    private postjobUrl = '/newJob';
     public thisjob: jobDetails;
 
     constructor (
