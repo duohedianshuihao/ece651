@@ -54,4 +54,12 @@ public class PagesControllerTest {
         val actual = pagesController.getDetailPage();
         assertEquals(expected,actual);
     }
+
+    @Test
+    public void valid_getPostJobPage_successfully() {
+        val expected = index;
+        val actual = pagesController.getPostPage();
+        assertEquals(expected,actual);
+    }
+
 }

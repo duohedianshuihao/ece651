@@ -45,9 +45,6 @@ public class UserController {
 
             userDao.saveUserInSharkJobUserTable(user);
 
-            //HttpHeaders header = new HttpHeaders();
-            //header.setLocation(builder.path("/login").build().toUri());
-
             return new ResponseEntity<>(gson.toJson(user),HttpStatus.CREATED);
 
         } else {
@@ -106,10 +103,6 @@ public class UserController {
                                               @RequestParam(value = "newEmail", required = false) String newEmail,
                                               @RequestParam(value = "password", required = false) String password ) {
 
-        log.info(userName);
-        log.info(userName+" ");
-        log.info(password+" ");
-        log.info(newEmail+" ");
         boolean changeEmail = userDao.changeEmailInSharkJobUserTableThroughUserName(userName, password, newEmail);
 
         if (changeEmail) {
@@ -138,7 +131,6 @@ public class UserController {
                                                  @RequestParam("password") String password,
                                                  @RequestParam("newPassword") String newPassowrd) {
 
-        log.info(userName + password + newPassowrd);
         boolean changePassword = userDao.changePasswordInSharkJobUserTableThroughUserName(userName, password, newPassowrd);
 
         if (changePassword) {

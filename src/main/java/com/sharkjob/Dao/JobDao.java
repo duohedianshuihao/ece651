@@ -81,8 +81,6 @@ public class JobDao {
     }
 
     public void addCommentInSharkJobInfoTable(String jobId, Comment comment) {
-        log.info(jobId);
-        log.info(comment.getComment());
         Job job = findJobInSharkJobInfoTableThroughJobId(jobId);
         if(job.getComments() == null)  {
             ArrayList<Comment> comments = new ArrayList<>();
@@ -119,31 +117,4 @@ public class JobDao {
 
         return jobMapper.count(Job.class, new DynamoDBScanExpression());
     }
-
-    /*Very very ugly and inefficient code.
-    public List<Job> findJobsInSharkJobInfoTableThroughTitle(String title){
-        List<Job> jobs = getAllJobsInSharkJobInfoTable();
-        List<Job> result = new ArrayList<>();
-        for(val job:jobs){
-            if (job.getJobTittle().contains(title)){
-                result.add(job);
-            }
-        }
-        return result;
-    }
-    //Very very ugly and inefficient code.
-    public List<Job> findJobsInSharkJobInfoTableThroughSkill(String skill){
-        List<Job> jobs = getAllJobsInSharkJobInfoTable();
-        List<Job> result = new ArrayList<>();
-        for(val job:jobs){
-            if (job.getRequiredSkills().contains(skill)
-                    || job.getRequiredSkills().contains(skill.toLowerCase())
-                    || job.getRequiredSkills().contains(skill.toUpperCase())){
-
-                    result.add(job);
-            }
-        }
-        return result;
-    }
-    */
 }

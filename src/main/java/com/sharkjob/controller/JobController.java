@@ -33,7 +33,7 @@ public class JobController {
 
     @Autowired
     private UserDao userDao;
-    private static final Logger log = LoggerFactory.getLogger(UserController.class);
+    private static final Logger log = LoggerFactory.getLogger(JobController.class);
 
     @RequestMapping(value = "/newJob", method = POST)
     public ResponseEntity<String> post(@RequestBody String newJob) {

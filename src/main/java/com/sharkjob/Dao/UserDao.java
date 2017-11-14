@@ -179,13 +179,5 @@ public class UserDao {
         return user == null;
     }
 
-    //check login
-
-    //Other find operations.
-
-    //find through skills? not sure how to arrange the "skills"(list? string? hash map?)
-    // Need to find a data structure good for query.
-    // ...This should be discussed in the future.
-    //Test should be added.
 
 }
