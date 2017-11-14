@@ -130,18 +130,25 @@ public class JobDaoTest {
         verify(mockJobMapper,times(1)).delete(job);
     }
 
-    @Test
-    public void valid_updateJobInSharkJobInfoTable_Successfully() {
-        when(mockJobMapper.load(Job.class,job.getJobId())).thenReturn(job);
-        jobDao.updateJobInSharkJobInfoTable(job.getJobId(), newJobDescription);
-        assertEquals(job.getJobDescription(),"job description is updated");
-    }
+//    @Test
+//    public void valid_updateJobInSharkJobInfoTable_Successfully() {
+//        when(mockJobMapper.load(Job.class,job.getJobId())).thenReturn(job);
+//        jobDao.updateJobInSharkJobInfoTable(job.getJobId(), );
+//        assertEquals(job.getJobDescription(),"job description is updated");
+//    }
 
     @Test
     public void valid_addCommentInSharkJobInfoTable_Successfully() {
         when(mockJobMapper.load(Job.class,job.getJobId())).thenReturn(job);
         jobDao.addCommentInSharkJobInfoTable(job.getJobId(), newComment);
         assertEquals(job.getComments().get(2).getComment(),"a new comment");
+    }
+
+    @Test
+    public void valid_addCommentInSharkJobInfoTable_Successfully2() {
+        when(mockJobMapper.load(Job.class,newJob.getJobId())).thenReturn(newJob);
+        jobDao.addCommentInSharkJobInfoTable(newJob.getJobId(), newComment);
+        assertEquals(newJob.getComments().get(0).getComment(),"a new comment");
     }
 
 

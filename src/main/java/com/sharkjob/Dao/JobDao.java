@@ -60,10 +60,24 @@ public class JobDao {
         return job;
     }
 
-    public void updateJobInSharkJobInfoTable(String jobId, String jobDescription) {
-        Job job = findJobInSharkJobInfoTableThroughJobId(jobId);
-        job.setJobDescription(jobDescription);
-        jobMapper.save(job);
+    public boolean updateJobInSharkJobInfoTable(Job job) {
+        if( job.getJobId() == null || jobMapper.load(Job.class, job.getJobId()) == null ) { return false;}
+        String jobId = job.getJobId();
+        String newDescription = job.getJobDescription();
+        String newTittle = job.getJobTittle();
+        String newLocation = job.getLocation();
+        Date newStartTime = job.getStartTime();
+        Date newExpireTime = job.getExpirTime();
+        List<String> newRequiredSkills = job.getRequiredSkills();
+        Job oldJob = jobMapper.load(Job.class, jobId);
+        oldJob.setJobDescription(newDescription);
+        oldJob.setJobTittle(newTittle);
+        oldJob.setLocation(newLocation);
+        oldJob.setStartTime(newStartTime);
+        oldJob.setExpirTime(newExpireTime);
+        oldJob.setRequiredSkills(newRequiredSkills);
+        jobMapper.save(oldJob);
+        return true;
     }
 
     public void addCommentInSharkJobInfoTable(String jobId, Comment comment) {

@@ -50,10 +50,13 @@ public class JobController {
     }
 
     @RequestMapping(value = "/updateJobInfo", method = POST)
-    public void updateJobInfo(@RequestParam(value = "jobId") String jobId,
-                               @RequestParam(value = "jobDescription") String jobDescription) {
-
-        jobDao.updateJobInSharkJobInfoTable(jobId, jobDescription);
+    public ResponseEntity<String> updateJobInfo(@RequestBody String job) {
+        Gson gson = new Gson();
+        Job jobForUpdate = gson.fromJson(job, Job.class);
+        if (!jobDao.updateJobInSharkJobInfoTable(jobForUpdate) ) {
+            return new ResponseEntity<>("job not existing", HttpStatus.UNAUTHORIZED);
+        }
+        return  new ResponseEntity<>("job info updated", HttpStatus.OK);
     }
 
     @RequestMapping(value = "/jobList", method = GET)
