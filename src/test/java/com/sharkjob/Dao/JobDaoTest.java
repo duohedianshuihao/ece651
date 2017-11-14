@@ -2,11 +2,11 @@ package com.sharkjob.Dao;
 
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
-import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedScanList;
+import com.amazonaws.services.dynamodbv2.datamodeling.*;
 import com.amazonaws.services.dynamodbv2.model.CreateTableRequest;
 import com.amazonaws.services.dynamodbv2.model.ResourceInUseException;
+import com.amazonaws.services.dynamodbv2.model.ScanRequest;
+import com.amazonaws.services.dynamodbv2.xspec.NULL;
 import com.sharkjob.model.Comment;
 import com.sharkjob.model.Job;
 import com.sharkjob.model.User;
@@ -34,7 +34,7 @@ public class JobDaoTest {
     @Mock
     private AmazonDynamoDB mockAmazonDyanmoDB;
     @Mock private DynamoDBMapper mockJobMapper;
-    @Mock private  PaginatedScanList mockPaginatedScanList;
+    @Mock private PaginatedScanList mockPaginatedScanList;
     private List<Job> jobs;
     private JobDao jobDao = new JobDao();
     private Job job = new Job();
@@ -100,8 +100,6 @@ public class JobDaoTest {
         newComment.setComment("a new comment");
         newComment.setCommentTime(newCommentTime);
 
-        mockPaginatedScanList.add(job);
-        mockPaginatedScanList.add(newJob);
 
     }
 
@@ -154,12 +152,5 @@ public class JobDaoTest {
     }
 
 
-//    @Test
-//    public void vaild_getAllJobsInSharkInfoTable() {
-//        when(mockJobMapper.scan(any(),any())).thenReturn(mockPaginatedScanList);
-//        jobs = jobDao.getAllJobsInSharkJobInfoTable();
-////        assertEquals(mockPaginatedScanList.indexOf(job), 1);
-//        assertEquals(jobs.indexOf(newJob), 0);
-//    }
 
 }
