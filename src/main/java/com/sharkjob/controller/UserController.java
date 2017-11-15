@@ -5,6 +5,7 @@ package com.sharkjob.controller;
 import com.sharkjob.Dao.UserDao;
 import com.sharkjob.OtherService.MailService;
 import com.sharkjob.model.User;
+import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,7 @@ public class UserController {
     private UserDao userDao;
 
     @Autowired
+    @Setter
     private MailService mailService;
 
     @RequestMapping(value = "/regUser", method = POST)
@@ -43,21 +45,19 @@ public class UserController {
             if (userDao.findUserInSharkJobUserTableThroughUsername(user.getUserName()) != null) {
                 return new ResponseEntity<>("This username has already exists",HttpStatus.CONFLICT);
             }
-            //This may be deleted.
-            if (userDao.findUserInSharkJobUserTableThroughEmail(user.getEmail()) != null) {
-                return new ResponseEntity<>("This email has already exists",HttpStatus.CONFLICT);
+            User userInTable = userDao.findUserInSharkJobUserTableThroughEmail(user.getEmail());
+
+            if (userInTable == null){
+               return new ResponseEntity<>("Please verify email first!",HttpStatus.CONFLICT);
             }
-            /*
-            if (userDao.findUserInSharkJobUserTableThroughEmail(user.getEmail()).getVaildCode() == user.getVaildCode()){
-                userDao.saveUserInSharkJobUserTable(user);
+
+            if ((userInTable.getValidCode() != null) && (userInTable.getValidCode().equals(user.getValidCode()))) {
+                log.info(user.toString());
+                userDao.getUserMapper().save(user);
                 return new ResponseEntity<>(gson.toJson(user), HttpStatus.CREATED);
             } else {
                 return new ResponseEntity<>("Verification Code is wrong!", HttpStatus.CONFLICT);
             }
-            */
-            userDao.saveUserInSharkJobUserTable(user);
-            return new ResponseEntity<>(gson.toJson(user), HttpStatus.CREATED);
-
         } else {
 
             return new ResponseEntity<>("Input invalid", HttpStatus.NO_CONTENT);
@@ -109,7 +109,7 @@ public class UserController {
 
 
     @RequestMapping(value = "/verificationCode", method = POST)
-    public ResponseEntity<String> verificationCode( @RequestParam(value = "Email", required = false) String email) {
+    public ResponseEntity<String> sendVerificationCode( @RequestParam(value = "email") String email) {
         User regUser = userDao.findUserInSharkJobUserTableThroughEmail(email);
         if ((regUser != null) && (regUser.getUserName() != null) && (regUser.getUserType()!= null)){
             return new ResponseEntity<>("This email has already exists", HttpStatus.CONFLICT);
@@ -124,7 +124,7 @@ public class UserController {
         if (code == null) {
             return new ResponseEntity<>("Failed to send verification code. Please wait a moment to retry.", HttpStatus.CONFLICT);
         }
-        user.setVaildCode(code);
+        user.setValidCode(code);
         userDao.saveUserInSharkJobUserTable(user);
         return new ResponseEntity<>("Verification Code sent!",HttpStatus.OK);
     }

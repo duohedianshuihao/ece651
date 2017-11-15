@@ -22,7 +22,7 @@ var SignupComponent = (function () {
         this.submitted = false;
     }
     SignupComponent.prototype.ngOnInit = function () {
-        this.signupform = new signupForm_1.signupForm("", "", "", "", "");
+        this.signupform = new signupForm_1.signupForm("", "", "", "", "", "");
     };
     SignupComponent.prototype.add = function (form) {
         var _this = this;
@@ -32,6 +32,14 @@ var SignupComponent = (function () {
             .subscribe(function (data) {
             _this.router.navigate(['/login']);
             _this.alertService.success('Registration successful', true);
+        }, function (error) {
+            _this.alertService.error(error.text());
+        });
+    };
+    SignupComponent.prototype.sendVerificationCode = function (form) {
+        var _this = this;
+        this.signupService.validEmail(form).subscribe(function (data) {
+            _this.alertService.success('Verification Code sent!', true);
         }, function (error) {
             _this.alertService.error(error.text());
         });

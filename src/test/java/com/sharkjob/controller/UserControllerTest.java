@@ -1,5 +1,7 @@
 package com.sharkjob.controller;
 
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.google.gson.Gson;
 import com.sharkjob.Dao.UserDao;
 import com.sharkjob.OtherService.MailService;
@@ -31,7 +33,7 @@ import static org.mockito.Mockito.when;
 public class UserControllerTest {
     @Mock
     private UserDao userDao;
-    @Mock
+    @Mock private DynamoDBMapper mockUserMapper;
     private MailService mailService = new MailService();
     @InjectMocks
     private UserController userController;
@@ -45,10 +47,12 @@ public class UserControllerTest {
 
     @Before
     public void setUp(){
+        userController.setMailService(mailService);
         user.setEmail("c423liu@uwaterloo.ca");
         user.setUserName("Chino");
         user.setPassword("123456");
         user.setUserType("student");
+        user.setValidCode("12345");
         userLogin.setEmail(user.getEmail());
         userLogin.setUserName(user.getUserName());
         userLogin.setPassword(user.getPassword());
@@ -63,14 +67,15 @@ public class UserControllerTest {
         number = 2;
     }
 
+
     @Test
     public void vaild_regUser_save_successfully(){
         val expected = new ResponseEntity<>(gson.toJson(user), HttpStatus.CREATED);
-        when(userDao.findUserInSharkJobUserTableThroughEmail(user.getEmail())).thenReturn(null);
+        when(userDao.findUserInSharkJobUserTableThroughEmail(user.getEmail())).thenReturn(user);
         when(userDao.findUserInSharkJobUserTableThroughUsername(user.getUserName())).thenReturn(null);
+        when(userDao.getUserMapper()).thenReturn(mockUserMapper);
         val  actual = userController.regUser(newUser);
         assertEquals(expected, actual);
-        verify(userDao,times(1)).saveUserInSharkJobUserTable(any());
     }
 
     @Test
@@ -80,17 +85,24 @@ public class UserControllerTest {
         when(userDao.findUserInSharkJobUserTableThroughUsername(user.getUserName())).thenReturn(new User());
         val  actual = userController.regUser(newUser);
         assertEquals(expected, actual);
-        verify(userDao,times(0)).saveUserInSharkJobUserTable(any());
+        verify(userDao,times(0)).getUserMapper();
     }
 
     @Test
-    public void vaild_regUser_email_conflict(){
-        val expected = new ResponseEntity<>("This email has already exists",HttpStatus.CONFLICT);
+    public void vaild_regUser_verification_code_wrong(){
+        val expected = new ResponseEntity<>("Verification Code is wrong!",HttpStatus.CONFLICT);
         when(userDao.findUserInSharkJobUserTableThroughEmail(user.getEmail())).thenReturn(new User());
         when(userDao.findUserInSharkJobUserTableThroughUsername(user.getUserName())).thenReturn(null);
         val  actual = userController.regUser(newUser);
         assertEquals(expected, actual);
-        verify(userDao,times(0)).saveUserInSharkJobUserTable(any());
+    }
+    @Test
+    public void vaild_regUser_verify_email_first(){
+        val expected = new ResponseEntity<>("Please verify email first!",HttpStatus.CONFLICT);
+        when(userDao.findUserInSharkJobUserTableThroughEmail(user.getEmail())).thenReturn(null);
+        when(userDao.findUserInSharkJobUserTableThroughUsername(user.getUserName())).thenReturn(null);
+        val  actual = userController.regUser(newUser);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -105,6 +117,7 @@ public class UserControllerTest {
         assertEquals(expected, actual);
         verify(userDao,times(0)).saveUserInSharkJobUserTable(any());
     }
+
 
     @Test
     public void vaild_loginUser_through_email_successfully(){
@@ -230,5 +243,38 @@ public class UserControllerTest {
         val actual = userController.getNumberOfUsers();
         assertEquals(expected,actual);
     }
+
+    @Test
+    public void  valid_verificationCode_sent_successfully(){
+        val expected = new ResponseEntity<>("Verification Code sent!",HttpStatus.OK);
+        when(userDao.findUserInSharkJobUserTableThroughEmail("ece651sharkjob@gmail.com")).thenReturn(null);
+        val actual = userController.sendVerificationCode("ece651sharkjob@gmail.com");
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    public void  valid_verificationCode_sent_unsuccessfully(){
+        val expected = new ResponseEntity<>("Failed to send verification code. Please wait a moment to retry.", HttpStatus.CONFLICT);
+        when(userDao.findUserInSharkJobUserTableThroughEmail("c423liu@uwaterloo.ca")).thenReturn(null);
+        val actual = userController.sendVerificationCode("c423liu");
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    public void  valid_verificationCode_duplicate_email(){
+        val expected = new ResponseEntity<>("This email has already exists", HttpStatus.CONFLICT);
+        when(userDao.findUserInSharkJobUserTableThroughEmail("ece651sharkjob@gmail.com")).thenReturn(user);
+        val actual = userController.sendVerificationCode("ece651sharkjob@gmail.com");
+        assertEquals(expected,actual);
+    }
+    @Test
+    public void  valid_verificationCode_sent_twice(){
+        val expected = new ResponseEntity<>("Failed to send verification code. Please wait a moment to retry.", HttpStatus.CONFLICT);
+        when(userDao.findUserInSharkJobUserTableThroughEmail("ece651sharkjob")).thenReturn(new User());
+        val actual = userController.sendVerificationCode("ece651sharkjob");
+        verify(userDao,times(1)).deleteUserInSharkJobUserTable("ece651sharkjob");
+        assertEquals(expected,actual);
+    }
+
 
 }

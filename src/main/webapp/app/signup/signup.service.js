@@ -18,17 +18,26 @@ var SignupService = (function () {
         this.http = http;
         this.headers = new http_1.Headers();
         this.signUpUrl = '/regUser';
+        this.verifyEmailUrl = '/verificationCode';
     }
     SignupService.prototype.create = function (form) {
         var body = JSON.stringify({
             email: form.email,
             userName: form.username,
             password: form.password,
-            userType: form.userType
+            userType: form.userType,
+            validCode: form.validCode
         });
         return this.http
             .post(this.signUpUrl, body, { headers: this.headers })
             .map(this.handleData.bind(this));
+    };
+    SignupService.prototype.validEmail = function (form) {
+        var urlSearchParams = new http_1.URLSearchParams();
+        console.log(form.email.toString());
+        urlSearchParams.append('email', form.email);
+        return this.http.post(this.verifyEmailUrl, urlSearchParams, { headers: this.headers })
+            .map(function (response) { return response; });
     };
     SignupService.prototype.handleData = function (response) {
         var body = response.json();

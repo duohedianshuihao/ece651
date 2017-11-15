@@ -21,7 +21,7 @@ export class SignupComponent implements OnInit{
   ) { }
 
   ngOnInit(){
-    this.signupform = new signupForm("", "", "", "", "");
+    this.signupform = new signupForm("", "", "", "", "", "");
   }
 
   add(form: signupForm){
@@ -36,6 +36,17 @@ export class SignupComponent implements OnInit{
           error => {
             this.alertService.error(error.text());
           });
+  }
+
+  sendVerificationCode(form:signupForm){
+    this.signupService.validEmail(form).subscribe(
+      data => {
+        this.alertService.success('Verification Code sent!', true);
+      },
+      error => {
+        this.alertService.error(error.text());
+      }
+    );
   }
 }
 

@@ -4,6 +4,7 @@ export class signupForm {
         public username: string,
         public password: string,
         public password_again: string,
-        public userType: string
+        public userType: string,
+        public validCode: string
     ){ }
 }
