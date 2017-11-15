@@ -48,11 +48,9 @@ public class UserDao {
     public boolean saveUserInSharkJobUserTable(User user) {
         if (findUserInSharkJobUserTableThroughEmail(user.getEmail()) == null) {
             userMapper.save(user);
-            log.info("User with email: {} has successfully registered",user.getEmail());
             return true;
         }
         else {
-            log.info("User with email: {} has already registered",user.getEmail());
             return false;
             //ask user to change an email...
         }

@@ -52,7 +52,6 @@ public class UserController {
             }
 
             if ((userInTable.getValidCode() != null) && (userInTable.getValidCode().equals(user.getValidCode()))) {
-                log.info(user.toString());
                 userDao.getUserMapper().save(user);
                 return new ResponseEntity<>(gson.toJson(user), HttpStatus.CREATED);
             } else {
