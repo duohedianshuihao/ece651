@@ -63,9 +63,9 @@
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
   <testcase classname="com.sharkjob.Dao.JobDaoTest" name="valid_addCommentInSharkJobInfoTable_Successfully2" time="0"/>
-  <testcase classname="com.sharkjob.Dao.JobDaoTest" name="valid_deleteJobInSharkJobInfoTable_Successfully" time="0.016"/>
-  <testcase classname="com.sharkjob.Dao.JobDaoTest" name="valid_createSharkJobInfoTable_Successfully" time="0.016"/>
+  <testcase classname="com.sharkjob.Dao.JobDaoTest" name="valid_createSharkJobInfoTable_TableAlreadyExist" time="0.047"/>
+  <testcase classname="com.sharkjob.Dao.JobDaoTest" name="valid_createSharkJobInfoTable_Successfully" time="0"/>
   <testcase classname="com.sharkjob.Dao.JobDaoTest" name="saveJobInSharkJobInfoTable_Successfully" time="0"/>
+  <testcase classname="com.sharkjob.Dao.JobDaoTest" name="valid_deleteJobInSharkJobInfoTable_Successfully" time="0"/>
   <testcase classname="com.sharkjob.Dao.JobDaoTest" name="valid_addCommentInSharkJobInfoTable_Successfully" time="0"/>
-  <testcase classname="com.sharkjob.Dao.JobDaoTest" name="valid_createSharkJobInfoTable_TableAlreadyExist" time="0.015"/>
 </testsuite>
