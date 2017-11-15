@@ -1,0 +1,44 @@
+.panel-default > .panel-heading-custom {
+    background: #161e2c;
+    color: #FFFFFF;
+    font-size: large;
+    font-weight: 500;
+}
+.outimage {
+    background-color: #efefe8;
+}
+.container {
+    position: relative;
+    top: -1000px;
+}
+.backbutton {
+    position: relative;
+    top: -1000px;
+}
+
+.viewoutside {
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+}
+.viewoutside img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    min-width: 50%;
+    min-height: 50%;
+}
+/*#bg {*/
+    /*position: fixed;*/
+    /*top: 0;*/
+    /*left: 0;*/
+
+    /*!* Preserve aspet ratio *!*/
+    /*min-width: 100%;*/
+    /*min-height: 100%;*/
+/*}*/
