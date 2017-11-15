@@ -2,6 +2,7 @@ package com.sharkjob.controller;
 
 import com.google.gson.Gson;
 import com.sharkjob.Dao.UserDao;
+import com.sharkjob.OtherService.MailService;
 import com.sharkjob.model.User;
 import lombok.val;
 import org.junit.Before;
@@ -30,6 +31,8 @@ import static org.mockito.Mockito.when;
 public class UserControllerTest {
     @Mock
     private UserDao userDao;
+    @Mock
+    private MailService mailService = new MailService();
     @InjectMocks
     private UserController userController;
     private static String newUser;

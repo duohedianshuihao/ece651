@@ -62,20 +62,20 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="com.sharkjob.Dao.UserDaoTest" name="valid_updateSkillsInSharkJobUserTableThroughEmail_Successfully" time="0"/>
+  <testcase classname="com.sharkjob.Dao.UserDaoTest" name="vaild_changeUserNameInSharkJobUserTableThroughUserName" time="0"/>
   <testcase classname="com.sharkjob.Dao.UserDaoTest" name="valid_deleteUserInSharkJobUserTable_Unsuccessfully" time="0"/>
-  <testcase classname="com.sharkjob.Dao.UserDaoTest" name="valid_updateSkillsInSharkJobUserTableThroughEmail_Unsuccessfully" time="0"/>
-  <testcase classname="com.sharkjob.Dao.UserDaoTest" name="vaild_changeEmailInSharkJobUserTableThroughUserName" time="0"/>
-  <testcase classname="com.sharkjob.Dao.UserDaoTest" name="vaild_changeEmailInSharkJobUserTableThroughUserName2" time="0"/>
+  <testcase classname="com.sharkjob.Dao.UserDaoTest" name="valid_updateSkillsInSharkJobUserTableThroughEmail_Successfully" time="0"/>
   <testcase classname="com.sharkjob.Dao.UserDaoTest" name="vaild_changePasswordInSharkJobUserTableThroughUserName" time="0"/>
   <testcase classname="com.sharkjob.Dao.UserDaoTest" name="vaild_changePasswordInSharkJobUserTableThroughUserName2" time="0"/>
-  <testcase classname="com.sharkjob.Dao.UserDaoTest" name="vaild_changeUserNameInSharkJobUserTableThroughUserName" time="0"/>
-  <testcase classname="com.sharkjob.Dao.UserDaoTest" name="valid_saveUserInSharkJobUserTable_Unsuccessfully" time="0.016"/>
-  <testcase classname="com.sharkjob.Dao.UserDaoTest" name="valid_updateSkillsThourghUserName" time="0"/>
-  <testcase classname="com.sharkjob.Dao.UserDaoTest" name="valid_updateSkillsThourghUserName2" time="0"/>
-  <testcase classname="com.sharkjob.Dao.UserDaoTest" name="valid_createSharkJobUserTable_TableAlreadyExist" time="0"/>
-  <testcase classname="com.sharkjob.Dao.UserDaoTest" name="valid_findUserInSharkJobUserTableThroughEmail" time="0"/>
-  <testcase classname="com.sharkjob.Dao.UserDaoTest" name="valid_deleteUserInSharkJobUserTable_Successfully" time="0"/>
-  <testcase classname="com.sharkjob.Dao.UserDaoTest" name="valid_saveUserInSharkJobUserTable_Successfully" time="0"/>
+  <testcase classname="com.sharkjob.Dao.UserDaoTest" name="valid_updateSkillsInSharkJobUserTableThroughEmail_Unsuccessfully" time="0"/>
+  <testcase classname="com.sharkjob.Dao.UserDaoTest" name="vaild_changeEmailInSharkJobUserTableThroughUserName" time="0"/>
+  <testcase classname="com.sharkjob.Dao.UserDaoTest" name="vaild_changeEmailInSharkJobUserTableThroughUserName2" time="0.016"/>
   <testcase classname="com.sharkjob.Dao.UserDaoTest" name="valid_createSharkJobUserTable_Successfully" time="0"/>
+  <testcase classname="com.sharkjob.Dao.UserDaoTest" name="valid_createSharkJobUserTable_TableAlreadyExist" time="0"/>
+  <testcase classname="com.sharkjob.Dao.UserDaoTest" name="valid_saveUserInSharkJobUserTable_Successfully" time="0"/>
+  <testcase classname="com.sharkjob.Dao.UserDaoTest" name="valid_saveUserInSharkJobUserTable_Unsuccessfully" time="0"/>
+  <testcase classname="com.sharkjob.Dao.UserDaoTest" name="valid_updateSkillsThourghUserName" time="0"/>
+  <testcase classname="com.sharkjob.Dao.UserDaoTest" name="valid_deleteUserInSharkJobUserTable_Successfully" time="0"/>
+  <testcase classname="com.sharkjob.Dao.UserDaoTest" name="valid_findUserInSharkJobUserTableThroughEmail" time="0"/>
+  <testcase classname="com.sharkjob.Dao.UserDaoTest" name="valid_updateSkillsThourghUserName2" time="0"/>
 </testsuite>

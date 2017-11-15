@@ -29,4 +29,7 @@ public class User {
     @DynamoDBAttribute(attributeName = "password")
     private String password;//(This should be encryption)
 
+    @DynamoDBAttribute(attributeName = "vaildCode")
+    private String vaildCode;//(This should be encryption)
+
 }
