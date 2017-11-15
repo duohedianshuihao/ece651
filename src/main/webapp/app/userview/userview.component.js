@@ -21,6 +21,9 @@ var UserviewComponent = (function () {
             .getUserview()
             .subscribe(function (user) {
             _this.user = user.info;
+            if (!_this.user.skills) {
+                _this.user.skills = [];
+            }
         });
     }
     return UserviewComponent;

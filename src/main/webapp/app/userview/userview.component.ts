@@ -21,7 +21,9 @@ export class UserviewComponent {
                                 .subscribe(
                                     user => {
                                         this.user = user.info;
-
+                                        if (!this.user.skills){
+                                            this.user.skills = [];
+                                        }
                                     });
     }
 

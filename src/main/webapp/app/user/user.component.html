@@ -1,165 +1,169 @@
-<navbar [inJobInfo]="false"></navbar>
-<alert></alert>
-<div class="container" *ngIf="dataLoaded">
-  <div class="col-md-offset-3 col-md-6">
-    <ul class="nav nav-tabs">
-      <li class="active"><a data-toggle="tab" href="#info">Basic Info</a></li>
-      <li><a data-toggle="tab" href="#password">Password</a></li>
-      <li><a data-toggle="tab" href="#skills">Skills</a></li>
-    </ul>
-    <div class="tab-content">
-      <div id="info" class="tab-pane fade in active">
-        <br>
-        <form #userForm="ngForm">
-          <div class="form-group">
-            <label for="userName">Username:</label>
+
+  <div class="userviewoutside">
+  </div>
+  <navbar [inJobInfo]="false"></navbar>
+  <alert></alert>
+  <img src="/app/static/cat_background.jpg">
+  <div class="container" *ngIf="dataLoaded">
+    <div class="col-md-offset-3 col-md-6">
+      <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#info">Basic Info</a></li>
+        <li><a data-toggle="tab" href="#password">Password</a></li>
+        <li><a data-toggle="tab" href="#skills">Skills</a></li>
+      </ul>
+      <div class="tab-content">
+        <div id="info" class="tab-pane fade in active">
+          <br>
+          <form #userForm="ngForm">
+            <div class="form-group">
+              <label for="userName">Username:</label>
+              <br>
+              <input type="text" class="form-control" id="userName" required pattern="^[a-zA-Z0-9]+$" maxlength="20" [(ngModel)]="user.userName" name="userName"  #userName="ngModel">
+              <div [hidden]="!submitted || userName.valid" class="alert alert-danger">Username Invalid</div>
+            </div>
+            <div class="form-group">
+              <label for="Email">Email:</label>
+              <br>
+              <input class="form-control" id="Email" required pattern="^[a-z0-9A-Z]+([._\\-]*[a-z0-9A-Z])*@([a-z0-9A-Z]+[-a-z0-9A-Z]*[a-z0-9A-Z]+.){1,63}[a-z0-9A-Z]+$" [(ngModel)]="user.email" name="email" #email="ngModel">
+              <div [hidden]="!submitted || email.valid" class="alert alert-danger">Email Invalid</div>
+            </div>
+            <div class="form-group">
+              <label for="userType">User Type:</label>
+              <br>
+              <p>{{ currentUser.userType }}</p>
+            </div>
             <br>
-            <input type="text" class="form-control" id="userName" required pattern="^[a-zA-Z0-9]+$" maxlength="20" [(ngModel)]="user.userName" name="userName"  #userName="ngModel">
-            <div [hidden]="!submitted || userName.valid" class="alert alert-danger">Username Invalid</div>
-          </div>
-          <div class="form-group">
-            <label for="Email">Email:</label>
+            <div class="form-group">
+              <button class="btn btn-info" (click)="submitted=true; check_update(user); userForm.form.valid && updateInfo(user);">update</button>
+            </div>
+          </form>
+        </div>
+        <div id="password" class="tab-pane fade">
+          <br>
+          <form #_passwordForm="ngForm">
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" class="form-control" id="passwordinput" [(ngModel)]="_password.oldPassword" required name="oldPassword" #oldPassword="ngModel">
+              <div [hidden]="!passwordSubmitted || oldPassword.valid" class="alert alert-danger">Old Password Required</div>
+            </div>
+            <div class="form-group">
+              <label for="new_password">New Password</label>
+              <input type="password" class="form-control" id="new_password" [(ngModel)]="_password.newPassword" required minlength="6" name="newPassword" #newPassword="ngModel">
+              <div [hidden]="!passwordSubmitted || (newPassword.valid && newPassword.value != oldPassword.value) " class="alert alert-danger">New Password Are Required and Should Be Different</div>
+            </div>
+            <div class="form-group">
+              <label for="new_password_again">New Password Again</label>
+              <input type="password" class="form-control" id="new_password_again" [(ngModel)]="_password.newPasswordAgain" required name="newPasswordAgain" #newPasswordAgain="ngModel">
+            </div>
+            <div [hidden]="!passwordSubmitted || newPassword.value==newPasswordAgain.value" class="alert alert-danger">New Password Should Be Same</div>
             <br>
-            <input class="form-control" id="Email" required pattern="^[a-z0-9A-Z]+([._\\-]*[a-z0-9A-Z])*@([a-z0-9A-Z]+[-a-z0-9A-Z]*[a-z0-9A-Z]+.){1,63}[a-z0-9A-Z]+$" [(ngModel)]="user.email" name="email" #email="ngModel">
-            <div [hidden]="!submitted || email.valid" class="alert alert-danger">Email Invalid</div>
-          </div>
-          <div class="form-group">
-            <label for="userType">User Type:</label>
-            <br>
-            <p>{{ currentUser.userType }}</p>
-          </div>
+            <div class="form-group">
+              <button class="btn btn-info" (click)="passwordSubmitted=true; _passwordForm.form.valid && check_password()">update</button>
+            </div>
+          </form>
+        </div>
+        <div id="skills" class="tab-pane fade">
           <br>
           <div class="form-group">
-            <button class="btn btn-info" (click)="submitted=true; check_update(user); userForm.form.valid && updateInfo(user);">update</button>
-          </div>
-        </form>
-      </div>
-      <div id="password" class="tab-pane fade">
-        <br>
-        <form #_passwordForm="ngForm">
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="passwordinput" [(ngModel)]="_password.oldPassword" required name="oldPassword" #oldPassword="ngModel">
-            <div [hidden]="!passwordSubmitted || oldPassword.valid" class="alert alert-danger">Old Password Required</div>
-          </div>
-          <div class="form-group">
-            <label for="new_password">New Password</label>
-            <input type="password" class="form-control" id="new_password" [(ngModel)]="_password.newPassword" required minlength="6" name="newPassword" #newPassword="ngModel">
-            <div [hidden]="!passwordSubmitted || (newPassword.valid && newPassword.value != oldPassword.value) " class="alert alert-danger">New Password Are Required and Should Be Different</div>
-          </div>
-          <div class="form-group">
-            <label for="new_password_again">New Password Again</label>
-            <input type="password" class="form-control" id="new_password_again" [(ngModel)]="_password.newPasswordAgain" required name="newPasswordAgain" #newPasswordAgain="ngModel">
-          </div>
-          <div [hidden]="!passwordSubmitted || newPassword.value==newPasswordAgain.value" class="alert alert-danger">New Password Should Be Same</div>
-          <br>
-          <div class="form-group">
-            <button class="btn btn-info" (click)="passwordSubmitted=true; _passwordForm.form.valid && check_password()">update</button>
-          </div>
-        </form>
-      </div>
-      <div id="skills" class="tab-pane fade">
-        <br>
-        <div class="form-group">
-          <label for="skill">Skill</label>
-          <div class="row">
-            <div class="col-md-11">
-              <input type="text" class="form-control" id="skill" [(ngModel)]="skill">
-            </div>
-            <div class="col-md-1">
-              <span class="glyphicon glyphicon-plus" aria-hidden="true" (click)="add_skills(skill)"></span>
+            <label for="skill">Skill</label>
+            <div class="row">
+              <div class="col-md-11">
+                <input type="text" class="form-control" id="skill" [(ngModel)]="skill">
+              </div>
+              <div class="col-md-1">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true" (click)="add_skills(skill)"></span>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="form-group">
-          <span *ngFor="let item of user.skills" class="label label-info skills">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="remove_skills(item);">
-              <span class="label label-info" aria-hidden="true">&times;</span>
-            </button>{{ item }}
-          </span>
-        </div>
-        <div class="form-group">
-          <button class="btn btn-primary" (click)="update_skills();">Update</button>
+          <div class="form-group">
+            <span *ngFor="let item of user.skills" class="label label-info skills">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="remove_skills(item);">
+                <span class="label label-info" aria-hidden="true">&times;</span>
+              </button>{{ item }}
+            </span>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary" (click)="update_skills();">Update</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
 
-<!--<div class="row">-->
-<!--<div class="panel panel-info">-->
-<!--<div class="panel-heading">-->
-<!--<div class="panel-title">-->
-<!--<h3>User Infomation</h3>-->
-<!--</div>-->
-<!--</div>-->
-<!--<div class="panel-body">-->
-<!--<div class="row">-->
-<!--<div class="col-md-offset-3 col-md-6">-->
-<!--<form #user="ngForm">-->
-<!--<div class="form-group">-->
-<!--<label for="userName">Username:</label>-->
-<!--<br>-->
-<!--<input type="text" class="form-control" id="userName" required pattern="^[a-zA-Z0-9]+$" maxlength="20" [(ngModel)]="user.userName" name="userName"  #userName="ngModel">-->
-<!--<div [hidden]="!submitted || userName.valid" class="alert alert-danger">Username Invalid</div>-->
-<!--</div>-->
-<!--<div class="form-group">-->
-<!--<label for="Email">Email:</label>-->
-<!--<br>-->
-<!--<input class="form-control" id="Email" required pattern="^[a-z0-9A-Z]+([._\\-]*[a-z0-9A-Z])*@([a-z0-9A-Z]+[-a-z0-9A-Z]*[a-z0-9A-Z]+.){1,63}[a-z0-9A-Z]+$" [(ngModel)]="user.email" name="email" #email="ngModel" value="{{ currentUser.email }}">-->
-<!--<div [hidden]="!submitted || email.valid" class="alert alert-danger">Email Invalid</div>-->
-<!--</div>-->
-<!--<div class="form-group">-->
-<!--<label for="userType">User Type:</label>-->
-<!--<br>-->
-<!--<select name="userType" id="userType" class="form-control" [(ngModel)]="user.userType" required name="userType" #userType="ngModel">-->
-<!--<option value="Student">Student</option>-->
-<!--<option value="Company">Company</option>-->
-<!--</select>-->
-<!--<div [hidden]="!submitted || userType.valid" class="alert alert-danger">Please Choose a type</div>-->
-<!--</div>-->
-<!--<div class="form-group">-->
-<!--<button class="btn btn-info" (click)="submitted=true; check_update(); user.form.valid && updateInfo(); show_info();">update</button>-->
-<!--</div>-->
-<!--</form>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--<div class="row">-->
-<!--<div class="panel panel-primary">-->
-<!--<div class="panel-heading">-->
-<!--<div class="panel-title">-->
-<!--<h3>Password</h3>-->
-<!--</div>-->
-<!--</div>-->
-<!--<div class="panel-body">-->
-<!--<div class="row">-->
-<!--<div class="col-md-offset-3 col-md-6">-->
-<!--<form #_passwordForm="ngForm">-->
-<!--<div class="form-group">-->
-<!--<label for="password">Password</label>-->
-<!--<input type="password" class="form-control" id="password" [(ngModel)]="_password.oldPassword" required name="oldPassword" #oldPassword="ngModel">-->
-<!--<div [hidden]="!passwordSubmitted || oldPassword.valid" class="alert alert-danger">Old Password Required</div>-->
-<!--</div>-->
-<!--<div class="form-group">-->
-<!--<label for="new_password">New Password</label>-->
-<!--<input type="password" class="form-control" id="new_password" [(ngModel)]="_password.newPassword" required minlength="6" name="newPassword" #newPassword="ngModel">-->
-<!--<div [hidden]="!passwordSubmitted || (newPassword.valid && newPassword.value != oldPassword.value) " class="alert alert-danger">New Password Are Required and Should Be Different</div>-->
-<!--</div>-->
-<!--<div class="form-group">-->
-<!--<label for="new_password_again">New Password Again</label>-->
-<!--<input type="password" class="form-control" id="new_password_again" [(ngModel)]="_password.newPasswordAgain" required name="newPasswordAgain" #newPasswordAgain="ngModel">-->
-<!--</div>-->
-<!--<div [hidden]="!passwordSubmitted || newPassword.value==newPasswordAgain.value" class="alert alert-danger">New Password Should Be Same</div>-->
-<!--<div class="form-group">-->
-<!--<button class="btn btn-info" (click)="passwordSubmitted=true; _passwordForm.form.valid && check_password()">update</button>-->
-<!--</div>-->
-<!--</form>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
+  <!--<div class="row">-->
+  <!--<div class="panel panel-info">-->
+  <!--<div class="panel-heading">-->
+  <!--<div class="panel-title">-->
+  <!--<h3>User Infomation</h3>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--<div class="panel-body">-->
+  <!--<div class="row">-->
+  <!--<div class="col-md-offset-3 col-md-6">-->
+  <!--<form #user="ngForm">-->
+  <!--<div class="form-group">-->
+  <!--<label for="userName">Username:</label>-->
+  <!--<br>-->
+  <!--<input type="text" class="form-control" id="userName" required pattern="^[a-zA-Z0-9]+$" maxlength="20" [(ngModel)]="user.userName" name="userName"  #userName="ngModel">-->
+  <!--<div [hidden]="!submitted || userName.valid" class="alert alert-danger">Username Invalid</div>-->
+  <!--</div>-->
+  <!--<div class="form-group">-->
+  <!--<label for="Email">Email:</label>-->
+  <!--<br>-->
+  <!--<input class="form-control" id="Email" required pattern="^[a-z0-9A-Z]+([._\\-]*[a-z0-9A-Z])*@([a-z0-9A-Z]+[-a-z0-9A-Z]*[a-z0-9A-Z]+.){1,63}[a-z0-9A-Z]+$" [(ngModel)]="user.email" name="email" #email="ngModel" value="{{ currentUser.email }}">-->
+  <!--<div [hidden]="!submitted || email.valid" class="alert alert-danger">Email Invalid</div>-->
+  <!--</div>-->
+  <!--<div class="form-group">-->
+  <!--<label for="userType">User Type:</label>-->
+  <!--<br>-->
+  <!--<select name="userType" id="userType" class="form-control" [(ngModel)]="user.userType" required name="userType" #userType="ngModel">-->
+  <!--<option value="Student">Student</option>-->
+  <!--<option value="Company">Company</option>-->
+  <!--</select>-->
+  <!--<div [hidden]="!submitted || userType.valid" class="alert alert-danger">Please Choose a type</div>-->
+  <!--</div>-->
+  <!--<div class="form-group">-->
+  <!--<button class="btn btn-info" (click)="submitted=true; check_update(); user.form.valid && updateInfo(); show_info();">update</button>-->
+  <!--</div>-->
+  <!--</form>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--<div class="row">-->
+  <!--<div class="panel panel-primary">-->
+  <!--<div class="panel-heading">-->
+  <!--<div class="panel-title">-->
+  <!--<h3>Password</h3>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--<div class="panel-body">-->
+  <!--<div class="row">-->
+  <!--<div class="col-md-offset-3 col-md-6">-->
+  <!--<form #_passwordForm="ngForm">-->
+  <!--<div class="form-group">-->
+  <!--<label for="password">Password</label>-->
+  <!--<input type="password" class="form-control" id="password" [(ngModel)]="_password.oldPassword" required name="oldPassword" #oldPassword="ngModel">-->
+  <!--<div [hidden]="!passwordSubmitted || oldPassword.valid" class="alert alert-danger">Old Password Required</div>-->
+  <!--</div>-->
+  <!--<div class="form-group">-->
+  <!--<label for="new_password">New Password</label>-->
+  <!--<input type="password" class="form-control" id="new_password" [(ngModel)]="_password.newPassword" required minlength="6" name="newPassword" #newPassword="ngModel">-->
+  <!--<div [hidden]="!passwordSubmitted || (newPassword.valid && newPassword.value != oldPassword.value) " class="alert alert-danger">New Password Are Required and Should Be Different</div>-->
+  <!--</div>-->
+  <!--<div class="form-group">-->
+  <!--<label for="new_password_again">New Password Again</label>-->
+  <!--<input type="password" class="form-control" id="new_password_again" [(ngModel)]="_password.newPasswordAgain" required name="newPasswordAgain" #newPasswordAgain="ngModel">-->
+  <!--</div>-->
+  <!--<div [hidden]="!passwordSubmitted || newPassword.value==newPasswordAgain.value" class="alert alert-danger">New Password Should Be Same</div>-->
+  <!--<div class="form-group">-->
+  <!--<button class="btn btn-info" (click)="passwordSubmitted=true; _passwordForm.form.valid && check_password()">update</button>-->
+  <!--</div>-->
+  <!--</form>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
