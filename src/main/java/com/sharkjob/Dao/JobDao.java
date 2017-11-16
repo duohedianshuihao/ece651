@@ -70,6 +70,7 @@ public class JobDao {
         Date newExpireTime = job.getExpirTime();
         List<String> newRequiredSkills = job.getRequiredSkills();
         Job oldJob = jobMapper.load(Job.class, jobId);
+        jobMapper.delete(oldJob);
         oldJob.setJobDescription(newDescription);
         oldJob.setJobTittle(newTittle);
         oldJob.setLocation(newLocation);
