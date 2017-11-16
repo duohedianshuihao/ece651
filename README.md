@@ -5,6 +5,7 @@
   ```shell
   npm -v
   ```
+  sss
 
 - Use npm to install all the resources we need for AngularJS2, run the following command in the direction *your_dir/project/src/main/webapp/*
 
