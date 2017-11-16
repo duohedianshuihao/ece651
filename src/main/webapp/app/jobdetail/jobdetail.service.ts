@@ -14,6 +14,7 @@ export class JobdetailService {
         private http : Http,
         ) {}
     private subject = new Subject<any>();
+    public jobform:jobDetails;
 
     userView(user: userProfile) {
         this.subject

@@ -29,6 +29,7 @@ import { JobinfoService} from './jobinfo/jobinfo.service';
 import { JobdetailService } from "./jobdetail/jobdetail.service";
 import { JoblistsService} from "./jobinfo/joblists/joblists.service";
 import { PostjobService } from "./postjob/postjob.service";
+import {EditjobComponent} from "./editjob/editjob.component";
 
 
 const appRoutes: Routes = [
@@ -40,6 +41,7 @@ const appRoutes: Routes = [
   {path: "jobdetail", component: JobdetailComponent},
   {path: "postjob", component: PostjobComponent},
   {path: "userview", component: UserviewComponent},
+  {path: "editjob", component: EditjobComponent},
 ]
 
 @NgModule({
@@ -62,6 +64,7 @@ const appRoutes: Routes = [
     JobinfoComponent,
     JoblistsComponent,
     JobdetailComponent,
+    EditjobComponent,
     ChatComponent,
     AlertComponent,
     UserviewComponent,

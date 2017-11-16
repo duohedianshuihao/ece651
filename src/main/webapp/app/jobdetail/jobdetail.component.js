@@ -31,6 +31,7 @@ var JobdetailComponent = (function () {
             .getJobDetails(localStorage.getItem('jobId'))
             .subscribe(function (jobDetail) {
             _this.jobdetail = jobDetail;
+            _this.equalcurrent = _this.jobdetail.company.userName == JSON.parse(localStorage.getItem("currentUser")).userName;
             console.log(_this.jobdetail);
         }, function (error) {
             console.log(error);
@@ -38,6 +39,17 @@ var JobdetailComponent = (function () {
     }
     JobdetailComponent.prototype.ngOnDestroy = function () {
         // this.subscription.unsubscribe();
+    };
+    JobdetailComponent.prototype.editjob = function () {
+        this.jobdetailService.jobform = this.jobdetail;
+        this.router.navigate(['editjob']);
+        // setTimeout(() =>
+        //     {
+        //         console.log(this.jobdetail);
+        //         this.jobdetailService
+        //             .jobDetail(this.jobdetail);
+        //     },
+        //     5);
     };
     JobdetailComponent.prototype.gotoUserview = function () {
         var _this = this;

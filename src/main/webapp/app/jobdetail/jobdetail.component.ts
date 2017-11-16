@@ -17,6 +17,7 @@ export class JobdetailComponent implements OnDestroy{
     private subscription = new Subscription();
     public jobdetail: jobDetails;
     public viewuser:userProfile;
+    public equalcurrent:boolean;
 
     constructor(
         private alertService: AlertService,
@@ -35,15 +36,29 @@ export class JobdetailComponent implements OnDestroy{
             .getJobDetails(localStorage.getItem('jobId'))
             .subscribe(jobDetail => {
                 this.jobdetail = jobDetail;
+                this.equalcurrent = this.jobdetail.company.userName == JSON.parse(localStorage.getItem("currentUser")).userName;
                 console.log(this.jobdetail);
             }, error => {
                 console.log(error);
             });
 
+
     }
 
     ngOnDestroy() {
         // this.subscription.unsubscribe();
+    }
+
+    editjob() {
+        this.jobdetailService.jobform = this.jobdetail;
+        this.router.navigate(['editjob']);
+        // setTimeout(() =>
+        //     {
+        //         console.log(this.jobdetail);
+        //         this.jobdetailService
+        //             .jobDetail(this.jobdetail);
+        //     },
+        //     5);
     }
 
     gotoUserview() {
