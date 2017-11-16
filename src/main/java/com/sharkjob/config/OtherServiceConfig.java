@@ -1,6 +1,7 @@
 package com.sharkjob.config;
 
 import com.sharkjob.Dao.UserDao;
+import com.sharkjob.OtherService.Encoder;
 import com.sharkjob.OtherService.MailService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

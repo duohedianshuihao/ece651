@@ -6,6 +6,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import com.amazonaws.services.dynamodbv2.model.*;
+import com.sharkjob.OtherService.Encoder;
 import com.sharkjob.controller.IndexController;
 import com.sharkjob.model.User;
 import lombok.Data;
@@ -28,6 +29,7 @@ public class UserDao {
 
     @Autowired
     private DynamoDBMapper userMapper;
+
 
     private static final Logger log = LoggerFactory.getLogger(UserDao.class);
 
@@ -123,7 +125,6 @@ public class UserDao {
     public boolean changeEmailInSharkJobUserTableThroughUserName(String userName, String password, String email) {
         User user = findUserInSharkJobUserTableThroughUsername(userName);
         if (isRightUser(userName, password) && isUniqueEmail(email)) {
-            log.info(email);
             userMapper.delete(user);
             user.setEmail(email);
             userMapper.save(user);
@@ -159,8 +160,9 @@ public class UserDao {
 
     private boolean isRightUser(String userName, String password) {
         User user = findUserInSharkJobUserTableThroughUsername(userName);
+        String encodedPassword = Encoder.base64Encode(password);
         if (user != null){
-            return user.getPassword().equals(password);
+            return user.getPassword().equals(encodedPassword);
         }else {
             return false;
         }

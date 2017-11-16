@@ -18,6 +18,7 @@ import static org.mockito.Mockito.when;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -33,6 +34,7 @@ public class UserDaoTest {
     @Mock private  PaginatedScanList mockPaginatedScanList;
     private UserDao userDao = new UserDao();
     private User user = new User();
+    private User encodedUser = new User();
     private final String email = "c423liu@uwaterloo.ca";
     private final List<String> skills = Arrays.asList("a1", "a2");
 
@@ -48,6 +50,9 @@ public class UserDaoTest {
         user.setUserName("Chino");
         user.setPassword("123456");
         user.setSkills(Arrays.asList("a1", "a2"));
+
+        encodedUser = user;
+        encodedUser.setPassword(Base64.getEncoder().encodeToString("123456".getBytes()));
 
     }
 
@@ -116,14 +121,15 @@ public class UserDaoTest {
     @Test
     public void vaild_changeEmailInSharkJobUserTableThroughUserName(){
         mockPaginatedScanList.add(user);
-        when(userDao.findUserInSharkJobUserTableThroughUsername("Noying")).thenReturn(user);
+        when(userDao.findUserInSharkJobUserTableThroughUsername("Noying")).thenReturn(encodedUser);
         boolean flag = userDao.changeEmailInSharkJobUserTableThroughUserName("Noying","22222","adssa");
         assertFalse(flag);
     }
+
     @Test
     public void vaild_changeEmailInSharkJobUserTableThroughUserName2(){
         mockPaginatedScanList.add(user);
-        when(userDao.findUserInSharkJobUserTableThroughUsername("Chino")).thenReturn(user);
+        when(userDao.findUserInSharkJobUserTableThroughUsername("Chino")).thenReturn(encodedUser);
         boolean flag = userDao.changeEmailInSharkJobUserTableThroughUserName("Chino","123456","c423liu@uwaterloo.ca");
         assertTrue(flag);
     }

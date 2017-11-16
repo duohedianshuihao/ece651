@@ -3,6 +3,7 @@ package com.sharkjob.controller;
 //import java.util.concurrent.atomic.AtomicLong;
 
 import com.sharkjob.Dao.UserDao;
+import com.sharkjob.OtherService.Encoder;
 import com.sharkjob.OtherService.MailService;
 import com.sharkjob.model.User;
 import lombok.Setter;
@@ -52,6 +53,9 @@ public class UserController {
             }
 
             if ((userInTable.getValidCode() != null) && (userInTable.getValidCode().equals(user.getValidCode()))) {
+
+                String encodedPassword = Encoder.base64Encode(user.getPassword());
+                user.setPassword(encodedPassword);
                 userDao.getUserMapper().save(user);
                 return new ResponseEntity<>(gson.toJson(user), HttpStatus.CREATED);
             } else {
@@ -71,6 +75,7 @@ public class UserController {
 
         Gson gson = new Gson();
         User user = gson.fromJson(emailorusername, User.class);
+        String encodedPassword = Encoder.base64Encode(user.getPassword());
         User userInTable;
         if( user.getEmail()!=null ) {
             userInTable = userDao.findUserInSharkJobUserTableThroughEmail(user.getEmail());
@@ -80,7 +85,7 @@ public class UserController {
         }
 
         if(userInTable != null) {
-            if (user.getPassword().equals(userInTable.getPassword())) {
+            if (encodedPassword.equals(userInTable.getPassword())) {
                 return new ResponseEntity<>(gson.toJson(userInTable),HttpStatus.OK);
             }
             else {
