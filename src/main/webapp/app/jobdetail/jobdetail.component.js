@@ -59,13 +59,17 @@ var JobdetailComponent = (function () {
                 .userView(_this.viewuser);
         }, 5);
     };
-    JobdetailComponent.prototype.gotoCommentuser = function (username) {
+    JobdetailComponent.prototype.gotoCommentuser = function (email) {
         var _this = this;
         this.router.navigate(['userview']);
-        setTimeout(function () {
-            _this.jobdetailService
-                .userView(username);
-        }, 5);
+        this.jobdetailService
+            .getUserEmail(email)
+            .subscribe(function (data) {
+            _this.viewuser = data;
+            _this.setTime();
+        }, function (error) {
+            _this.alertService.error(error.text());
+        });
     };
     JobdetailComponent.prototype.addComment = function (comment) {
         var _this = this;

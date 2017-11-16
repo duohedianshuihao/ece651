@@ -69,15 +69,18 @@ export class JobdetailComponent implements OnDestroy{
             5);
     }
 
-    gotoCommentuser(username) {
+    gotoCommentuser(email) {
 
         this.router.navigate(['userview']);
-        setTimeout(() =>
-            {
-                this.jobdetailService
-                    .userView(username);
-            },
-            5);
+        this.jobdetailService
+            .getUserEmail(email)
+            .subscribe(
+                data => {
+                    this.viewuser = data;
+                    this.setTime();
+                }, error => {
+                    this.alertService.error(error.text());
+                });
     }
 
     addComment(comment) {
