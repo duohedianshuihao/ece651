@@ -43,7 +43,9 @@ var JobdetailService = (function () {
         var urlSearchParams = new http_1.URLSearchParams();
         urlSearchParams.append("email", email);
         var userEmailUrl = "/email";
-        return this.http.post(userEmailUrl, urlSearchParams, { headers: this.headers })
+        var requestOptions = new http_1.RequestOptions();
+        requestOptions.search = urlSearchParams;
+        return this.http.get(userEmailUrl, requestOptions)
             .map(function (response) { return response.json(); });
     };
     JobdetailService.prototype.getUser = function (userName) {

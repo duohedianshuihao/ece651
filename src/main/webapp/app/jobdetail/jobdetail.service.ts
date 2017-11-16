@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Observable } from 'rxjs';
 import { Subject } from 'rxjs/Subject';
-import { Headers, Http, Response, URLSearchParams } from '@angular/http';
+import { Headers, Http, Response, URLSearchParams,RequestOptions } from '@angular/http';
 import { jobDetails } from "../Models/jobDetails";
 import { userProfile } from "../Models/userProfile";
 
@@ -45,7 +45,9 @@ export class JobdetailService {
         let urlSearchParams = new URLSearchParams();
         urlSearchParams.append("email", email);
         let userEmailUrl = "/email";
-        return this.http.post(userEmailUrl, urlSearchParams,{headers: this.headers})
+        let requestOptions = new RequestOptions();
+        requestOptions.search = urlSearchParams;
+        return this.http.get(userEmailUrl, requestOptions)
             .map((response: Response) => response.json());
     }
 
