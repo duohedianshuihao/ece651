@@ -318,8 +318,7 @@
                 <configuration>
                     <path>/</path>
                     <port>8080</port>
-                    <httpsPort>443</httpsPort>
-                    <protocol>HTTP/1.1</protocol>
+                    <httpsPort>8443</httpsPort>
                     <keystoreFile>${project.build.directory}/tomcat7.keystore</keystoreFile>
                     <keystorePass>tomcat7</keystorePass>
                 </configuration>
