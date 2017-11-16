@@ -122,7 +122,6 @@ public class UserDao {
 
     public boolean changeEmailInSharkJobUserTableThroughUserName(String userName, String password, String email) {
         User user = findUserInSharkJobUserTableThroughUsername(userName);
-        log.info(user.toString());
         if (isRightUser(userName, password) && isUniqueEmail(email)) {
             log.info(email);
             userMapper.delete(user);

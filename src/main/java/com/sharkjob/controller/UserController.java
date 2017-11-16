@@ -182,6 +182,18 @@ public class UserController {
         }
     }
 
+    @RequestMapping(value="/{userEmail}",method = GET)
+    public ResponseEntity<User> getUserInfoThroughEmail(@PathVariable String userEmail) {
+        User user = userDao.findUserInSharkJobUserTableThroughEmail(userEmail);
+        //check if return is null
+        if (user != null) {
+            return  new ResponseEntity<>(user, HttpStatus.OK);
+        } else {
+            User nullUser = new User();
+            return new ResponseEntity<>(nullUser, HttpStatus.NO_CONTENT);
+        }
+    }
+
     @RequestMapping(value="/numberOfUsers", method = GET)
     public ResponseEntity<Integer> getNumberOfUsers() {
         Integer number = userDao.getNumberofUsersInSharkUserInfoTable();
