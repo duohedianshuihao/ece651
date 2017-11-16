@@ -67,7 +67,7 @@ public class UserDao {
 
     public User findUserInSharkJobUserTableThroughEmail(String email){
         //check email
-
+        log.info(email);
         User user = userMapper.load(User.class, email);
         if (user != null) {
             log.info(user.toString());

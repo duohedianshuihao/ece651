@@ -42,9 +42,21 @@ var JobdetailComponent = (function () {
     JobdetailComponent.prototype.gotoUserview = function () {
         var _this = this;
         this.router.navigate(['userview']);
+        this.jobdetailService
+            .getUserEmail(this.jobdetail.company.email)
+            .subscribe(function (data) {
+            _this.viewuser = data;
+            _this.setTime();
+        }, function (error) {
+            _this.alertService.error(error.text());
+        });
+    };
+    JobdetailComponent.prototype.setTime = function () {
+        var _this = this;
         setTimeout(function () {
+            // console.log(this.viewuser);
             _this.jobdetailService
-                .userView(_this.jobdetail.company);
+                .userView(_this.viewuser);
         }, 5);
     };
     JobdetailComponent.prototype.gotoCommentuser = function (username) {

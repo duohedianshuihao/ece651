@@ -16,6 +16,7 @@ import { userProfile } from "../Models/userProfile";
 export class JobdetailComponent implements OnDestroy{
     private subscription = new Subscription();
     public jobdetail: jobDetails;
+    public viewuser:userProfile;
 
     constructor(
         private alertService: AlertService,
@@ -47,12 +48,25 @@ export class JobdetailComponent implements OnDestroy{
 
     gotoUserview() {
         this.router.navigate(['userview']);
+        this.jobdetailService
+            .getUserEmail(this.jobdetail.company.email)
+            .subscribe(
+                data => {
+                    this.viewuser = data;
+                    this.setTime();
+                }, error => {
+                    this.alertService.error(error.text());
+                });
+    }
+
+    setTime() {
         setTimeout(() =>
-        {
-            this.jobdetailService
-                .userView(this.jobdetail.company);
-        },
-        5);
+            {
+                // console.log(this.viewuser);
+                this.jobdetailService
+                    .userView(this.viewuser);
+            },
+            5);
     }
 
     gotoCommentuser(username) {

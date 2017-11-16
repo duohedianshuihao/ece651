@@ -182,8 +182,9 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value="/{userEmail}",method = GET)
-    public ResponseEntity<User> getUserInfoThroughEmail(@PathVariable String userEmail) {
+    @RequestMapping(value="/email",method = POST)
+    public ResponseEntity<User> getUserInfoThroughEmail(@RequestParam(value = "email") String userEmail) {
+        log.info(userEmail);
         User user = userDao.findUserInSharkJobUserTableThroughEmail(userEmail);
         //check if return is null
         if (user != null) {

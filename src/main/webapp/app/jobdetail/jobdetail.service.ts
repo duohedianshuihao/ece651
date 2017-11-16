@@ -40,6 +40,15 @@ export class JobdetailService {
         return this.subject.asObservable();
     }
 
+    getUserEmail(email) {
+        console.log(email);
+        let urlSearchParams = new URLSearchParams();
+        urlSearchParams.append("email", email);
+        let userEmailUrl = "/email";
+        return this.http.post(userEmailUrl, urlSearchParams,{headers: this.headers})
+            .map((response: Response) => response.json());
+    }
+
     getUser(userName) {
         let userUrl = "/" + userName;
         return this.http
