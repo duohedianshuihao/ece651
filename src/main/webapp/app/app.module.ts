@@ -31,6 +31,7 @@ import { JoblistsService} from "./jobinfo/joblists/joblists.service";
 import { PostjobService } from "./postjob/postjob.service";
 
 
+
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'signup', component: SignupComponent},
@@ -40,6 +41,7 @@ const appRoutes: Routes = [
   {path: "jobdetail", component: JobdetailComponent},
   {path: "postjob", component: PostjobComponent},
   {path: "userview", component: UserviewComponent},
+  {path: "chattest", component: ChatComponent}
 ]
 
 @NgModule({

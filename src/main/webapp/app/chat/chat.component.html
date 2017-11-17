@@ -2,10 +2,11 @@
     <div class="col-lg-6">
         <textarea name="textarea" rows="10" cols="50"></textarea>
         <div class="input-group">
-            <input type="text" class="form-control" placeholder="Reply content...">
+            <input [(ngModel)]="content" type="text" class="form-control" placeholder="Reply content...">
             <span class="input-group-btn">
-                <button class="btn btn-default" type="button">Reply!</button>
+                <button class="btn btn-default" type="button" (click)="send(content);">Reply!</button>
             </span>
-        </div><!-- /input-group -->
-    </div><!-- /.col-lg-6 -->
-</div><!-- /.row -->
+        </div>
+    </div>
+</div>
+

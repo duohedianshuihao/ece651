@@ -43,6 +43,7 @@ var appRoutes = [
     { path: "jobdetail", component: jobdetail_component_1.JobdetailComponent },
     { path: "postjob", component: postjob_component_1.PostjobComponent },
     { path: "userview", component: userview_component_1.UserviewComponent },
+    { path: "chattest", component: chat_component_1.ChatComponent }
 ];
 var AppModule = (function () {
     function AppModule() {

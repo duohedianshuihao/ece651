@@ -23,12 +23,6 @@ export class JobdetailComponent implements OnDestroy{
         private jobdetailService: JobdetailService
         )
     {
-        // this.subscription = this.jobdetailService
-        //                         .getJobDetail()
-        //                         .subscribe(
-        //                             job => {
-        //                                 this.jobdetail = job.info;
-        //                             });
 
         this.jobdetailService
             .getJobDetails(localStorage.getItem('jobId'))
@@ -56,7 +50,6 @@ export class JobdetailComponent implements OnDestroy{
     }
 
     gotoCommentuser(username) {
-
         this.router.navigate(['userview']);
         setTimeout(() =>
             {
@@ -67,7 +60,6 @@ export class JobdetailComponent implements OnDestroy{
     }
 
     addComment(comment) {
-
         this.jobdetailService.addComment(comment, this.jobdetail.jobId)
             .subscribe(
                 info => {

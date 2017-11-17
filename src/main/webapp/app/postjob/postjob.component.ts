@@ -1,5 +1,5 @@
 import { Component, OnInit} from "@angular/core";
-import {jobDetails} from "../Models/jobDetails";
+import { jobDetails } from "../Models/jobDetails";
 import { PostjobService } from "./postjob.service";
 import { AlertService } from '../alert/alert.service';
 import { Router } from '@angular/router';

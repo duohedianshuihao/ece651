@@ -16,12 +16,6 @@ var alert_service_1 = require("../alert/alert.service");
 var Subscription_1 = require("rxjs/Subscription");
 var JobdetailComponent = (function () {
     function JobdetailComponent(alertService, router, jobdetailService) {
-        // this.subscription = this.jobdetailService
-        //                         .getJobDetail()
-        //                         .subscribe(
-        //                             job => {
-        //                                 this.jobdetail = job.info;
-        //                             });
         var _this = this;
         this.alertService = alertService;
         this.router = router;
