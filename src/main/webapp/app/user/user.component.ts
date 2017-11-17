@@ -4,7 +4,7 @@ import { Router, ActivatedRoute, Params} from '@angular/router';
 import { UserService } from './user.service';
 import { AlertService } from '../alert/alert.service';
 import { LoginService } from '../login/login.service';
-
+import { JobdetailService } from '../jobdetail/jobdetail.service';
 import { loginForm } from '../Models/loginForm';
 import { userProfile } from '../Models/userProfile';
 import { password } from '../Models/password';
@@ -40,7 +40,8 @@ export class UserComponent implements OnInit {
         private alertService: AlertService,
         private route: ActivatedRoute,
         private router: Router,
-        private loginService: LoginService
+        private loginService: LoginService,
+        private jobDetailService: JobdetailService
     ) {
         this.dataLoaded = false;
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -72,6 +73,7 @@ export class UserComponent implements OnInit {
     }
 
     check_update(user){
+
         if (this.currentUser.userName != user.userName){
             this.userName_changed = true;
         }
@@ -91,32 +93,47 @@ export class UserComponent implements OnInit {
         }
     }
 
+    check_raceCondition(){
+       if (!this.userName_changed && !this.email_changed ) {
+            return false;
+        }
+        if (this.userName_changed && this.email_changed ) {
+            this.alertService.error("Please do not update username and email at the same time!!", true);
+            this.userName_changed = false;
+            this.email_changed = false;
+            return false;
+        }
+        if (this.userName_changed || this.email_changed ) {
+            return true;
+        }
+    }
+
     updateInfo(user) {
-        if (this.email_changed) {
-            this.userService
-                .updateEmail(user, this.currentUser)
-                .subscribe(
-                    info => {
-                        this.email_updated = true;
-                        this.show_info();
-                    },
-                    error => {
-                        this.alertService.error(error.text());
-                    });
-        }
+        if (this.check_raceCondition()){   
+            if (this.userName_changed)  {
+                this.userService
+                    .updateUserName(user, this.currentUser)
+                    .subscribe(
+                        info => {
+                            this.update_currentUser(user);
+                        }, error => {
+                            console.log('there ' + error);
+                            this.alertService.error(error.text());
+                        });
+            }
 
-        if (this.userName_changed) {
-            this.userService
-                .updateUserName(user, this.currentUser)
-                .subscribe(
-                    info => {
-                        this.update_currentUser(user);
-                    }, error => {
-                        console.log('there ' + error);
-                        this.alertService.error(error.text());
-                    });
+            if (this.email_changed) {
+                this.userService
+                    .updateEmail(user, this.currentUser)
+                    .subscribe(
+                        info => {
+                            this.update_basedOnEmail(user);
+                        },
+                        error => {
+                            this.alertService.error(error.text());
+                        });
+            }
         }
-
     }
 
     show_info() {
@@ -126,7 +143,17 @@ export class UserComponent implements OnInit {
         }
     }
 
-    update_currentUser(user) {
+    update_currentUser(user) {  
+       localStorage.removeItem('currentUser');
+        this.userService.getUser(user.userName).subscribe(
+            data => {
+                this.userName_updated = true;
+                localStorage.setItem('currentUser', JSON.stringify(data));
+                this.show_info();
+            }, error => {
+                this.alertService.error("Fail to update", true);
+            })
+        /*
         let _user_passwd = this.currentUser.password;
         this.loginService.logout();
         let form = new loginForm("", "");
@@ -139,6 +166,19 @@ export class UserComponent implements OnInit {
             }, error => {
                 this.alertService.error("Fail to update", true);
             });
+        */
+            
+    }
+    update_basedOnEmail(user){
+        localStorage.removeItem('currentUser');
+        this.jobDetailService.getUserEmail(user.email).subscribe(
+            data => {
+                this.email_updated = true;
+                localStorage.setItem('currentUser', JSON.stringify(data));
+                this.show_info();
+            }, error => {
+                this.alertService.error("Fail to update", true);
+            })
     }
 
     check_password() {

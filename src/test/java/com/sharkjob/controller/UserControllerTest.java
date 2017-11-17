@@ -187,7 +187,7 @@ public class UserControllerTest {
 
     @Test
     public void valid_changeEmail_invalid_user() {
-        val expected = new ResponseEntity<>("No user",HttpStatus.UNAUTHORIZED);
+        val expected = new ResponseEntity<>("email exists",HttpStatus.UNAUTHORIZED);
         when(userDao.changeEmailInSharkJobUserTableThroughUserName("Lynn","change@example.com")).thenReturn(false);
         val actual = userController.changeEmail("Lynn", "change@example.com", "123456");
         assertEquals(expected,actual);
@@ -203,7 +203,7 @@ public class UserControllerTest {
 
     @Test
     public void valid_changeUserName_invalid_user() {
-        val expected = new ResponseEntity<>("No user",HttpStatus.UNAUTHORIZED);
+        val expected = new ResponseEntity<>("user name exists",HttpStatus.UNAUTHORIZED);
         when(userDao.changeUserNameInSharkJobUserTableThroughUserName("Lynn","newName")).thenReturn(false);
         val actual = userController.changeUserName("Lynn","123456","newName");
         assertEquals(expected,actual);

@@ -143,7 +143,7 @@ public class UserController {
         if (changeEmail) {
             return new ResponseEntity<>("email changed",HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("No user",HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("email exists",HttpStatus.UNAUTHORIZED);
         }
     }
 
@@ -157,7 +157,7 @@ public class UserController {
         if (changeUserName) {
             return new ResponseEntity<>("user name changed",HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("No user",HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("user name exists",HttpStatus.UNAUTHORIZED);
         }
     }
 
