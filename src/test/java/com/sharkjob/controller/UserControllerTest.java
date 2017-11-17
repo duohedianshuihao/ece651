@@ -177,46 +177,45 @@ public class UserControllerTest {
         assertEquals(expected,actual);
     }
 
-//    @Test
-//    public void valid_changeEmail_successfully() {
-//        val expected = new ResponseEntity<>("email changed",HttpStatus.OK);
-//        when(userDao.changeEmailInSharkJobUserTableThroughUserName(user.getUserName(),user.getPassword(),"change@example.com")).thenReturn(true);
-//        when(userDao.findUserInSharkJobUserTableThroughUsername("Chino")).thenReturn(encodedUser);
-//        val actual = userController.changeEmail("Chino", "change@example.com", "123456");
-//        assertEquals(expected,actual);
-//    }
+    @Test
+    public void valid_changeEmail_successfully() {
+        val expected = new ResponseEntity<>("email changed",HttpStatus.OK);
+        when(userDao.changeEmailInSharkJobUserTableThroughUserName(user.getUserName(),"change@example.com")).thenReturn(true);
+        val actual = userController.changeEmail("Chino", "change@example.com", "123456");
+        assertEquals(expected,actual);
+    }
 
     @Test
     public void valid_changeEmail_invalid_user() {
         val expected = new ResponseEntity<>("No user",HttpStatus.UNAUTHORIZED);
-        when(userDao.changeEmailInSharkJobUserTableThroughUserName("Lynn","123456","change@example.com")).thenReturn(false);
+        when(userDao.changeEmailInSharkJobUserTableThroughUserName("Lynn","change@example.com")).thenReturn(false);
         val actual = userController.changeEmail("Lynn", "change@example.com", "123456");
         assertEquals(expected,actual);
     }
 
-//    @Test
-//    public void valid_changeUserName_successfully() {
-//        val expected = new ResponseEntity<>("user name changed",HttpStatus.OK);
-//        when(userDao.changeUserNameInSharkJobUserTableThroughUserName(user.getUserName(),user.getPassword(),"newName")).thenReturn(true);
-//        val actual = userController.changeUserName("Chino","123456","newName");
-//        assertEquals(expected,actual);
-//    }
+    @Test
+    public void valid_changeUserName_successfully() {
+        val expected = new ResponseEntity<>("user name changed",HttpStatus.OK);
+        when(userDao.changeUserNameInSharkJobUserTableThroughUserName(user.getUserName(),"newName")).thenReturn(true);
+        val actual = userController.changeUserName("Chino","123456","newName");
+        assertEquals(expected,actual);
+    }
 
     @Test
     public void valid_changeUserName_invalid_user() {
         val expected = new ResponseEntity<>("No user",HttpStatus.UNAUTHORIZED);
-        when(userDao.changeUserNameInSharkJobUserTableThroughUserName("Lynn","123456","newName")).thenReturn(false);
+        when(userDao.changeUserNameInSharkJobUserTableThroughUserName("Lynn","newName")).thenReturn(false);
         val actual = userController.changeUserName("Lynn","123456","newName");
         assertEquals(expected,actual);
     }
 
-//    @Test
-//    public void valid_changePassword_successfully() {
-//        val expected = new ResponseEntity<>("password changed",HttpStatus.OK);
-//        when(userDao.changePasswordInSharkJobUserTableThroughUserName(user.getUserName(),user.getPassword(),"1234567")).thenReturn(true);
-//        val actual = userController.changePassword("Chino","123456","1234567");
-//        assertEquals(expected,actual);
-//    }
+    @Test
+    public void valid_changePassword_successfully() {
+        val expected = new ResponseEntity<>("password changed",HttpStatus.OK);
+        when(userDao.changePasswordInSharkJobUserTableThroughUserName("Chino","123456","1234567")).thenReturn(true);
+        val actual = userController.changePassword("Chino","123456","1234567");
+        assertEquals(expected,actual);
+    }
 
     @Test
     public void valid_changePassword_invalid_user() {

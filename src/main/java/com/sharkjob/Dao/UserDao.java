@@ -122,9 +122,9 @@ public class UserDao {
 
     }
 
-    public boolean changeEmailInSharkJobUserTableThroughUserName(String userName, String password, String email) {
+    public boolean changeEmailInSharkJobUserTableThroughUserName(String userName, String email) {
         User user = findUserInSharkJobUserTableThroughUsername(userName);
-        if (isRightUser(userName, password) && isUniqueEmail(email)) {
+        if (isUniqueEmail(email)) {
             userMapper.delete(user);
             user.setEmail(email);
             userMapper.save(user);
@@ -133,9 +133,9 @@ public class UserDao {
         return false;
     }
 
-    public boolean changeUserNameInSharkJobUserTableThroughUserName(String userName, String password, String newUserName) {
+    public boolean changeUserNameInSharkJobUserTableThroughUserName(String userName, String newUserName) {
         User user = findUserInSharkJobUserTableThroughUsername(userName);
-        if (isRightUser(userName, password) && isUniqueUserName(newUserName)) {
+        if (isUniqueUserName(newUserName)) {
             user.setUserName(newUserName);
             userMapper.save(user);
             return true;
@@ -146,7 +146,8 @@ public class UserDao {
     public boolean changePasswordInSharkJobUserTableThroughUserName(String userName, String password, String newPassword) {
         User user = findUserInSharkJobUserTableThroughUsername(userName);
         if ( isRightUser(userName, password) ) {
-            user.setPassword(newPassword);
+            String newEncodedPassword = Encoder.base64Encode(newPassword);
+            user.setPassword(newEncodedPassword);
             userMapper.save(user);
             return true;
         }
@@ -158,7 +159,7 @@ public class UserDao {
         return userMapper.count(User.class, new DynamoDBScanExpression());
     }
 
-    private boolean isRightUser(String userName, String password) {
+    public boolean isRightUser(String userName, String password) {
         User user = findUserInSharkJobUserTableThroughUsername(userName);
         String encodedPassword = Encoder.base64Encode(password);
         if (user != null){

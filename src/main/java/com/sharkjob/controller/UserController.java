@@ -138,7 +138,7 @@ public class UserController {
                                               @RequestParam(value = "newEmail", required = false) String newEmail,
                                               @RequestParam(value = "password", required = false) String password ) {
 
-        boolean changeEmail = userDao.changeEmailInSharkJobUserTableThroughUserName(userName, password, newEmail);
+        boolean changeEmail = userDao.changeEmailInSharkJobUserTableThroughUserName(userName, newEmail);
 
         if (changeEmail) {
             return new ResponseEntity<>("email changed",HttpStatus.OK);
@@ -152,7 +152,7 @@ public class UserController {
                                                  @RequestParam(value = "password") String password,
                                                  @RequestParam(value = "newUserName") String newUserName) {
 
-        boolean changeUserName = userDao.changeUserNameInSharkJobUserTableThroughUserName(userName, password, newUserName);
+        boolean changeUserName = userDao.changeUserNameInSharkJobUserTableThroughUserName(userName, newUserName);
 
         if (changeUserName) {
             return new ResponseEntity<>("user name changed",HttpStatus.OK);

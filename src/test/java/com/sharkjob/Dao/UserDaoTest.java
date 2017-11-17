@@ -121,16 +121,8 @@ public class UserDaoTest {
     @Test
     public void vaild_changeEmailInSharkJobUserTableThroughUserName(){
         mockPaginatedScanList.add(user);
-        when(userDao.findUserInSharkJobUserTableThroughUsername("Noying")).thenReturn(encodedUser);
-        boolean flag = userDao.changeEmailInSharkJobUserTableThroughUserName("Noying","22222","adssa");
-        assertFalse(flag);
-    }
-
-    @Test
-    public void vaild_changeEmailInSharkJobUserTableThroughUserName2(){
-        mockPaginatedScanList.add(user);
         when(userDao.findUserInSharkJobUserTableThroughUsername("Chino")).thenReturn(encodedUser);
-        boolean flag = userDao.changeEmailInSharkJobUserTableThroughUserName("Chino","123456","c423liu@uwaterloo.ca");
+        boolean flag = userDao.changeEmailInSharkJobUserTableThroughUserName("Chino","c423liu@uwaterloo.ca");
         assertTrue(flag);
     }
     @Test
@@ -152,7 +144,7 @@ public class UserDaoTest {
     public void vaild_changeUserNameInSharkJobUserTableThroughUserName(){
         mockPaginatedScanList.add(user);
         when(userDao.findUserInSharkJobUserTableThroughUsername("Chino")).thenReturn(user);
-        boolean flag = userDao.changeUserNameInSharkJobUserTableThroughUserName("Chino","123456","Chino");
+        boolean flag = userDao.changeUserNameInSharkJobUserTableThroughUserName("Chino","Chino");
         assertFalse(flag);
     }
 
