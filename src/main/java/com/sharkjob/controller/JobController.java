@@ -53,10 +53,12 @@ public class JobController {
     public ResponseEntity<String> updateJobInfo(@RequestBody String job) {
         Gson gson = new Gson();
         Job jobForUpdate = gson.fromJson(job, Job.class);
+
         if (!jobDao.updateJobInSharkJobInfoTable(jobForUpdate) ) {
             return new ResponseEntity<>("job not existing", HttpStatus.UNAUTHORIZED);
         }
-        return  new ResponseEntity<>("job info updated", HttpStatus.OK);
+        Job jobUpdated = jobDao.findJobInSharkJobInfoTableThroughJobId(jobForUpdate.getJobId());
+        return  new ResponseEntity<>(gson.toJson(jobUpdated), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/jobList", method = GET)

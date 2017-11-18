@@ -6,7 +6,7 @@ import * as Rx from 'rxjs/Rx';
 
 export class ChatService {
     private socket;
-    wsUrl: string = 'ws://localhost:8080/messageSystem/3802208a-3e43-405e-908c-c2c6f5904fe8';
+    baseUrl: string = 'ws://localhost:8080/messageSystem/';
     constructor() {
     }
 
@@ -14,9 +14,9 @@ export class ChatService {
     // 用于保存当前subject对象publish后返回的可观察对象
     publish: Rx.ConnectableObservable<any>;
     num: number = 0;
-    private create(): Rx.Subject<any>{
+    private create(jobId): Rx.Subject<any>{
         // 创建websocket对象
-        let ws = new WebSocket(this.wsUrl);
+        let ws = new WebSocket(this.baseUrl + jobId);
         // 创建Observable对象
         let observable = Rx.Observable.create(
             (obs: Rx.Observer<any>) => {
@@ -41,19 +41,26 @@ export class ChatService {
                 // } else {
                 //     console.log("closed");
                 // }
-                ws.send(value.toString());
+                let body = JSON.stringify({
+                    user: value.user,
+                    content: value.content,
+                    time: value.time
+                });
+                console.log("body  " + body);
+                ws.send(body);
             },
         };
         // 使用Rx.Subject.create创建Subject对象
         return Rx.Subject.create(observer, observable);
     }
     // 获取subject对象接口
-    getSubject() {
+    getSubject(jobId) {
       if (!this.subject) {
-        this.subject = this.create();
+        this.subject = this.create(jobId);
       }
       return this.subject;
     }
+
     // 获取publish对象接口
     getPublish() {
         if (!this.publish) {

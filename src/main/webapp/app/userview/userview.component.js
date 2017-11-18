@@ -12,18 +12,23 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var jobdetail_service_1 = require("../jobdetail/jobdetail.service");
 var Subscription_1 = require("rxjs/Subscription");
+var alert_service_1 = require("../alert/alert.service");
 var UserviewComponent = (function () {
-    function UserviewComponent(jobdetailService) {
+    function UserviewComponent(jobdetailService, alertService) {
         var _this = this;
         this.jobdetailService = jobdetailService;
+        this.alertService = alertService;
         this.subscription = new Subscription_1.Subscription();
         this.subscription = this.jobdetailService
             .getUserview()
             .subscribe(function (user) {
             _this.user = user.info;
+            console.log(user);
             if (!_this.user.skills) {
                 _this.user.skills = [];
             }
+            // console.log(user.info.email);
+            // this.email = user.info.email;
         });
     }
     return UserviewComponent;
@@ -35,7 +40,8 @@ UserviewComponent = __decorate([
         templateUrl: "userview.component.html",
         styleUrls: ['userview.component.css']
     }),
-    __metadata("design:paramtypes", [jobdetail_service_1.JobdetailService])
+    __metadata("design:paramtypes", [jobdetail_service_1.JobdetailService,
+        alert_service_1.AlertService])
 ], UserviewComponent);
 exports.UserviewComponent = UserviewComponent;
 //# sourceMappingURL=userview.component.js.map

@@ -6,12 +6,17 @@
     </div>
     <div class="container">
         <div class="row jobdetail-header">
-            <div class="col-md-10">
-                <h2 class="jobdetail-title">{{jobdetail?.jobTittle}}</h2>
+            <div class="col-md-8">
+                <ul *ngIf="equalcurrent" class="editjob">
+                    <h2 class="jobdetail-title">{{jobdetail?.jobTittle}} <button type="button" (click)="editjob()" class="btn btn-primary" style="width: 10%">Edit</button></h2>
+                </ul>
+                <ul *ngIf="!equalcurrent" class="editjob">
+                    <h2 class="jobdetail-title">{{jobdetail?.jobTittle}} </h2>
+                </ul>
                 <div class="panel panel-default">
                     <div class="panel-heading panel-heading-custom">
                         <div class="panel-title">
-                            <h4>  <a class="post-user" (click)="gotoUserview()"> Post User :{{jobdetail?.company.userName}} </a></h4>
+                            <h4>  <a class="post-user" (click)="gotoUserview()"> Post User : {{jobdetail?.company.userName}} </a></h4>
                             <h4 class="panel-title-1">Start Time: {{jobdetail?.startTime | date}}  | End Time: {{jobdetail?.expirTime | date}}</h4>
                         </div>
 
@@ -32,8 +37,8 @@
                     </div>
                     <ul class="list-group">
                         <li *ngFor="let comment of jobdetail?.comments" class="list-group-item">
-                            <h4 class="username"><a (click)="gotoCommentuser(comment.replier)">{{ comment.replier.userName }}</a></h4>
-                            <h6> Reply time: {{ comment.commentTime | date}}</h6>
+                            <h4 class="username"><a (click)="gotoCommentuser(comment.replier.email)">{{ comment.replier.userName }}</a></h4>
+                            <h6> Reply time: {{ comment.commentTime | date:"HH:mm:ss，y-MM-dd"}}</h6>
                             <h5>{{ comment.comment }}</h5>
                         </li>
                     </ul>
@@ -54,6 +59,9 @@
                     </button>
                 <!--</div>-->
                 <a href="/jobInfo"><h3>Back</h3></a>
+            </div>
+            <div class="col-md-2">
+                <chat></chat>
             </div>
         </div>
     </div>

@@ -13,32 +13,34 @@ var core_1 = require("@angular/core");
 var chat_service_1 = require("./chat.service");
 var ChatComponent = (function () {
     function ChatComponent(chatService) {
+        var _this = this;
         this.chatService = chatService;
+        this.message = {};
         this.messages = [];
+        this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        this.jobId = localStorage.getItem("jobId");
+        this.message.time = new Date();
+        setInterval(function () {
+            _this.message.time = new Date();
+        }, 1000);
     }
     ChatComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.connection_send = this.chatService.getSubject();
+        this.connection_send = this.chatService.getSubject(this.jobId);
         this.connection_get = this.chatService.getPublish();
         this.connection_get.subscribe(function (msg) {
-            _this.message = msg;
-            console.log("receive: " + _this.message.toString());
+            _this.messages.push(JSON.parse(msg));
         });
         this.connection_get.connect();
     };
     ChatComponent.prototype.ngOnDestroy = function () {
     };
-    // getM() {
-    //     this.connection_get = this.chatService.getPublish();
-    //     this.connection_get.subscribe(
-    //         (msg) => {this.message = msg;
-    //                 console.log("receive: " + this.message.toString());});
-    //     this.connection_get.connect();
-    // }
-    ChatComponent.prototype.send = function (message) {
-        console.log(message);
-        // this.connection_send = this.chatService.getSubject();
-        this.connection_send.next(message);
+    ChatComponent.prototype.makeMsg = function (content) {
+        this.message.user = this.currentUser.userName;
+        this.message.content = content;
+    };
+    ChatComponent.prototype.send = function () {
+        this.connection_send.next(this.message);
     };
     return ChatComponent;
 }());

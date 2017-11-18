@@ -25,6 +25,7 @@ var JobdetailComponent = (function () {
             .getJobDetails(localStorage.getItem('jobId'))
             .subscribe(function (jobDetail) {
             _this.jobdetail = jobDetail;
+            _this.equalcurrent = _this.jobdetail.company.userName == JSON.parse(localStorage.getItem("currentUser")).userName;
             console.log(_this.jobdetail);
         }, function (error) {
             console.log(error);
@@ -33,21 +34,48 @@ var JobdetailComponent = (function () {
     JobdetailComponent.prototype.ngOnDestroy = function () {
         // this.subscription.unsubscribe();
     };
+    JobdetailComponent.prototype.editjob = function () {
+        this.jobdetailService.jobform = this.jobdetail;
+        this.router.navigate(['editjob']);
+        // setTimeout(() =>
+        //     {
+        //         console.log(this.jobdetail);
+        //         this.jobdetailService
+        //             .jobDetail(this.jobdetail);
+        //     },
+        //     5);
+    };
     JobdetailComponent.prototype.gotoUserview = function () {
         var _this = this;
         this.router.navigate(['userview']);
+        this.jobdetailService
+            .getUserEmail(this.jobdetail.company.email)
+            .subscribe(function (data) {
+            _this.viewuser = data;
+            _this.setTime();
+        }, function (error) {
+            _this.alertService.error(error.text());
+        });
+    };
+    JobdetailComponent.prototype.setTime = function () {
+        var _this = this;
         setTimeout(function () {
+            // console.log(this.viewuser);
             _this.jobdetailService
-                .userView(_this.jobdetail.company);
+                .userView(_this.viewuser);
         }, 5);
     };
-    JobdetailComponent.prototype.gotoCommentuser = function (username) {
+    JobdetailComponent.prototype.gotoCommentuser = function (email) {
         var _this = this;
         this.router.navigate(['userview']);
-        setTimeout(function () {
-            _this.jobdetailService
-                .userView(username);
-        }, 5);
+        this.jobdetailService
+            .getUserEmail(email)
+            .subscribe(function (data) {
+            _this.viewuser = data;
+            _this.setTime();
+        }, function (error) {
+            _this.alertService.error(error.text());
+        });
     };
     JobdetailComponent.prototype.addComment = function (comment) {
         var _this = this;

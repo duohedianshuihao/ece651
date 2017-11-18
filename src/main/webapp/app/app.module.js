@@ -34,6 +34,7 @@ var jobinfo_service_1 = require("./jobinfo/jobinfo.service");
 var jobdetail_service_1 = require("./jobdetail/jobdetail.service");
 var joblists_service_1 = require("./jobinfo/joblists/joblists.service");
 var postjob_service_1 = require("./postjob/postjob.service");
+var editjob_component_1 = require("./editjob/editjob.component");
 var appRoutes = [
     { path: 'login', component: login_component_1.LoginComponent },
     { path: 'signup', component: signup_component_1.SignupComponent },
@@ -43,7 +44,8 @@ var appRoutes = [
     { path: "jobdetail", component: jobdetail_component_1.JobdetailComponent },
     { path: "postjob", component: postjob_component_1.PostjobComponent },
     { path: "userview", component: userview_component_1.UserviewComponent },
-    { path: "chattest", component: chat_component_1.ChatComponent }
+    { path: "chattest", component: chat_component_1.ChatComponent },
+    { path: "editjob", component: editjob_component_1.EditjobComponent }
 ];
 var AppModule = (function () {
     function AppModule() {
@@ -68,6 +70,7 @@ AppModule = __decorate([
             jobinfo_component_1.JobinfoComponent,
             joblists_component_1.JoblistsComponent,
             jobdetail_component_1.JobdetailComponent,
+            editjob_component_1.EditjobComponent,
             chat_component_1.ChatComponent,
             alert_component_1.AlertComponent,
             userview_component_1.UserviewComponent,

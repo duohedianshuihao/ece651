@@ -38,6 +38,16 @@ var JobdetailService = (function () {
     JobdetailService.prototype.getUserview = function () {
         return this.subject.asObservable();
     };
+    JobdetailService.prototype.getUserEmail = function (email) {
+        console.log(email);
+        var urlSearchParams = new http_1.URLSearchParams();
+        urlSearchParams.append("email", email);
+        var userEmailUrl = "/email";
+        var requestOptions = new http_1.RequestOptions();
+        requestOptions.search = urlSearchParams;
+        return this.http.get(userEmailUrl, requestOptions)
+            .map(function (response) { return response.json(); });
+    };
     JobdetailService.prototype.getUser = function (userName) {
         var userUrl = "/" + userName;
         return this.http

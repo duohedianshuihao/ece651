@@ -13,12 +13,12 @@ var core_1 = require("@angular/core");
 var Rx = require("rxjs/Rx");
 var ChatService = (function () {
     function ChatService() {
-        this.wsUrl = 'ws://localhost:8080/messageSystem/3802208a-3e43-405e-908c-c2c6f5904fe8';
+        this.baseUrl = 'ws://localhost:8080/messageSystem/';
         this.num = 0;
     }
-    ChatService.prototype.create = function () {
+    ChatService.prototype.create = function (jobId) {
         // 创建websocket对象
-        var ws = new WebSocket(this.wsUrl);
+        var ws = new WebSocket(this.baseUrl + jobId);
         // 创建Observable对象
         var observable = Rx.Observable.create(function (obs) {
             ws.onmessage = function (evt) {
@@ -39,16 +39,22 @@ var ChatService = (function () {
                 // } else {
                 //     console.log("closed");
                 // }
-                ws.send(value.toString());
+                var body = JSON.stringify({
+                    user: value.user,
+                    content: value.content,
+                    time: value.time
+                });
+                console.log("body  " + body);
+                ws.send(body);
             },
         };
         // 使用Rx.Subject.create创建Subject对象
         return Rx.Subject.create(observer, observable);
     };
     // 获取subject对象接口
-    ChatService.prototype.getSubject = function () {
+    ChatService.prototype.getSubject = function (jobId) {
         if (!this.subject) {
-            this.subject = this.create();
+            this.subject = this.create(jobId);
         }
         return this.subject;
     };

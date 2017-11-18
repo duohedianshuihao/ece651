@@ -16,6 +16,7 @@ var PostjobService = (function () {
         this.http = http;
         this.headers = new http_1.Headers();
         this.postjobUrl = '/newJob';
+        this.updjobUrl = '/updateJobInfo';
     }
     PostjobService.prototype.create = function (form) {
         var body = JSON.stringify({
@@ -32,6 +33,24 @@ var PostjobService = (function () {
         });
         return this.http
             .post(this.postjobUrl, body, { headers: this.headers })
+            .map(this.handleData.bind(this));
+    };
+    PostjobService.prototype.update = function (form) {
+        var body = JSON.stringify({
+            jobId: form.jobId,
+            jobTittle: form.jobTittle,
+            jobDescription: form.jobDescription,
+            company: form.company,
+            requiredSkills: form.requiredSkills,
+            // createdTime: form.createdTime,
+            startTime: form.startTime,
+            expirTime: form.expirTime,
+            location: form.location,
+            categories: form.categories,
+            comments: form.comments,
+        });
+        return this.http
+            .post(this.updjobUrl, body, { headers: this.headers })
             .map(this.handleData.bind(this));
     };
     PostjobService.prototype.handleData = function (response) {

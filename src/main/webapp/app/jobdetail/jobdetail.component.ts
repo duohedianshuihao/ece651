@@ -16,6 +16,8 @@ import { userProfile } from "../Models/userProfile";
 export class JobdetailComponent implements OnDestroy{
     private subscription = new Subscription();
     public jobdetail: jobDetails;
+    public viewuser:userProfile;
+    public equalcurrent:boolean;
 
     constructor(
         private alertService: AlertService,
@@ -28,10 +30,12 @@ export class JobdetailComponent implements OnDestroy{
             .getJobDetails(localStorage.getItem('jobId'))
             .subscribe(jobDetail => {
                 this.jobdetail = jobDetail;
+                this.equalcurrent = this.jobdetail.company.userName == JSON.parse(localStorage.getItem("currentUser")).userName;
                 console.log(this.jobdetail);
             }, error => {
                 console.log(error);
             });
+
 
     }
 
@@ -39,24 +43,54 @@ export class JobdetailComponent implements OnDestroy{
         // this.subscription.unsubscribe();
     }
 
-    gotoUserview() {
-        this.router.navigate(['userview']);
-        setTimeout(() =>
-        {
-            this.jobdetailService
-                .userView(this.jobdetail.company);
-        },
-        5);
+    editjob() {
+        this.jobdetailService.jobform = this.jobdetail;
+        this.router.navigate(['editjob']);
+        // setTimeout(() =>
+        //     {
+        //         console.log(this.jobdetail);
+        //         this.jobdetailService
+        //             .jobDetail(this.jobdetail);
+        //     },
+        //     5);
     }
 
-    gotoCommentuser(username) {
+    gotoUserview() {
         this.router.navigate(['userview']);
+        this.jobdetailService
+            .getUserEmail(this.jobdetail.company.email)
+            .subscribe(
+                data => {
+                    this.viewuser = data;
+                    this.setTime();
+                }, error => {
+                    this.alertService.error(error.text());
+                });
+    }
+
+
+    setTime() {
         setTimeout(() =>
             {
+                // console.log(this.viewuser);
                 this.jobdetailService
-                    .userView(username);
+                    .userView(this.viewuser);
             },
             5);
+    }
+
+    gotoCommentuser(email) {
+
+        this.router.navigate(['userview']);
+        this.jobdetailService
+            .getUserEmail(email)
+            .subscribe(
+                data => {
+                    this.viewuser = data;
+                    this.setTime();
+                }, error => {
+                    this.alertService.error(error.text());
+                });
     }
 
     addComment(comment) {

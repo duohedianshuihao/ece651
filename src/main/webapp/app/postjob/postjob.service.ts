@@ -7,6 +7,7 @@ import {jobDetails} from "../Models/jobDetails";
 export class PostjobService {
     private headers = new Headers();
     private postjobUrl = '/newJob';
+    private updjobUrl = '/updateJobInfo';
     public thisjob: jobDetails;
 
     constructor (
@@ -30,6 +31,26 @@ export class PostjobService {
 
         return this.http
             .post(this.postjobUrl, body, {headers: this.headers})
+            .map(this.handleData.bind(this));
+    }
+
+    update(form: jobDetails) {
+        let body = JSON.stringify({
+            jobId: form.jobId,
+            jobTittle: form.jobTittle,
+            jobDescription: form.jobDescription,
+            company: form.company,
+            requiredSkills: form.requiredSkills,
+            // createdTime: form.createdTime,
+            startTime: form.startTime,
+            expirTime: form.expirTime,
+            location: form.location,
+            categories: form.categories,
+            comments: form.comments,
+        });
+
+        return this.http
+            .post(this.updjobUrl, body, {headers: this.headers})
             .map(this.handleData.bind(this));
     }
 
