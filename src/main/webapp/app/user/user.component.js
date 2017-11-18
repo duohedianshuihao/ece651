@@ -175,8 +175,12 @@ var UserComponent = (function () {
         });
     };
     UserComponent.prototype.add_skills = function (skill) {
-        if (!this.user.skills.includes(skill)) {
-            this.user.skills.push(skill);
+        var skills = skill.split(',');
+        for (var _i = 0, skills_1 = skills; _i < skills_1.length; _i++) {
+            var item = skills_1[_i];
+            if (!this.user.skills.includes(item)) {
+                this.user.skills.push(item);
+            }
         }
         this.skill = "";
     };

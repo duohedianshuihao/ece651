@@ -213,8 +213,11 @@ export class UserComponent implements OnInit {
     }
 
     add_skills(skill) {
-        if (!this.user.skills.includes(skill)) {
-            this.user.skills.push(skill);
+        let skills = skill.split(',');
+        for (let item of skills) {
+            if (!this.user.skills.includes(item)) {
+                this.user.skills.push(item);
+            }
         }
         this.skill = "";
     }
