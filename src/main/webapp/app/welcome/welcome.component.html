@@ -72,14 +72,16 @@
           <span class="sr-only">Next</span>
         </a>
       </div>
-      <footer style="text-align: center;height:100%;color:black; background-color: #EEEDF3;">
-        <br><br><br><br>
-        <ul *ngIf="!currentUser" class="footpart">
-          <h3>Already had an account? <a href="/login">Log In here</a></h3>
-        </ul>
-        <ul *ngIf="currentUser" class="footpart">
-          <h3>Welcome back to Shark Job {{ currentUser.userName }}!</h3>
-        </ul>
+      <footer class="Footer">
+        <div class="footer_wrapper">
+          <br><br><br><br>
+          <ul *ngIf="!currentUser" class="footpart">
+            <h3>Already had an account? <a href="/login">Log In here</a></h3>
+          </ul>
+          <ul *ngIf="currentUser" class="footpart">
+            <h3>Welcome back to Shark Job {{ currentUser.userName }}!</h3>
+          </ul>
+        </div>
       </footer>
   </div>
 </div>

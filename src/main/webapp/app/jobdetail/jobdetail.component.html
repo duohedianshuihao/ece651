@@ -16,8 +16,11 @@
                 <div class="panel panel-default">
                     <div class="panel-heading panel-heading-custom">
                         <div class="panel-title">
-                            <h4>  <a class="post-user" (click)="gotoUserview()"> Post User : {{jobdetail?.company.userName}} </a></h4>
-                            <h4 class="panel-title-1">Start Time: {{jobdetail?.startTime | date}}  | End Time: {{jobdetail?.expirTime | date}}</h4>
+                            <div class="row user_wrapper">
+                                <a class="post_user" (click)="gotoUserview()"> Post User :
+                                {{jobdetail?.company.userName}}</a>
+                                <span class="date_info">Start Time: {{jobdetail?.startTime | date}} &nbsp;&nbsp;&nbsp;&nbsp; End Time: {{jobdetail?.expirTime | date}}</span>
+                            </div>
                         </div>
 
                     </div>
@@ -37,32 +40,47 @@
                     </div>
                     <ul class="list-group">
                         <li *ngFor="let comment of jobdetail?.comments" class="list-group-item">
-                            <h4 class="username"><a (click)="gotoCommentuser(comment.replier.email)">{{ comment.replier.userName }}</a></h4>
-                            <h6> Reply time: {{ comment.commentTime | date:"HH:mm:ss，y-MM-dd"}}</h6>
+                            <div class="row reply">
+                                <div class="col-sm-2">
+                                    <a class="username" (click)="gotoCommentuser(comment.replier.email)">{{ comment.replier.userName }}</a>
+                                </div>
+                                <div class="com-sm-6">
+                                    <span class="reply_time">{{ comment.commentTime | date:"HH:mm:ss，y-MM-dd"}}</span>
+                                </div>
+                            </div>
                             <h5>{{ comment.comment }}</h5>
                         </li>
                     </ul>
                 </div>
-                <!--<div class="panel panel-default">-->
-                    <!--<div class="panel-heading panel-heading-custom">-->
-                        <!--<h1 class="panel-title">Your Comment</h1>-->
-                    <!--</div>-->
-                    <!--<form #comments="ngForm">-->
-                        <!--<div class="form-group">-->
-                            <!--<label for="comment">-->
-                    <textarea #comment class="form-control" rows="3"></textarea>
-                            <!--</label>-->
-                        <!--</div>-->
-                    <!--</form>-->
-                    <button type="button" class="btn btn-primary" (click)="addComment(comment.value)">
-                        Reply
-                    </button>
-                <!--</div>-->
-                <a href="/jobInfo"><h3>Back</h3></a>
+                <textarea #comment class="form-control" rows="3"></textarea>
+                <div class="row">
+                    <div class="col-md-3">
+                        <a href="/jobInfo"><h3>Back</h3></a>
+                    </div>
+                    <div class="col-md-offset-6 col-md-3">
+                        <button type="button" class="btn btn-primary reply_btn" (click)="addComment(comment.value)">
+                            Reply</button>
+                    </div>
+                </div>
             </div>
             <div class="col-md-2">
                 <chat></chat>
             </div>
         </div>
     </div>
+    <footer class="Footer">
+        <br>
+        <div class="Footer-section Footer-section--bordered">
+            <div class="container footer">
+                <div class="Grid Grid--verticalCenter">
+                    <div class="col-sm-6">
+                        <div class="SiteStat-name">
+                            <span class="SiteStat-name-text">Powered by SharkJob</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br><br>
+    </footer>
 </div>

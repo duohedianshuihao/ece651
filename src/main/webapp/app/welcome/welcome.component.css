@@ -1,5 +1,5 @@
 .slide {
-
+    margin-top: -1.3%;
 }
 .item {
     width: 100%; /* you can use % */
@@ -24,4 +24,17 @@
 }
 .welcome-pic {
     width: 100%;
+}
+
+.Footer {
+    text-align: center;
+    height:10%;
+    margin-top: -1.3%;
+    color:black;
+    background-color: #EEEDF3;
+}
+
+.footer_wrapper {
+    position: relative;
+    height: inherit;
 }

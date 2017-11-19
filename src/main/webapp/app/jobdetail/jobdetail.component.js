@@ -26,7 +26,6 @@ var JobdetailComponent = (function () {
             .subscribe(function (jobDetail) {
             _this.jobdetail = jobDetail;
             _this.equalcurrent = _this.jobdetail.company.userName == JSON.parse(localStorage.getItem("currentUser")).userName;
-            console.log(_this.jobdetail);
         }, function (error) {
             console.log(error);
         });
@@ -81,8 +80,10 @@ var JobdetailComponent = (function () {
         var _this = this;
         this.jobdetailService.addComment(comment, this.jobdetail.jobId)
             .subscribe(function (info) {
-            window.location.reload();
             _this.alertService.success("Comment Added", true);
+            setTimeout(function () {
+                window.location.reload();
+            }, 500);
         }, function (error) {
             _this.alertService.error(error.text());
         });

@@ -15,7 +15,7 @@ import { userProfile } from "../Models/userProfile";
 
 export class JobdetailComponent implements OnDestroy{
     private subscription = new Subscription();
-    public jobdetail: jobDetails;
+    public jobdetail: any;
     public viewuser:userProfile;
     public equalcurrent:boolean;
 
@@ -25,18 +25,14 @@ export class JobdetailComponent implements OnDestroy{
         private jobdetailService: JobdetailService
         )
     {
-
         this.jobdetailService
             .getJobDetails(localStorage.getItem('jobId'))
             .subscribe(jobDetail => {
                 this.jobdetail = jobDetail;
                 this.equalcurrent = this.jobdetail.company.userName == JSON.parse(localStorage.getItem("currentUser")).userName;
-                console.log(this.jobdetail);
             }, error => {
                 console.log(error);
             });
-
-
     }
 
     ngOnDestroy() {
@@ -97,8 +93,11 @@ export class JobdetailComponent implements OnDestroy{
         this.jobdetailService.addComment(comment, this.jobdetail.jobId)
             .subscribe(
                 info => {
-                    window.location.reload();
                     this.alertService.success("Comment Added", true);
+                    setTimeout(() =>{
+                        window.location.reload();
+                    },
+                    500);
                 },
                 error => {
                     this.alertService.error(error.text());

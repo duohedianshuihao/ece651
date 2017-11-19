@@ -6,9 +6,6 @@
     background: #161e2c;
     color: #FFFFFF;
 }
-.post-user {
-    color: #FFFFFF;
-}
 .jobcoment-li {
     list-style-type: none;
     height: 200px;
@@ -20,6 +17,7 @@
 
 .username {
     color: #0087e0;
+    font-size: 20px;
 }
 .backbutton {
     color: #161e2c;
@@ -28,4 +26,53 @@
 
 .panel-title-1 {
     text-align-last: right;
+}
+
+.jobdetail-title {
+    margin-left: -30px;
+}
+
+.post_user {
+    color: #FFFFFF;
+    font-size: 18px;
+    margin-left: 2%;
+}
+
+.date_info {
+    font-size: 18px;
+    margin-left: 20%;
+}
+
+.user_wrapper {
+    display: flex;
+    align-items: center;
+    height: 6%;
+}
+
+.reply {
+    display: flex;
+    align-items: center;
+}
+
+.reply_time {
+    color: gray;
+}
+
+.reply_btn {
+    margin-top: 10%;
+    float: right;
+}
+
+.Footer {
+    background-color: #161e2c;
+    color: #FFFFFF;
+    margin-top: 3%;
+}
+
+.SiteStat-name {
+    font-size: 16px;
+    line-height: 1.2;
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
