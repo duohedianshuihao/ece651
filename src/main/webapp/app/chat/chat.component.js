@@ -29,18 +29,28 @@ var ChatComponent = (function () {
         this.connection_send = this.chatService.getSubject(this.jobId);
         this.connection_get = this.chatService.getPublish();
         this.connection_get.subscribe(function (msg) {
-            _this.messages.push(JSON.parse(msg));
+            var tmp = JSON.parse(msg);
+            if (tmp.user == _this.currentUser.userName) {
+                tmp.user = "me";
+            }
+            _this.messages.push(tmp);
         });
         this.connection_get.connect();
     };
     ChatComponent.prototype.ngOnDestroy = function () {
     };
-    ChatComponent.prototype.makeMsg = function (content) {
-        this.message.user = this.currentUser.userName;
-        this.message.content = content;
+    ChatComponent.prototype.send = function (content) {
+        if (content) {
+            this.message.user = this.currentUser.userName;
+            this.message.content = content;
+            this.content = "";
+            // send
+            this.connection_send.next(this.message);
+            this.message = {};
+        }
     };
-    ChatComponent.prototype.send = function () {
-        this.connection_send.next(this.message);
+    ChatComponent.prototype.clear = function () {
+        this.messages = [];
     };
     return ChatComponent;
 }());

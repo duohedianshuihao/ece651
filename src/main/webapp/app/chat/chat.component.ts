@@ -35,7 +35,11 @@ export class ChatComponent implements OnInit, OnDestroy{
         this.connection_send = this.chatService.getSubject(this.jobId);
         this.connection_get = this.chatService.getPublish();
         this.connection_get.subscribe((msg) => {
-            this.messages.push(JSON.parse(msg));
+            let tmp: any = JSON.parse(msg);
+            if (tmp.user == this.currentUser.userName) {
+                tmp.user = "me";
+            }
+            this.messages.push(tmp);
         });
         this.connection_get.connect();
     }
@@ -44,14 +48,20 @@ export class ChatComponent implements OnInit, OnDestroy{
 
     }
 
-    makeMsg(content) {
-        this.message.user = this.currentUser.userName;
-        this.message.content = content;
+    send(content) {
+        if (content) {
+            this.message.user = this.currentUser.userName;
+            this.message.content = content;
+            this.content = "";
+            // send
+            this.connection_send.next(this.message);
+            this.message = {};
+        }
     }
 
-
-    send() {
-        this.connection_send.next(this.message);
+    clear() {
+        this.messages = [];
     }
+
 
 }

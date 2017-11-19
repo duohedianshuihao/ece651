@@ -1,13 +1,15 @@
 <div class="row">
   <div id="historyMsg">
-    <li *ngFor="let msg of messages">
-      <p>{{ msg.content }}</p>
-      <p>{{ msg.user }}</p>
-      <p>{{ msg.time | date: 'h:mm:ss a' }}</p>
+    <li *ngFor="let msg of messages" class="msgLine">
+      <p><span class="msgUser">{{ msg.user }}</span> <span class="msgTime">({{ msg.time | date: 'h:mm:ss a' }}):</span></p>
+      <p class="msgContent"><span>{{ msg.content }}</span></p>
     </li>
   </div>
-  <input type="text" class="form-control" placeholder="Reply content ..." [(ngModel)]="content">
-  <button class="btn btn-primary" (click)="makeMsg(content); send();">Reply</button>
+  <textarea type="text" class="form-control msgInput" placeholder="Reply content ..." [(ngModel)]="content"></textarea>
+  <button class="btn btn-primary msgBtn" (click)="send(content);">Reply</button>
+  <button class="btn btn-info msgBtn" (click)="clear();">Clear</button>
+
 </div>
+
 
 

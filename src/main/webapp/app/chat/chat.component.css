@@ -1,5 +1,41 @@
 #historyMsg {
-    height: 400px;
+    margin-top: 33%;
+    margin-bottom: 5%;
+    height: 66%;
+    width: 150%;
     background-color: #fff;
     overflow: auto;
+}
+
+.msgLine {
+    overflow: auto;
+    list-style-type: none;
+    padding-left: 3%;
+    padding-top: 5%;
+}
+
+.msgInput {
+    width: 150%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.msgBtn {
+    width: 150%;
+    margin-bottom: 5%;
+}
+
+.msgUser {
+    font-size: 15px;
+
+}
+
+.msgTime {
+    font-size: 15px;
+    color: gray;
+}
+
+.msgContent {
+    margin-top: -3%;
+    font-size: 18px;
 }
