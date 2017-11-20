@@ -32,11 +32,6 @@ public class WebSocketMessage {
 
     @OnMessage
     public void onMessage(String message, @PathParam("jobId") String jobId){
-        /*
-            Save this msg in the DB for future development.
-            Gson gson = new Gson();
-            Message msg= gson.fromJson(message, Message.class);
-        */
 
         for (Session session1: jobSet.get(jobId)) {
                 session1.getAsyncRemote().sendText(message);
