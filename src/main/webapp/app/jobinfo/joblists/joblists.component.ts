@@ -29,12 +29,6 @@ export class JoblistsComponent {
             localStorage.removeItem('jobId');
         }
         localStorage.setItem('jobId', job.jobId);
-        // setTimeout(() =>
-        // {
-        //     this.jobdetailService
-        //         .jobDetail(job);
-        // },
-        // 5);
     }
 
 }

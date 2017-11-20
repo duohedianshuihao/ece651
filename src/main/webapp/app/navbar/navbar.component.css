@@ -3,6 +3,15 @@
 }
 
 .navbar {
-    height:10%;
-    padding-top: 1%;
+    height:8%;
+    padding-top: 0.5%;
+}
+
+.navbar-brand {
+    font-size: 25px;
+    font-style: italic;
+}
+
+.user {
+    font-size: 18px;
 }

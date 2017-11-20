@@ -14,6 +14,10 @@ var router_1 = require("@angular/router");
 var jobinfo_service_1 = require("./jobinfo.service");
 var navbar_service_1 = require("../navbar/navbar.service");
 var JobinfoComponent = (function () {
+    // public totalPages: number;
+    // public curPage: number;
+    // public pageContent: Array<[any]>;
+    // public arrIndex: number[] = [];
     function JobinfoComponent(jobinfoService, navbarService, router) {
         this.jobinfoService = jobinfoService;
         this.navbarService = navbarService;
@@ -27,18 +31,21 @@ var JobinfoComponent = (function () {
             .getJobDetails()
             .subscribe(function (jobModels) {
             _this.jobModels = jobModels;
+            // this.totalPages = Math.ceil(this.jobModels.length / 6);
+            // for (var i = 0; i < this.totalPages; ++i) {
+            //     this.arrIndex.push(i + 1);
+            // };
         }, function (error) {
             console.log(error);
         });
-        this.jobinfoService.getNumberOfJobs().subscribe(function (numberOfJob) {
-            _this.numberOfJobs = numberOfJob;
-        });
+        // this.jobinfoService.getNumberOfJobs().subscribe(numberOfJob => {
+        //       this.numberOfJobs = numberOfJob;
+        //   });
         this.jobinfoService.getNumberOfUsers().subscribe(function (numberOfUser) {
             _this.numberOfUsers = numberOfUser;
         });
     };
     JobinfoComponent.prototype.searchJob = function (jobs) {
-        console.log(jobs);
         this.jobModels = jobs;
     };
     return JobinfoComponent;

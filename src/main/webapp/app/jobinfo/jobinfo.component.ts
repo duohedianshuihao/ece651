@@ -18,6 +18,11 @@ export class JobinfoComponent implements OnInit{
     public numberOfUsers: number;
     public inJobInfo: boolean = true;
 
+    // public totalPages: number;
+    // public curPage: number;
+    // public pageContent: Array<[any]>;
+    // public arrIndex: number[] = [];
+
     constructor (
         private jobinfoService: JobinfoService,
         private navbarService: NavbarService,
@@ -29,20 +34,25 @@ export class JobinfoComponent implements OnInit{
           .getJobDetails()
           .subscribe(jobModels => {
               this.jobModels = jobModels;
+              // this.totalPages = Math.ceil(this.jobModels.length / 6);
+              // for (var i = 0; i < this.totalPages; ++i) {
+              //     this.arrIndex.push(i + 1);
+              // };
           }, error => {
               console.log(error);
           });
 
-      this.jobinfoService.getNumberOfJobs().subscribe(numberOfJob => {
-            this.numberOfJobs = numberOfJob;
-        });
+      // this.jobinfoService.getNumberOfJobs().subscribe(numberOfJob => {
+      //       this.numberOfJobs = numberOfJob;
+      //   });
       this.jobinfoService.getNumberOfUsers().subscribe(numberOfUser => {
           this.numberOfUsers = numberOfUser;
       });
     }
 
     searchJob(jobs) {
-      console.log(jobs);
       this.jobModels = jobs;
     }
+
+
 }

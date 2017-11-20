@@ -23,12 +23,6 @@ var JoblistsComponent = (function () {
             localStorage.removeItem('jobId');
         }
         localStorage.setItem('jobId', job.jobId);
-        // setTimeout(() =>
-        // {
-        //     this.jobdetailService
-        //         .jobDetail(job);
-        // },
-        // 5);
     };
     return JoblistsComponent;
 }());

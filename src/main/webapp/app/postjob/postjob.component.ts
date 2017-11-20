@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 })
 
 export class PostjobComponent implements OnInit{
-    private jobform: jobDetails;
+    public jobform: jobDetails;
     public skill: string;
     public submitted: false;
 
@@ -44,9 +44,13 @@ export class PostjobComponent implements OnInit{
     }
 
     add_skills(skill) {
-        if (!this.jobform.requiredSkills.includes(skill)) {
-            this.jobform.requiredSkills.push(skill);
-        }
+        let skills = skill.split(',');
+            for (let item of skills) {
+                if (!this.jobform.requiredSkills.includes(item)) {
+                    this.jobform.requiredSkills.push(item);
+                }
+            }
+        console.log(this.jobform.requiredSkills);
         this.skill = "";
     }
 

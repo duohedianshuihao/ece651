@@ -16,7 +16,13 @@
 
 .skills {
     display: inline-block;
-    height: 7%;
+    height: 3%;
+    margin-right: 1%;
+    padding-top: 0.7%;
+}
+
+.close {
+
 }
 
 .container-profile {
