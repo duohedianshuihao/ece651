@@ -8,7 +8,7 @@
         </div>
         <div class="form-group">
             <label for="jobDescription">Job Description</label>
-            <textarea row="5" type="text" class="form-control" id="jobDescription" required minlength="1" placeholder="less than 140 characters" maxlength="140" [(ngModel)]="jobform.jobDescription" name='jobDescription' #jobDescription="ngModel"></textarea>
+            <textarea row="5" type="text" class="form-control" id="jobDescription" required minlength="1" placeholder="please input job detail description" [(ngModel)]="jobform.jobDescription" name='jobDescription' #jobDescription="ngModel"></textarea>
             <div [hidden]="!submitted || jobDescription.valid" class="alert alert-danger">Username Invalid</div>
         </div>
         <div class="form-group">
