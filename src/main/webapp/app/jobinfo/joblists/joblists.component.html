@@ -16,7 +16,18 @@
                 <div class="col-sm-4">
                   <div class="avatar-wrapper">
                     <span class="job-avater">
-                      <img src="/app/static/avatar.jpg" alt="#" class="img-thumbnail job-avater">
+                      <ul *ngIf="job.categories == 'Software'" class="category-image">
+                        <img src="/app/static/software.png" alt="#" class="img-thumbnail job-avater">
+                      </ul>
+                      <ul *ngIf="job.categories == 'Part-time'" class="category-image">
+                        <img src="/app/static/part-time.png" alt="#" class="img-thumbnail job-avater">
+                      </ul>
+                      <ul *ngIf="job.categories == 'Internship'" class="category-image">
+                        <img src="/app/static/full-time.png" alt="#" class="img-thumbnail job-avater">
+                      </ul>
+                      <ul *ngIf="job.categories != 'Software' && job.categories != 'Part-time' && job.categories != 'Internship'" class="category-image">
+                        <img src="/app/static/other.png" alt="#" class="img-thumbnail job-avater">
+                      </ul>
                     </span>
                   </div>
                 </div>
