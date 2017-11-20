@@ -220,10 +220,12 @@ export class UserComponent implements OnInit {
             }
         }
         this.skill = "";
+        this.update_skills();
     }
 
     remove_skills(skill) {
         this.user.skills = this.user.skills.filter(obj => obj !== skill);
+        this.update_skills();
         console.log(this.user.skills);
     }
 

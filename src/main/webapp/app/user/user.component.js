@@ -183,9 +183,11 @@ var UserComponent = (function () {
             }
         }
         this.skill = "";
+        this.update_skills();
     };
     UserComponent.prototype.remove_skills = function (skill) {
         this.user.skills = this.user.skills.filter(function (obj) { return obj !== skill; });
+        this.update_skills();
         console.log(this.user.skills);
     };
     return UserComponent;

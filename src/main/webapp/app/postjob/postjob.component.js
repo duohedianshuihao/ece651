@@ -22,7 +22,7 @@ var PostjobComponent = (function () {
     }
     PostjobComponent.prototype.ngOnInit = function () {
         var company = null;
-        this.jobform = new jobDetails_1.jobDetails("", "", "", company, new Array(), new Date(), new Date(), new Date(), "", "", new Array());
+        this._jobform = new jobDetails_1.jobDetails("", "", "", company, new Array(), new Date(), new Date(), new Date(), "", "", new Array());
     };
     PostjobComponent.prototype.add = function (form) {
         var _this = this;
@@ -41,16 +41,16 @@ var PostjobComponent = (function () {
         var skills = skill.split(',');
         for (var _i = 0, skills_1 = skills; _i < skills_1.length; _i++) {
             var item = skills_1[_i];
-            if (!this.jobform.requiredSkills.includes(item)) {
-                this.jobform.requiredSkills.push(item);
+            if (!this._jobform.requiredSkills.includes(item)) {
+                this._jobform.requiredSkills.push(item);
             }
         }
-        console.log(this.jobform.requiredSkills);
+        console.log(this._jobform.requiredSkills);
         this.skill = "";
     };
     PostjobComponent.prototype.remove_skills = function (skill) {
-        this.jobform.requiredSkills = this.jobform.requiredSkills.filter(function (obj) { return obj !== skill; });
-        console.log(this.jobform.requiredSkills);
+        this._jobform.requiredSkills = this._jobform.requiredSkills.filter(function (obj) { return obj !== skill; });
+        console.log(this._jobform.requiredSkills);
     };
     return PostjobComponent;
 }());
