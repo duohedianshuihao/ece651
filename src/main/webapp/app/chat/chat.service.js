@@ -10,9 +10,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var http_1 = require("@angular/http");
 var Rx = require("rxjs/Rx");
 var ChatService = (function () {
-    function ChatService() {
+    function ChatService(http) {
+        this.http = http;
+        this.headers = new http_1.Headers();
         this.baseUrl = 'ws://localhost:8080/messageSystem/';
         this.num = 0;
     }
@@ -65,11 +68,17 @@ var ChatService = (function () {
         }
         return this.publish;
     };
+    ChatService.prototype.userNumber = function (jobId) {
+        var numUrl = "/chat/" + jobId;
+        return this.http
+            .get(numUrl, { headers: this.headers })
+            .map(function (response) { return response.json(); });
+    };
     return ChatService;
 }());
 ChatService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [http_1.Http])
 ], ChatService);
 exports.ChatService = ChatService;
 //# sourceMappingURL=chat.service.js.map

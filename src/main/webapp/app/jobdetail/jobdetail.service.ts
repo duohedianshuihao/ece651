@@ -30,7 +30,7 @@ export class JobdetailService {
     getJobDetails(jobId) {
         let jobdataUrl = "/jobs/" + jobId;
         return this.http.get(jobdataUrl, {headers: this.headers})
-            .map((response: Response) => response.json());
+                        .map((response: Response) => response.json());
     }
 
     getJobDetail(): Observable<any> {

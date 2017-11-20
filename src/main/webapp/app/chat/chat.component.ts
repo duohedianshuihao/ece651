@@ -18,6 +18,7 @@ export class ChatComponent implements OnInit, OnDestroy{
     currentUser: any;
     messages: any = [];
     jobId: any;
+    userNumber: any;
 
     constructor(
         private chatService: ChatService
@@ -29,6 +30,10 @@ export class ChatComponent implements OnInit, OnDestroy{
         setInterval(() => {
                 this.message.time =  new Date();
              }, 1000);
+
+        setInterval(() => {
+            this.getNumber();
+            }, 60000);
     }
 
     ngOnInit() {
@@ -42,6 +47,7 @@ export class ChatComponent implements OnInit, OnDestroy{
             this.messages.push(tmp);
         });
         this.connection_get.connect();
+        this.getNumber();
     }
 
     ngOnDestroy() {
@@ -57,6 +63,18 @@ export class ChatComponent implements OnInit, OnDestroy{
             this.connection_send.next(this.message);
             this.message = {};
         }
+    }
+
+    getNumber() {
+        this.chatService
+            .userNumber(this.jobId)
+            .subscribe(
+                num => {
+                    console.log(num);
+                    this.userNumber = num;
+                }, error => {
+                    console.log(error);
+                });
     }
 
     clear() {

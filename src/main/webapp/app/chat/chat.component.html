@@ -1,14 +1,14 @@
 <div class="row">
+  <div class="showNum">Total number of user is {{ userNumber + 1 }}</div>
   <div id="historyMsg">
     <li *ngFor="let msg of messages" class="msgLine">
       <p><span class="msgUser">{{ msg.user }}</span> <span class="msgTime">({{ msg.time | date: 'h:mm:ss a' }}):</span></p>
       <p class="msgContent"><span>{{ msg.content }}</span></p>
     </li>
   </div>
-  <textarea type="text" class="form-control msgInput" placeholder="Reply content ..." [(ngModel)]="content"></textarea>
+  <textarea type="text" row="3" class="form-control msgInput" placeholder="Reply content ..." [(ngModel)]="content"></textarea>
   <button class="btn btn-primary msgBtn" (click)="send(content);">Reply</button>
   <button class="btn btn-info msgBtn" (click)="clear();">Clear</button>
-
 </div>
 
 

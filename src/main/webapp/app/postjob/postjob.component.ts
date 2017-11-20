@@ -1,5 +1,5 @@
 import { Component, OnInit} from "@angular/core";
-import { jobDetails } from "../Models/jobDetails";
+import {jobDetails} from "../Models/jobDetails";
 import { PostjobService } from "./postjob.service";
 import { AlertService } from '../alert/alert.service';
 import { Router } from '@angular/router';
@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 })
 
 export class PostjobComponent implements OnInit{
-    public _jobform: jobDetails;
+    private jobform: jobDetails;
     public skill: string;
     public submitted: false;
 
@@ -25,7 +25,7 @@ export class PostjobComponent implements OnInit{
 
     ngOnInit() {
         let company = null;
-        this._jobform = new jobDetails("","","",company,new Array<string>(),new Date(),new Date(),new Date(),"", "", new Array<any>());
+        this.jobform = new jobDetails("","","",company,new Array<string>(),new Date(),new Date(),new Date(),"", "", new Array<any>());
     }
 
     add(form:jobDetails) {
@@ -45,18 +45,17 @@ export class PostjobComponent implements OnInit{
 
     add_skills(skill) {
         let skills = skill.split(',');
-            for (let item of skills) {
-                if (!this._jobform.requiredSkills.includes(item)) {
-                    this._jobform.requiredSkills.push(item);
-                }
+        for (let item of skills) {
+            if (!this.jobform.requiredSkills.includes(item)) {
+                this.jobform.requiredSkills.push(item);
             }
-        console.log(this._jobform.requiredSkills);
+        }
         this.skill = "";
     }
 
     remove_skills(skill) {
-        this._jobform.requiredSkills = this._jobform.requiredSkills.filter(obj => obj !== skill);
-        console.log(this._jobform.requiredSkills);
+        this.jobform.requiredSkills = this.jobform.requiredSkills.filter(obj => obj !== skill);
+        console.log(this.jobform.requiredSkills);
     }
 
 }

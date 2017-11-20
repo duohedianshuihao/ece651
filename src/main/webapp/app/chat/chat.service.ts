@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { Headers, Http, Response, ResponseOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import * as Rx from 'rxjs/Rx';
 
@@ -6,8 +7,11 @@ import * as Rx from 'rxjs/Rx';
 
 export class ChatService {
     private socket;
+    private headers = new Headers();
     baseUrl: string = 'ws://localhost:8080/messageSystem/';
-    constructor() {
+    constructor(
+        private http: Http
+        ) {
     }
 
     subject: Rx.Subject<any>;
@@ -67,6 +71,14 @@ export class ChatService {
             this.publish = this.subject.publish();
         }
         return this.publish;
+    }
+
+    userNumber(jobId) {
+        let numUrl = "/chat/" + jobId;
+        return this.http
+                   .get(numUrl, {headers: this.headers})
+                   .map((response: Response) => response.json());
+
     }
 
 }

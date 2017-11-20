@@ -35,4 +35,7 @@ public class PagesController {
 
     @RequestMapping(value = "/postjob")
     public String getPostPage(){ return "index" ; }
+
+    @RequestMapping(value = "/chattest")
+    public String getChatPage(){ return "index" ; }
 }

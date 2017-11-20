@@ -42,7 +42,8 @@ export class NavbarComponent implements OnInit{
         this.loginService.logout();
         // following function would not work if nothing changed
         // this.router.navigate(['jobList']);
-        location.reload();
+        // location.reload();
+        this.router.navigate([''])
     }
 
     searchJob(word){

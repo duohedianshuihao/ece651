@@ -6,7 +6,10 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ListMultimap;
 import com.google.common.collect.Multimaps;
 import com.google.gson.Gson;
+import com.sharkjob.controller.UserController;
 import lombok.Data;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.websocket.*;
 import javax.websocket.server.PathParam;
@@ -23,11 +26,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class WebSocketMessage {
     private static ListMultimap<String, Session> jobSet = Multimaps.synchronizedListMultimap(ArrayListMultimap.<String, Session> create());
     private AtomicInteger connections = new AtomicInteger(0);
+    private static final Logger log = LoggerFactory.getLogger(WebSocketMessage.class);
 
     @OnOpen
     public void onOpen(@PathParam("jobId") String jobId, Session session ){
         jobSet.put(jobId,session);
         connections.addAndGet(1);
+        log.info("websocket connect :" + connections.get());
     }
 
     @OnMessage
@@ -37,14 +42,17 @@ public class WebSocketMessage {
             Gson gson = new Gson();
             Message msg= gson.fromJson(message, Message.class);
         */
+        log.info(message + "  received");
 
         for (Session session1: jobSet.get(jobId)) {
                 session1.getAsyncRemote().sendText(message);
+                log.info(message + " sent!");
         }
     }
 
     @OnError
     public void onError(Session session, Throwable error){
+        log.error(error.toString());
     }
 
     @OnClose

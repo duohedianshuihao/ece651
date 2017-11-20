@@ -23,6 +23,9 @@ var ChatComponent = (function () {
         setInterval(function () {
             _this.message.time = new Date();
         }, 1000);
+        setInterval(function () {
+            _this.getNumber();
+        }, 60000);
     }
     ChatComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -36,6 +39,7 @@ var ChatComponent = (function () {
             _this.messages.push(tmp);
         });
         this.connection_get.connect();
+        this.getNumber();
     };
     ChatComponent.prototype.ngOnDestroy = function () {
     };
@@ -48,6 +52,17 @@ var ChatComponent = (function () {
             this.connection_send.next(this.message);
             this.message = {};
         }
+    };
+    ChatComponent.prototype.getNumber = function () {
+        var _this = this;
+        this.chatService
+            .userNumber(this.jobId)
+            .subscribe(function (num) {
+            console.log(num);
+            _this.userNumber = num;
+        }, function (error) {
+            console.log(error);
+        });
     };
     ChatComponent.prototype.clear = function () {
         this.messages = [];

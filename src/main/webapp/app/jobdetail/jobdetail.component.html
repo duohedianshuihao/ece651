@@ -8,7 +8,7 @@
         <div class="row jobdetail-header">
             <div class="col-md-8">
                 <ul *ngIf="equalcurrent" class="editjob">
-                    <h2 class="jobdetail-title">{{jobdetail?.jobTittle}} <button type="button" (click)="editjob()" class="btn btn-primary" style="width: 10%">Edit</button></h2>
+                    <h2 class="jobdetail-title">{{jobdetail?.jobTittle}} <button type="button " (click)="editjob()" class="btn btn-success edit-btn">Edit</button></h2>
                 </ul>
                 <ul *ngIf="!equalcurrent" class="editjob">
                     <h2 class="jobdetail-title">{{jobdetail?.jobTittle}} </h2>

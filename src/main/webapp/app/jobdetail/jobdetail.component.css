@@ -23,6 +23,10 @@
     color: #161e2c;
 }
 
+.edit-btn {
+    width: 15%;
+    float: right;
+}
 
 .panel-title-1 {
     text-align-last: right;

@@ -52,8 +52,12 @@ var EditjobComponent = (function () {
         });
     };
     EditjobComponent.prototype.add_skills = function (skill) {
-        if (!this.jobform.requiredSkills.includes(skill)) {
-            this.jobform.requiredSkills.push(skill);
+        var skills = skill.split(',');
+        for (var _i = 0, skills_1 = skills; _i < skills_1.length; _i++) {
+            var item = skills_1[_i];
+            if (!this.jobform.requiredSkills.includes(item)) {
+                this.jobform.requiredSkills.push(item);
+            }
         }
         this.skill = "";
     };
