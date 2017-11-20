@@ -7,6 +7,8 @@ import com.google.common.collect.ListMultimap;
 import com.google.common.collect.Multimaps;
 import com.google.gson.Gson;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.websocket.*;
 import javax.websocket.server.PathParam;
@@ -22,6 +24,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 @ServerEndpoint("/messageSystem/{jobId}")
 public class WebSocketMessage {
     private static ListMultimap<String, Session> jobSet = Multimaps.synchronizedListMultimap(ArrayListMultimap.<String, Session> create());
+    @Setter
+    @Getter
     private AtomicInteger connections = new AtomicInteger(0);
 
     @OnOpen
@@ -50,7 +54,6 @@ public class WebSocketMessage {
 
     public Integer getChatRoomConnections(String jobId){
         return jobSet.get(jobId).size();
-
     }
 
 }
