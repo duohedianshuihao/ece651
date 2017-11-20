@@ -1,6 +1,7 @@
 package com.sharkjob.controller;
 
 import com.sharkjob.message.WebSocketMessage;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 public class ChatController {
 
     @Autowired
+    @Setter
     private WebSocketMessage webSocketMessage;
 
     @RequestMapping(value = "/chat/{jobId}", method = GET)

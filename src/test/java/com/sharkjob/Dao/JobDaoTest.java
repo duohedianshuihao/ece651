@@ -168,6 +168,9 @@ public class JobDaoTest {
 
     @Test
     public void valid_addCommentInSharkJobInfoTable_Successfully() {
+        newComment.getComment();
+        newComment.getReplier();
+        newComment.getCommentTime();
         when(mockJobMapper.load(Job.class,job.getJobId())).thenReturn(job);
         jobDao.addCommentInSharkJobInfoTable(job.getJobId(), newComment);
         assertEquals(job.getComments().get(2).getComment(),"a new comment");
