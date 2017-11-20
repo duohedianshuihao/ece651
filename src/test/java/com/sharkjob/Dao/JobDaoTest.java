@@ -38,17 +38,20 @@ public class JobDaoTest {
     private List<Job> jobs;
     private JobDao jobDao = new JobDao();
     private Job job = new Job();
+    private Job updatedJob = new Job();
     private Job newJob = new Job();
     private User company = new User();
     private User wrongCompany = new User();
     private User company2 = new User();
-    private final String newJobDescription = "job description is updated";
     private Comment newComment = new Comment();
+    private Date updatedStartDate = new Date();
+    private Date updatedExpireDate = new Date();
 //    private List<job>
 
 
     @Before
     public void setUp() throws InterruptedException {
+        job.setJobId("test-ID-for-test");
         jobDao.setDynamoDBClient(mockAmazonDyanmoDB);
         jobDao.setJobMapper(mockJobMapper);
         when(mockJobMapper.generateCreateTableRequest(any())).thenReturn(new CreateTableRequest());
@@ -60,10 +63,15 @@ public class JobDaoTest {
         wrongCompany.setEmail("wrong@example.com");
 
         Date startDate = new Date();
+        Date expireDate = new Date();
         Date commentDate1 = new Date();
         Date commentDate2 = new Date();
         Date createdDate1 = new Date();
         Date createdDate2 = new Date(createdDate1.getTime() + 1);
+        Date updatedStartTime = new Date(startDate.getTime() + 1);
+        updatedStartDate = updatedStartTime;
+        Date updatedExpireTime = new Date(expireDate.getTime() + 1);
+        updatedExpireDate = updatedExpireTime;
 
         Comment comment1 = new Comment();
         comment1.setReplier(company);
@@ -84,6 +92,7 @@ public class JobDaoTest {
 
         job.setCreatedTime(createdDate1);
         job.setStartTime(startDate);
+        job.setExpirTime(expireDate);
         job.setJobTittle("Software Internship");
         job.setLocation("waterloo");
         job.setJobDescription("test");
@@ -91,6 +100,15 @@ public class JobDaoTest {
         job.setRequiredSkills(Arrays.asList("java", "python"));
         job.setCompany(company);
         job.setComments(comments);
+
+        updatedJob = job;
+        updatedJob.setJobId(job.getJobId());
+        updatedJob.setJobDescription("job description is updated");
+        updatedJob.setJobTittle("job tittle is updated");
+        updatedJob.setLocation("toronto");
+        updatedJob.setStartTime(updatedStartDate);
+        updatedJob.setExpirTime(updatedExpireDate);
+        updatedJob.setRequiredSkills(Arrays.asList("c++", "python"));
 
         newJob.setCreatedTime(createdDate2);
         newJob.setCompany(company2);
@@ -102,6 +120,7 @@ public class JobDaoTest {
 
 
     }
+
 
     @Test
     public void valid_createSharkJobInfoTable_Successfully() {
@@ -130,12 +149,22 @@ public class JobDaoTest {
         verify(mockJobMapper,times(1)).delete(job);
     }
 
-//    @Test
-//    public void valid_updateJobInSharkJobInfoTable_Successfully() {
-//        when(mockJobMapper.load(Job.class,job.getJobId())).thenReturn(job);
-//        jobDao.updateJobInSharkJobInfoTable(job.getJobId(), );
-//        assertEquals(job.getJobDescription(),"job description is updated");
-//    }
+    @Test
+    public void valid_updateJobInSharkJobInfoTable_Successfully() {
+        when(mockJobMapper.load(Job.class,updatedJob.getJobId())).thenReturn(job);
+        jobDao.updateJobInSharkJobInfoTable(updatedJob);
+        assertEquals(job.getJobDescription(),"job description is updated");
+        assertEquals(job.getJobTittle(),"job tittle is updated");
+        assertEquals(job.getLocation(),"toronto");
+        assertEquals(job.getStartTime(),updatedStartDate);
+        assertEquals(job.getExpirTime(),updatedExpireDate);
+        assertEquals(job.getRequiredSkills(),Arrays.asList("c++", "python"));
+    }
+    @Test
+    public void valid_updateJobInSharkJobInfoTable_Unsuccessfully() {
+        when(mockJobMapper.load(Job.class,updatedJob.getJobId())).thenReturn(null);
+        assertFalse(jobDao.updateJobInSharkJobInfoTable(updatedJob));
+    }
 
     @Test
     public void valid_addCommentInSharkJobInfoTable_Successfully() {

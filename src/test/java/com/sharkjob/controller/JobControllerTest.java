@@ -85,7 +85,19 @@ public class JobControllerTest {
 
     @Test
     public void valid_updateJobInfo_successfully() {
+        val expected = new ResponseEntity<>(newJob, HttpStatus.OK);
+        when(jobDao.updateJobInSharkJobInfoTable(job)).thenReturn(true);
+        when(jobDao.findJobInSharkJobInfoTableThroughJobId(job.getJobId())).thenReturn(job);
+        val actual = jobController.updateJobInfo(newJob);
+        assertEquals(expected,actual);
+    }
 
+    @Test
+    public void valid_updateJobInfo_unsuccessfully() {
+        val expected = new ResponseEntity<>("job not existing", HttpStatus.UNAUTHORIZED);
+        when(jobDao.updateJobInSharkJobInfoTable(job)).thenReturn(false);
+        val actual = jobController.updateJobInfo(newJob);
+        assertEquals(expected,actual);
     }
 
     @Test
