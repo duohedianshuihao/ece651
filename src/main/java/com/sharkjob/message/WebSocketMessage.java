@@ -10,6 +10,8 @@ import com.sharkjob.controller.UserController;
 import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.websocket.*;
 import javax.websocket.server.PathParam;
@@ -25,6 +27,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 @ServerEndpoint("/messageSystem/{jobId}")
 public class WebSocketMessage {
     private static ListMultimap<String, Session> jobSet = Multimaps.synchronizedListMultimap(ArrayListMultimap.<String, Session> create());
+    @Setter
+    @Getter
     private AtomicInteger connections = new AtomicInteger(0);
     private static final Logger log = LoggerFactory.getLogger(WebSocketMessage.class);
 
@@ -37,12 +41,6 @@ public class WebSocketMessage {
 
     @OnMessage
     public void onMessage(String message, @PathParam("jobId") String jobId){
-        /*
-            Save this msg in the DB for future development.
-            Gson gson = new Gson();
-            Message msg= gson.fromJson(message, Message.class);
-        */
-        log.info(message + "  received");
 
         for (Session session1: jobSet.get(jobId)) {
                 session1.getAsyncRemote().sendText(message);
@@ -63,7 +61,6 @@ public class WebSocketMessage {
 
     public Integer getChatRoomConnections(String jobId){
         return jobSet.get(jobId).size();
-
     }
 
 }

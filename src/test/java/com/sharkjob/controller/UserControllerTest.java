@@ -250,6 +250,22 @@ public class UserControllerTest {
     }
 
     @Test
+    public void valid_getUserInfoThroughEmail_successfully() {
+        val expected = new ResponseEntity<>(user, HttpStatus.OK);
+        when(userDao.findUserInSharkJobUserTableThroughEmail(user.getEmail())).thenReturn(user);
+        val actual = userController.getUserInfoThroughEmail("c423liu@uwaterloo.ca");
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    public void valid_getUserInfoThroughEmail_no_user() {
+        val expected = new ResponseEntity<>(nullUser, HttpStatus.NO_CONTENT);
+        when(userDao.findUserInSharkJobUserTableThroughEmail("wrong@example.com")).thenReturn(null);
+        val actual = userController.getUserInfoThroughEmail("wrong@example.com");
+        assertEquals(expected,actual);
+    }
+
+    @Test
     public void  valid_verificationCode_sent_successfully(){
         val expected = new ResponseEntity<>("Verification Code sent!",HttpStatus.OK);
         when(userDao.findUserInSharkJobUserTableThroughEmail("ece651sharkjob@gmail.com")).thenReturn(null);

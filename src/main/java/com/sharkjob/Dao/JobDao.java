@@ -61,7 +61,8 @@ public class JobDao {
     }
 
     public boolean updateJobInSharkJobInfoTable(Job job) {
-        if( job.getJobId() == null || jobMapper.load(Job.class, job.getJobId()) == null ) { return false;}
+        if( job.getJobId() == null || jobMapper.load(Job.class, job.getJobId()) == null ) {
+            return false;}
         String jobId = job.getJobId();
         String newDescription = job.getJobDescription();
         String newTittle = job.getJobTittle();
