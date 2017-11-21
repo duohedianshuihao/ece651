@@ -46,7 +46,7 @@ export class NavbarComponent implements OnInit{
         if (window.location.href == "http://localhost:8080/") {
             location.reload();
         } else {
-            this.router.navigate([''])
+            this.router.navigate(['/'])
         }
     }
 

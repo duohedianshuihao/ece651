@@ -38,7 +38,7 @@ var NavbarComponent = (function () {
             location.reload();
         }
         else {
-            this.router.navigate(['']);
+            this.router.navigate(['/']);
         }
     };
     NavbarComponent.prototype.searchJob = function (word) {
