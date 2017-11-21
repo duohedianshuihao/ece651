@@ -73,6 +73,7 @@ public class JobDao {
         Job oldJob = jobMapper.load(Job.class, jobId);
         jobMapper.delete(oldJob);
         oldJob.setJobDescription(newDescription);
+        oldJob.setCategories(job.getCategories());
         oldJob.setJobTittle(newTittle);
         oldJob.setLocation(newLocation);
         oldJob.setStartTime(newStartTime);
