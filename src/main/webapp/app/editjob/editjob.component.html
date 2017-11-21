@@ -4,7 +4,7 @@
         <a class="backbutton" href="/jobdetail"><h3><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>Back</h3></a>
     </div>
     <div class="col-md-8">
-        <form #jobDetails="ngForm">
+        <form #jobDetails="ngForm" class="job-form">
             <div class="form-group" style="font-size:14px">
                 <label for="jobTittle">Job Title</label>
                 <input type="text" class="form-control" id="jobTittle" required minlength="1" placeholder="please input job title" [(ngModel)]="jobform.jobTittle" name='jobTittle' #jobTittle="ngModel">
@@ -12,7 +12,7 @@
             </div>
             <div class="form-group">
                 <label for="jobDescription">Job Description</label>
-                <input type="text" class="form-control" id="jobDescription" required minlength="1" placeholder="less than 140 characters" maxlength="140" [(ngModel)]="jobform.jobDescription" name='jobDescription' #jobDescription="ngModel">
+                <textarea type="text" rows="5" class="form-control" id="jobDescription" required minlength="1" placeholder="less than 140 characters" maxlength="140" [(ngModel)]="jobform.jobDescription" name='jobDescription' #jobDescription="ngModel"></textarea>
                 <div [hidden]="!submitted || jobDescription.valid" class="alert alert-danger">Job Description Invalid</div>
             </div>
             <div class="form-group">
@@ -42,7 +42,7 @@
                         <input type="text" class="form-control" id="requiredSkills" [(ngModel)]="skill" name="skill">
                     </div>
                     <div class="col-md-1">
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true" (click)="add_skills(skill)"></span>
+                        <span class="glyphicon glyphicon-plus plus" aria-hidden="true" (click)="add_skills(skill)"></span>
                     </div>
                 </div>
             </div>
