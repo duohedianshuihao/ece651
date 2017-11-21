@@ -14,29 +14,16 @@ var router_1 = require("@angular/router");
 var alert_service_1 = require("../alert/alert.service");
 var postjob_service_1 = require("../postjob/postjob.service");
 var jobdetail_service_1 = require("../jobdetail/jobdetail.service");
-var Subscription_1 = require("rxjs/Subscription");
 var EditjobComponent = (function () {
     function EditjobComponent(postjobService, alertService, router, jobdetailService) {
         this.postjobService = postjobService;
         this.alertService = alertService;
         this.router = router;
         this.jobdetailService = jobdetailService;
-        this.subscription = new Subscription_1.Subscription();
-        // this.subscription = this.jobdetailService
-        //     .getJobDetail()
-        //     .subscribe(
-        //         job => {
-        //             console.log(job);
-        //             this.jobform = job.info;
-        //         });
     }
     EditjobComponent.prototype.ngOnInit = function () {
         this.jobform = this.jobdetailService.jobform;
-    };
-    EditjobComponent.prototype.ngOnDestroy = function () {
-        this.subscription.unsubscribe();
-        // let company = null;
-        // this.jobform = new jobDetails("","","",company,new Array<string>(),new Date(),new Date(),new Date(),"", "", new Array<any>());
+        console.log("starttime" + this.jobform.startTime);
     };
     EditjobComponent.prototype.add = function (form) {
         var _this = this;

@@ -4,7 +4,6 @@ import {Router} from "@angular/router";
 import {AlertService} from "../alert/alert.service";
 import {PostjobService} from "../postjob/postjob.service";
 import { JobdetailService} from "../jobdetail/jobdetail.service";
-import {Subscription} from "rxjs/Subscription";
 
 
 @Component({
@@ -14,11 +13,10 @@ import {Subscription} from "rxjs/Subscription";
     styleUrls: ['editjob.component.css']
 })
 
-export class EditjobComponent implements OnDestroy, OnInit{
+export class EditjobComponent implements OnInit{
     private jobform: jobDetails;
     public skill: string;
     public submitted: false;
-    private subscription = new Subscription();
 
     constructor(
         private postjobService: PostjobService,
@@ -27,22 +25,11 @@ export class EditjobComponent implements OnDestroy, OnInit{
         private jobdetailService: JobdetailService,
     ) {
 
-        // this.subscription = this.jobdetailService
-        //     .getJobDetail()
-        //     .subscribe(
-        //         job => {
-        //             console.log(job);
-        //             this.jobform = job.info;
-        //         });
     }
 
     ngOnInit() {
         this.jobform = this.jobdetailService.jobform;
-    }
-    ngOnDestroy() {
-         this.subscription.unsubscribe();
-        // let company = null;
-        // this.jobform = new jobDetails("","","",company,new Array<string>(),new Date(),new Date(),new Date(),"", "", new Array<any>());
+        console.log("starttime" + this.jobform.startTime);
     }
 
     add(form:jobDetails) {
