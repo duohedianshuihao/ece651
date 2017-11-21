@@ -11,9 +11,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
+var common_1 = require("@angular/common");
 var PostjobService = (function () {
-    function PostjobService(http) {
+    function PostjobService(http, datePipe) {
         this.http = http;
+        this.datePipe = datePipe;
         this.headers = new http_1.Headers();
         this.postjobUrl = '/newJob';
         this.updjobUrl = '/updateJobInfo';
@@ -36,6 +38,20 @@ var PostjobService = (function () {
             .map(this.handleData.bind(this));
     };
     PostjobService.prototype.update = function (form) {
+        var start, expire;
+        if (typeof form.startTime == 'number') {
+            start = this.datePipe.transform(form.startTime, "yyyy-MM-dd");
+        }
+        else {
+            start = form.startTime;
+        }
+        if (typeof form.expirTime == 'number') {
+            expire = this.datePipe.transform(form.expirTime, "yyyy-MM-dd");
+        }
+        else {
+            expire = form.expirTime;
+        }
+        console.log(start, expire);
         var body = JSON.stringify({
             jobId: form.jobId,
             jobTittle: form.jobTittle,
@@ -43,8 +59,8 @@ var PostjobService = (function () {
             company: form.company,
             requiredSkills: form.requiredSkills,
             // createdTime: form.createdTime,
-            startTime: form.startTime,
-            expirTime: form.expirTime,
+            startTime: start,
+            expirTime: expire,
             location: form.location,
             categories: form.categories,
             comments: form.comments,
@@ -69,7 +85,8 @@ var PostjobService = (function () {
 }());
 PostjobService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
+    __metadata("design:paramtypes", [http_1.Http,
+        common_1.DatePipe])
 ], PostjobService);
 exports.PostjobService = PostjobService;
 //# sourceMappingURL=postjob.service.js.map

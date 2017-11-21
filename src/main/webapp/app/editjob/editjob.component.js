@@ -14,20 +14,20 @@ var router_1 = require("@angular/router");
 var alert_service_1 = require("../alert/alert.service");
 var postjob_service_1 = require("../postjob/postjob.service");
 var jobdetail_service_1 = require("../jobdetail/jobdetail.service");
+var common_1 = require("@angular/common");
 var EditjobComponent = (function () {
-    function EditjobComponent(postjobService, alertService, router, jobdetailService) {
+    function EditjobComponent(postjobService, alertService, router, jobdetailService, datePipe) {
         this.postjobService = postjobService;
         this.alertService = alertService;
         this.router = router;
         this.jobdetailService = jobdetailService;
+        this.datePipe = datePipe;
     }
     EditjobComponent.prototype.ngOnInit = function () {
         this.jobform = this.jobdetailService.jobform;
-        console.log("starttime" + this.jobform.startTime);
     };
     EditjobComponent.prototype.add = function (form) {
         var _this = this;
-        // form.company = JSON.parse(localStorage.getItem("currentUser"));
         this.postjobService
             .update(form)
             .subscribe(function (data) {
@@ -59,12 +59,14 @@ EditjobComponent = __decorate([
         moduleId: module.id,
         selector: "editjob",
         templateUrl: "editjob.component.html",
-        styleUrls: ['editjob.component.css']
+        styleUrls: ['editjob.component.css'],
+        providers: [common_1.DatePipe]
     }),
     __metadata("design:paramtypes", [postjob_service_1.PostjobService,
         alert_service_1.AlertService,
         router_1.Router,
-        jobdetail_service_1.JobdetailService])
+        jobdetail_service_1.JobdetailService,
+        common_1.DatePipe])
 ], EditjobComponent);
 exports.EditjobComponent = EditjobComponent;
 //# sourceMappingURL=editjob.component.js.map

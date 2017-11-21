@@ -2,6 +2,8 @@ import { Injectable }    from '@angular/core';
 import { Headers, Http, Response, ResponseOptions } from '@angular/http';
 
 import {jobDetails} from "../Models/jobDetails";
+import { DatePipe } from '@angular/common';
+
 
 @Injectable()
 export class PostjobService {
@@ -12,6 +14,7 @@ export class PostjobService {
 
     constructor (
         private http: Http,
+        private datePipe: DatePipe
     ) { }
 
     create (form: jobDetails){
@@ -35,6 +38,18 @@ export class PostjobService {
     }
 
     update(form: jobDetails) {
+        let start, expire;
+        if (typeof form.startTime == 'number') {
+            start = this.datePipe.transform(form.startTime, "yyyy-MM-dd");
+        } else {
+            start = form.startTime;
+        }
+        if (typeof form.expirTime == 'number') {
+            expire = this.datePipe.transform(form.expirTime, "yyyy-MM-dd");
+        } else {
+            expire = form.expirTime;
+        }
+        console.log(start, expire);
         let body = JSON.stringify({
             jobId: form.jobId,
             jobTittle: form.jobTittle,
@@ -42,8 +57,8 @@ export class PostjobService {
             company: form.company,
             requiredSkills: form.requiredSkills,
             // createdTime: form.createdTime,
-            startTime: form.startTime,
-            expirTime: form.expirTime,
+            startTime: start,
+            expirTime: expire,
             location: form.location,
             categories: form.categories,
             comments: form.comments,

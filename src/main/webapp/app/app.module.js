@@ -12,6 +12,7 @@ var common_1 = require("@angular/common");
 var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
 var http_1 = require("@angular/http");
+var common_2 = require("@angular/common");
 var app_component_1 = require("./app.component");
 var login_component_1 = require("./login/login.component");
 var signup_component_1 = require("./signup/signup.component");
@@ -25,6 +26,7 @@ var jobdetail_component_1 = require("./jobdetail/jobdetail.component");
 var postjob_component_1 = require("./postjob/postjob.component");
 var chat_component_1 = require("./chat/chat.component");
 var userview_component_1 = require("./userview/userview.component");
+var editjob_component_1 = require("./editjob/editjob.component");
 var login_service_1 = require("./login/login.service");
 var signup_service_1 = require("./signup/signup.service");
 var alert_service_1 = require("./alert/alert.service");
@@ -34,7 +36,6 @@ var jobinfo_service_1 = require("./jobinfo/jobinfo.service");
 var jobdetail_service_1 = require("./jobdetail/jobdetail.service");
 var joblists_service_1 = require("./jobinfo/joblists/joblists.service");
 var postjob_service_1 = require("./postjob/postjob.service");
-var editjob_component_1 = require("./editjob/editjob.component");
 var appRoutes = [
     { path: 'login', component: login_component_1.LoginComponent },
     { path: 'signup', component: signup_component_1.SignupComponent },
@@ -88,6 +89,7 @@ AppModule = __decorate([
             navbar_service_1.NavbarService,
             joblists_service_1.JoblistsService,
             postjob_service_1.PostjobService,
+            common_2.DatePipe
         ],
         bootstrap: [
             app_component_1.AppComponent

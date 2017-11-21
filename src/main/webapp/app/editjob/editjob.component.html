@@ -27,12 +27,12 @@
             </div>
             <div class="form-group">
                 <label for="startTime">Start Time</label>
-                <input type="date" class="form-control" id="startTime" [(ngModel)]="jobform.startTime" name="startTime" #startTime="ngModel" required >
+                <input type="date" class="form-control" id="startTime" [ngModel]="jobform.startTime | date:'yyyy-MM-dd'" (ngModelChange)="jobform.startTime=$event" name="startTime" #startTime="ngModel" required >
                 <div [hidden]="!submitted || startTime.valid" class="alert alert-danger">Start Time Invalid</div>
             </div>
             <div class="form-group">
                 <label for="expirTime">Expiration Time</label>
-                <input type="date" class="form-control" id="expirTime" [(ngModel)]="jobform.expirTime" name="expirTime" #expirTime="ngModel" required>
+                <input type="date" class="form-control" id="expirTime" [ngModel]="jobform.expirTime | date:'yyyy-MM-dd'" (ngModelChange)="jobform.expirTime=$event" name="expirTime" #expirTime="ngModel" required>
                 <div [hidden]="!submitted || expirTime.valid" class="alert alert-danger">Expire Time Invalid</div>
             </div>
             <div class="form-group">

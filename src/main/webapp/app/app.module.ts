@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule }   from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpModule } from '@angular/http';
+import { DatePipe } from "@angular/common";
 
 
 import { AppComponent } from './app.component';
@@ -19,6 +20,7 @@ import { JobdetailComponent } from "./jobdetail/jobdetail.component";
 import { PostjobComponent } from "./postjob/postjob.component";
 import { ChatComponent } from "./chat/chat.component";
 import { UserviewComponent } from "./userview/userview.component";
+import { EditjobComponent } from "./editjob/editjob.component";
 
 import { LoginService } from './login/login.service';
 import { SignupService} from './signup/signup.service';
@@ -29,8 +31,6 @@ import { JobinfoService} from './jobinfo/jobinfo.service';
 import { JobdetailService } from "./jobdetail/jobdetail.service";
 import { JoblistsService} from "./jobinfo/joblists/joblists.service";
 import { PostjobService } from "./postjob/postjob.service";
-import { EditjobComponent } from "./editjob/editjob.component";
-
 
 
 const appRoutes: Routes = [
@@ -85,6 +85,7 @@ const appRoutes: Routes = [
     NavbarService,
     JoblistsService,
     PostjobService,
+    DatePipe
   ],
 
   bootstrap: [

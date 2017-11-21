@@ -15,7 +15,7 @@ import { userProfile } from "../Models/userProfile";
 
 export class JobdetailComponent implements OnDestroy{
     private subscription = new Subscription();
-    public jobdetail: any;
+    public jobdetail: jobDetails;
     public viewuser:userProfile;
     public equalcurrent:boolean;
 

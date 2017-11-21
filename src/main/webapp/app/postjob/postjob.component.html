@@ -4,7 +4,7 @@
         <a class="backbutton" href="/jobInfo"><h3><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>Back</h3></a>
     </div>
     <div class="col-md-8">
-        <form #jobDetails="ngForm">
+        <form #jobDetails="ngForm" class="job-form">
             <div class="form-group" style="font-size:14px">
                 <label for="jobTittle">Job Title</label>
                 <input type="text" class="form-control" id="jobTittle" required minlength="1" placeholder="please input job title" [(ngModel)]="jobform.jobTittle" name='jobTittle' #jobTittle="ngModel">
@@ -55,7 +55,7 @@
             </div>
             <br>
             <button type="submit" class="btn btn-primary" style="width:100%;"
-                    (click)="submitted=true; jobDetails.form.valid && add(jobform)">
+                    (click)=" add(jobform)">
                 Post Job
             </button>
         </form>
