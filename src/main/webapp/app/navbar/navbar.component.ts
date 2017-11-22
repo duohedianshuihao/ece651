@@ -43,7 +43,8 @@ export class NavbarComponent implements OnInit{
         // following function would not work if nothing changed
         // this.router.navigate(['jobList']);
         // location.reload();
-        if (window.location.href == "http://localhost:8080/") {
+        if ((window.location.href == "http://localhost:8080/") || (window.location.href == "https://localhost:8443/")
+            || (window.location.href == "http://18.216.242.132:8080/") || (window.location.href == "https://18.216.242.132:8443/")) {
             location.reload();
         } else {
             this.router.navigate(['/'])
