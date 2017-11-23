@@ -31,6 +31,9 @@
 .row {
     height: 50%;
 }
+.body {
+    background-color: #EEEDF3;
+}
 .imagerow {
     background-image: url(/app/static/Home.jpg);
     height: 50%;
