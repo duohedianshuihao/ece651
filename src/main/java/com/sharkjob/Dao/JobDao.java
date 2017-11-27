@@ -21,7 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.*;
 
 @Data
-public class JobDao {
+public class JobDao implements JobDaoInterface {
     @Autowired
     private AmazonDynamoDB dynamoDBClient;
 
@@ -30,7 +30,7 @@ public class JobDao {
 
     private static final Logger log = LoggerFactory.getLogger(JobDao.class); // need a jobController
 
-    public void createSharkJobInfoTable(){
+    public void createSharkJobInfoTable() {
         try {
             CreateTableRequest req = jobMapper.generateCreateTableRequest(Job.class);
             // Table provision throughput is still required since it cannot be specified in your POJO
@@ -40,7 +40,7 @@ public class JobDao {
         } catch (ResourceInUseException e) {
             //swallow
             log.info("Job Table has already exist.");
-            log.info("Number of jobs in talbe:"+getNumberOfJobsInSharkJobInfoTable());
+            log.info("Number of jobs in talbe:" + getNumberOfJobsInSharkJobInfoTable());
         }
     }
 
@@ -61,8 +61,9 @@ public class JobDao {
     }
 
     public boolean updateJobInSharkJobInfoTable(Job job) {
-        if( job.getJobId() == null || jobMapper.load(Job.class, job.getJobId()) == null ) {
-            return false;}
+        if (job.getJobId() == null || jobMapper.load(Job.class, job.getJobId()) == null) {
+            return false;
+        }
         String jobId = job.getJobId();
         String newDescription = job.getJobDescription();
         String newTittle = job.getJobTittle();
@@ -85,7 +86,7 @@ public class JobDao {
 
     public void addCommentInSharkJobInfoTable(String jobId, Comment comment) {
         Job job = findJobInSharkJobInfoTableThroughJobId(jobId);
-        if(job.getComments() == null)  {
+        if (job.getComments() == null) {
             ArrayList<Comment> comments = new ArrayList<>();
             comments.add(comment);
             job.setComments(comments);
@@ -102,17 +103,17 @@ public class JobDao {
         DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
         List<Job> jobs = new ArrayList<>();
         List<Job> jobsInDynamoDB = jobMapper.scan(Job.class, scanExpression);
-        for(val entity: jobsInDynamoDB){
+        for (val entity : jobsInDynamoDB) {
             jobs.add(entity);
         }
-        Collections.sort(jobs, new Comparator<Job>(){
+        Collections.sort(jobs, new Comparator<Job>() {
             @Override
             public int compare(Job o1, Job o2) {
-                if (o1.getCreatedTime().after(o2.getCreatedTime()))  return -1;
+                if (o1.getCreatedTime().after(o2.getCreatedTime())) return -1;
                 if (o1.getCreatedTime().before(o2.getCreatedTime())) return 1;
                 return 0;
             }
-            });
+        });
         return jobs;
     }
 

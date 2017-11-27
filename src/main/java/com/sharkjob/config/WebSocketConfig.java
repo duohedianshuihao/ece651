@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 public class WebSocketConfig {
 
     @Bean
-    public WebSocketMessage webSocket(){
+    public WebSocketMessage webSocket() {
         WebSocketMessage webSocketMessage = new WebSocketMessage();
         return webSocketMessage;
     }

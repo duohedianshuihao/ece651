@@ -22,7 +22,7 @@ import java.util.*;
  * Created by Chino on 2017/9/28.
  */
 @Data
-public class UserDao {
+public class UserDao implements UserDaoInterface {
 
     @Autowired
     private AmazonDynamoDB dynamoDBClient;
@@ -33,7 +33,7 @@ public class UserDao {
 
     private static final Logger log = LoggerFactory.getLogger(UserDao.class);
 
-    public void createSharkJobUserTable(){
+    public void createSharkJobUserTable() {
         try {
             CreateTableRequest req = userMapper.generateCreateTableRequest(User.class);
             // Table provision throughput is still required since it cannot be specified in your POJO
@@ -43,7 +43,7 @@ public class UserDao {
         } catch (ResourceInUseException e) {
             //swallow
             log.info("User Table has already exist.");
-            log.info("Number of users in table:"+getNumberofUsersInSharkUserInfoTable());
+            log.info("Number of users in table:" + getNumberofUsersInSharkUserInfoTable());
         }
     }
 
@@ -51,23 +51,22 @@ public class UserDao {
         if (findUserInSharkJobUserTableThroughEmail(user.getEmail()) == null) {
             userMapper.save(user);
             return true;
-        }
-        else {
+        } else {
             return false;
             //ask user to change an email...
         }
     }
 
-    public boolean deleteUserInSharkJobUserTable(String email){
+    public boolean deleteUserInSharkJobUserTable(String email) {
         User user = findUserInSharkJobUserTableThroughEmail(email);
-        if(user == null) {
+        if (user == null) {
             return false;
         }
         userMapper.delete(user);
         return true;
     }
 
-    public User findUserInSharkJobUserTableThroughEmail(String email){
+    public User findUserInSharkJobUserTableThroughEmail(String email) {
         //check email
         log.info(email);
         User user = userMapper.load(User.class, email);
@@ -89,8 +88,7 @@ public class UserDao {
 
         if (result.isEmpty()) {
             return null;
-        }
-        else {
+        } else {
             return result.get(0);
         }
 
@@ -145,7 +143,7 @@ public class UserDao {
 
     public boolean changePasswordInSharkJobUserTableThroughUserName(String userName, String password, String newPassword) {
         User user = findUserInSharkJobUserTableThroughUsername(userName);
-        if ( isRightUser(userName, password) ) {
+        if (isRightUser(userName, password)) {
             String newEncodedPassword = Encoder.base64Encode(newPassword);
             user.setPassword(newEncodedPassword);
             userMapper.save(user);
@@ -162,9 +160,9 @@ public class UserDao {
     public boolean isRightUser(String userName, String password) {
         User user = findUserInSharkJobUserTableThroughUsername(userName);
         String encodedPassword = Encoder.base64Encode(password);
-        if (user != null){
+        if (user != null) {
             return user.getPassword().equals(encodedPassword);
-        }else {
+        } else {
             return false;
         }
     }

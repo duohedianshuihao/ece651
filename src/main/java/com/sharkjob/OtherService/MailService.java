@@ -28,6 +28,7 @@ public class MailService {
             return new PasswordAuthentication(fromEmail, password);
         }
     };
+
     public String sendVerifcationCode(String toEmail) {
         props.put("mail.smtp.host", "smtp.gmail.com"); //SMTP Host
         props.put("mail.smtp.port", "587"); //TLS Port
@@ -35,15 +36,15 @@ public class MailService {
         props.put("mail.smtp.starttls.enable", "true"); //enable STARTTLS
         //create Authenticator object to pass in Session.getInstance argument
         Session session = Session.getInstance(props, auth);
-        return sendEmail(session, toEmail,"Shark Job Sign up Verification Code", generateRandomVerifcationCode());
+        return sendEmail(session, toEmail, "Shark Job Sign up Verification Code", generateRandomVerifcationCode());
     }
-    private String generateRandomVerifcationCode(){
+
+    private String generateRandomVerifcationCode() {
         return RandomStringUtils.randomAlphanumeric(6);
     }
 
-    private String sendEmail(Session session, String toEmail, String subject, String code){
-        try
-        {
+    private String sendEmail(Session session, String toEmail, String subject, String code) {
+        try {
             MimeMessage msg = new MimeMessage(session);
             //set message headers
             msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
@@ -63,8 +64,7 @@ public class MailService {
             msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail, false));
             Transport.send(msg);
             return code;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             log.error("Failed to send msg to " + toEmail, e);
             return null;
         }

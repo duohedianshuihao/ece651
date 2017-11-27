@@ -17,13 +17,14 @@ import org.springframework.context.annotation.Configuration;
 public class DynamoDBConfig {
 
     @Bean
-    public AmazonDynamoDB amazonDynamoDB(){
+    public AmazonDynamoDB amazonDynamoDB() {
         AmazonDynamoDB amazonDynamoDB = AmazonDynamoDBClientBuilder
                 .standard()
                 .withRegion(Regions.US_EAST_2)
                 .build();
         return amazonDynamoDB;
     }
+
     @Bean
     public DynamoDBMapper mapper() {
         DynamoDBMapper mapper = new DynamoDBMapper(amazonDynamoDB());

@@ -4,7 +4,9 @@ import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.sharkjob.Dao.JobDao;
+import com.sharkjob.Dao.JobDaoInterface;
 import com.sharkjob.Dao.UserDao;
+import com.sharkjob.Dao.UserDaoInterface;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -15,14 +17,14 @@ import org.springframework.context.annotation.Configuration;
 public class DaoConfig {
 
     @Bean
-    public UserDao userDao(){
-        UserDao userDao = new UserDao();
+    public UserDaoInterface userDao() {
+        UserDaoInterface userDao = new UserDao();
         return userDao;
     }
 
     @Bean
-    public JobDao jobDao() {
-        JobDao jobDao = new JobDao();
+    public JobDaoInterface jobDao() {
+        JobDaoInterface jobDao = new JobDao();
         return jobDao;
     }
 

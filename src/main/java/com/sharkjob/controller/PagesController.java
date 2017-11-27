@@ -21,21 +21,27 @@ public class PagesController {
     }
 
     @RequestMapping(value = "/jobInfo")
-    public String getJobInfoPage(){
+    public String getJobInfoPage() {
         return "index";
     }
 
     @RequestMapping(value = "/userprofile")
-    public String getUserprofile(){
+    public String getUserprofile() {
         return "index";
     }
 
     @RequestMapping(value = "/jobdetail")
-    public String getDetailPage(){ return "index"; }
+    public String getDetailPage() {
+        return "index";
+    }
 
     @RequestMapping(value = "/postjob")
-    public String getPostPage(){ return "index" ; }
+    public String getPostPage() {
+        return "index";
+    }
 
     @RequestMapping(value = "/chattest")
-    public String getChatPage(){ return "index" ; }
+    public String getChatPage() {
+        return "index";
+    }
 }

@@ -19,9 +19,9 @@ public class ChatController {
     private WebSocketMessage webSocketMessage;
 
     @RequestMapping(value = "/chat/{jobId}", method = GET)
-    public ResponseEntity< Integer > getChatRoomInfo(@PathVariable String jobId) {
+    public ResponseEntity<Integer> getChatRoomInfo(@PathVariable String jobId) {
 
-            Integer num = webSocketMessage.getChatRoomConnections(jobId);
-            return new ResponseEntity<>(num, HttpStatus.OK);
+        Integer num = webSocketMessage.getChatRoomConnections(jobId);
+        return new ResponseEntity<>(num, HttpStatus.OK);
     }
 }

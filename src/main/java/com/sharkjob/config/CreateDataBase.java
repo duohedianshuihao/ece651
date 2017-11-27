@@ -1,7 +1,9 @@
 package com.sharkjob.config;
 
 import com.sharkjob.Dao.JobDao;
+import com.sharkjob.Dao.JobDaoInterface;
 import com.sharkjob.Dao.UserDao;
+import com.sharkjob.Dao.UserDaoInterface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +17,13 @@ import javax.annotation.PostConstruct;
 @Configuration
 public class CreateDataBase {
     @Autowired
-    UserDao userDao;
+    UserDaoInterface userDao;
     @Autowired
-    JobDao jobDao;
+    JobDaoInterface jobDao;
     private static final Logger log = LoggerFactory.getLogger(CreateDataBase.class);
 
     @PostConstruct
-    public void createDB(){
+    public void createDB() {
         userDao.createSharkJobUserTable();
         jobDao.createSharkJobInfoTable();
         log.info("PostConstruct Method invoked");

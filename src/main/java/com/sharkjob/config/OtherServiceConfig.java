@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class OtherServiceConfig {
     @Bean
-    public MailService mailService(){
+    public MailService mailService() {
         MailService mailService = new MailService();
         return mailService;
     }

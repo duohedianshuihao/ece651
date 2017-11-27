@@ -2,6 +2,7 @@ package com.sharkjob.model;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
 import lombok.Data;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
